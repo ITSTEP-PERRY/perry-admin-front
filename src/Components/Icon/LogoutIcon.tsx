@@ -1,0 +1,10 @@
+import type {IconType} from "../../types/IconType.ts";
+
+export const LogoutIcon = ({style, color="black", size=40, fillColor="none", width=1.5}: IconType) => {
+    return (
+        <svg style={style} width={size} height={size} viewBox="0 0 32 32" fill={fillColor} xmlns="http://www.w3.org/2000/svg">
+            <path d="M24.057 23.0313V26.1833C24.057 27.1273 23.297 27.8873 22.353 27.8873H8.49697C7.55297 27.8873 6.79297 27.1273 6.79297 26.1833V5.81533C6.79297 4.87133 7.55297 4.11133 8.49697 4.11133H22.361C23.305 4.11133 24.065 4.87133 24.065 5.81533V8.96733" stroke={color} stroke-width={width} stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.5762 10.7207L25.0002 15.3287C25.2802 15.6247 25.2802 16.0887 25.0002 16.3767L20.5842 20.9767" stroke={color} stroke-width={width} stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    )
+}

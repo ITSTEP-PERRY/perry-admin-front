@@ -1,0 +1,13 @@
+import type {IconType} from "../../types/IconType.ts";
+
+export const CategoryIcon = ({style, color="black", size=40, fillColor="none", width=1.5}: IconType) => {
+    return (
+        <svg style={style} width={size} height={size} viewBox="0 0 32 32" fill={fillColor} xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.37581 4.27148H8.87981C6.18908 4.27148 4.00781 6.45275 4.00781 9.14348V9.63948C4.00781 12.3302 6.18908 14.5115 8.87981 14.5115H9.37581C12.0665 14.5115 14.2478 12.3302 14.2478 9.63948V9.14348C14.2478 6.45275 12.0665 4.27148 9.37581 4.27148Z" stroke={color} stroke-width={width} stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M26.1198 4.27148H19.6398C18.6015 4.27148 17.7598 5.11319 17.7598 6.15148V12.6315C17.7598 13.6698 18.6015 14.5115 19.6398 14.5115H26.1198C27.1581 14.5115 27.9998 13.6698 27.9998 12.6315V6.15148C27.9998 5.11319 27.1581 4.27148 26.1198 4.27148Z" stroke={color} stroke-width={width} stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.3678 17.4883H5.88781C4.84952 17.4883 4.00781 18.33 4.00781 19.3683V25.8483C4.00781 26.8866 4.84952 27.7283 5.88781 27.7283H12.3678C13.4061 27.7283 14.2478 26.8866 14.2478 25.8483V19.3683C14.2478 18.33 13.4061 17.4883 12.3678 17.4883Z" stroke={color} stroke-width={width} stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M23.1278 17.4883H22.6318C19.941 17.4883 17.7598 19.6696 17.7598 22.3603V22.8563C17.7598 25.547 19.941 27.7283 22.6318 27.7283H23.1278C25.8185 27.7283 27.9998 25.547 27.9998 22.8563V22.3603C27.9998 19.6696 25.8185 17.4883 23.1278 17.4883Z" stroke={color} stroke-width={width} stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+    )
+}
