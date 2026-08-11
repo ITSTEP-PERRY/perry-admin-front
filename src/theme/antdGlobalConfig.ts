@@ -25,7 +25,9 @@ export const config: ThemeConfig = {
             colorWhite: colors.darkText,
             colorBorder: colors.inputBorder,
             lineWidth: 1.5,
-            borderRadius: 2
+            borderRadius: 2,
+            size: 24,
+
         },
         Typography: {
             colorText: colors.darkText,

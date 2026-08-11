@@ -1,7 +1,7 @@
 import {Button} from "../Components/Buttons/Button.tsx";
 import {MenuIcon} from "../Components/Icon/MenuIcon.tsx";
 import {Avatar, Divider, Drawer, Flex} from "antd";
-import {cloneElement, type ReactNode, useState} from "react";
+import {cloneElement, useState} from "react";
 import {DoubleRightIcon} from "../Components/Icon/DoubleRightIcon.tsx";
 import {
     menuDrawerButtonStyles,
@@ -19,6 +19,7 @@ import {ProductsIcon} from "../Components/Icon/ProductsIcon.tsx";
 import {OrdersIcon} from "../Components/Icon/OrdersIcon.tsx";
 import {ReviewsIcon} from "../Components/Icon/ReviewsIcon.tsx";
 import {LogoutIcon} from "../Components/Icon/LogoutIcon.tsx";
+import {useNavigate} from "react-router";
 
 
 const demmyData = {
@@ -30,25 +31,36 @@ const demmyData = {
 const menuItems = [
     {
         icon: <UsersIcon />,
-        title: "Users"
+        title: "Users",
+        path:"users"
     },{
         icon: <CategoryIcon />,
-        title: "Category"
+        title: "Category",
+        path: "category",
     },{
         icon: <ProductsIcon />,
-        title: "Products"
+        title: "Products",
+        path:"products"
     },{
         icon: <OrdersIcon />,
-        title: "Orders"
+        title: "Orders",
+        path:"orders"
     },{
         icon: <ReviewsIcon />,
-        title: "Reviews"
+        title: "Reviews",
+        path:"reviews"
     },
 ]
 
 
 export const MenuDrawer = () => {
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const onMenuSelected = (path: string) => {
+        setOpen(false);
+        navigate(path)
+    }
 
     return (
         <>
@@ -75,7 +87,7 @@ export const MenuDrawer = () => {
 
                 <Flex vertical gap={16}>
                         {menuItems.map((item, i) => (
-                            <Button type={"text"} key={i} style={menuDrawerButtonStyles}>
+                            <Button type={"text"} key={i} style={menuDrawerButtonStyles} onClick={() => onMenuSelected(item.path)}>
                                 {cloneElement(item.icon, {size: 32, color: colors.darkText})}
                                 <Text style={text2}>{item.title}</Text>
                             </Button>
