@@ -1,13 +1,16 @@
 import {Divider, Flex} from "antd";
-import {dividerStyles} from "../pages/css/categoryPageStyles.ts";
-import type {CategoryType} from "../types/CategoryType.ts";
+import {dividerStyles} from "../../pages/css/categoryPageStyles.ts";
+import type {CategoryType} from "../../types/CategoryType.ts";
 import {
     categorySelectedStyles,
     categoryTreeStyles,
-} from "./css/categoryTreeStyles.ts";
+} from "../css/categoryTreeStyles.ts";
 import {useState} from "react";
 import {CategoryNode} from "./CategoryNode.tsx";
-import {Checkbox} from "../Components/Inputs/Checkbox.tsx";
+import {Checkbox} from "../../Components/Inputs/Checkbox.tsx";
+import {Button} from "../../Components/Buttons/Button.tsx";
+import {PlusIcon} from "../../Components/Icon/PlusIcon.tsx";
+import {CreateCategoryModal} from "./CreateCategoryModal.tsx";
 
 export type CategoryTreeProps = {
     categoryId: string;
@@ -135,7 +138,8 @@ export const CategoryTree = (props: CategoryTreeProps) => {
     return (
         <Flex vertical style={categoryTreeStyles.root}>
             <Divider style={dividerStyles} />
-            <Flex style={selectedCategory.styles}
+            <Flex justify={"space-between"} align={"center"}
+                style={selectedCategory.styles}
                   onClick={() => {
                       setSelectedCategory({
                           ...selectedCategory,
@@ -152,6 +156,7 @@ export const CategoryTree = (props: CategoryTreeProps) => {
                             handleChange(e.target.checked, categoryDetails)
                         }}
                 >{categoryDetails.name}</Checkbox>
+                <CreateCategoryModal />
             </Flex>
             <Divider style={dividerStyles} />
             {categoryDetails.subCategories?.map(category => (

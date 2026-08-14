@@ -1,12 +1,12 @@
 import {Flex} from "antd";
-import {Checkbox} from "../Components/Inputs/Checkbox.tsx";
+import {Checkbox} from "../../Components/Inputs/Checkbox.tsx";
 
-import {ArrowUpIcon} from "../Components/Icon/ArrowUpIcon.tsx";
+import {ArrowUpIcon} from "../../Components/Icon/ArrowUpIcon.tsx";
 import {type CSSProperties, useState} from "react";
-import {ArrowDownIcon} from "../Components/Icon/ArrowDownIcon.tsx";
+import {ArrowDownIcon} from "../../Components/Icon/ArrowDownIcon.tsx";
 import {type CheckboxDataType} from "./CategoryTree.tsx";
-import type {CategoryType} from "../types/CategoryType.ts";
-import {categoryNodeStyles, secondCategoryNodeStyles} from "./css/categoryTreeStyles.ts";
+import type {CategoryType} from "../../types/CategoryType.ts";
+import {categoryNodeStyles, secondCategoryNodeStyles} from "../css/categoryTreeStyles.ts";
 
 export type CategoryNodeProps = {
     data: CategoryType;
@@ -33,7 +33,7 @@ export const CategoryNode = ({data, ...props}: CategoryNodeProps) => {
                     >{data.name}</Checkbox>
                     {data.subCategories && data.subCategories?.length > 0 &&
                         <span onClick={() => setOpen(!open)}>
-                        {open ? <ArrowDownIcon size={20}/> : <ArrowUpIcon size={20}/>}
+                        {open ?<ArrowUpIcon size={20}/> : <ArrowDownIcon size={20}/>}
                     </span>
                     }
                 </Flex>

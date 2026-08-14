@@ -6,6 +6,7 @@ export const config: ThemeConfig = {
         colorPrimary: colors.primary,
         fontFamily: "Mulish",
         colorTextLightSolid: colors.darkText,
+        colorBorderSecondary: colors.secondary
     },
     components:{
         Button: {
@@ -34,7 +35,11 @@ export const config: ThemeConfig = {
             colorTextHeading: colors.darkText,
             titleMarginBottom: 0,
         },
-
+        Divider: {
+            colorSplit: colors.lightBlue,
+            lineWidth: 2.5,
+            marginLG: 10
+        }
     }
 }
 

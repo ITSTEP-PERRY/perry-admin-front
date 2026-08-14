@@ -17,11 +17,29 @@ export const categoryPageBaseSearchStyles: CSSProperties = {
     width: "100%",
 }
 
-export const categoryPageDescriptionStyles: CSSProperties = {
-    boxShadow: "0px 4px 11.5px -5px #2050AD40",
-    backgroundColor: "white",
-    borderRadius: 8,
-    padding: 24,
+export const categoryPageDescriptionStyles: Record<string, CSSProperties> = {
+    container: {
+        boxShadow: "0px 4px 11.5px -5px #2050AD40",
+        backgroundColor: "white",
+        borderRadius: 8,
+        padding: 24,
+    },
+    image:{
+        margin: 0
+    },
+    divider: {
+        margin: "5px 0",
+        color: colors.lightBlue,
+        borderWidth: 2.5,
+        borderColor: colors.lightBlue,
+    },
+    margin: {
+        margin: "10px 0",
+    },
+    button:{
+        width: "100%",
+        padding: "18px 12px"
+    }
 }
 
 export const categoryPageEmptyDescriptionStyles: CSSProperties = {
