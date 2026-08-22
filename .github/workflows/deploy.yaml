@@ -13,8 +13,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Install Arcane CLI
+        run: |
+          # Download and execute the official installer script
+          curl -fsSL https://getarcane.app | bash
+          
+          # Add the installation folder directly to the GitHub Actions runner path
+          echo "$HOME/.arcane/bin" >> $GITHUB_PATH
+
+      - name: Authenticate via OIDC Federated Identity
+        run: |
           eval "$(arcane-cli auth federated \
             --server https://arcane.smart-onion.com \
             --audience https://arcane.smart-onion.com/ --export)"
-      - run: arcane-cli projects up my-app
+      - name: Deploy Stack
+        run: arcane-cli projects up my-app
