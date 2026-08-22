@@ -18,12 +18,8 @@ jobs:
 
       - name: Install Arcane CLI
         run: |
-          # Download and execute the official installer script
-          curl -fsSL https://getarcane.app | bash
-      - name: Add the installation folder
-        run:
-          # Add the installation folder directly to the GitHub Actions runner path
-          echo "$HOME/.arcane/bin" >> $GITHUB_PATH
+          npm install -g arcane-cli
+          arcane-cli --version
 
       - name: Authenticate via OIDC Federated Identity
         run: |
