@@ -35,6 +35,7 @@ jobs:
       - name: Authenticate via OIDC Federated Identity
         run: |
           eval "$(arcane-cli auth federated \
+            --provider github \
             --server https://arcane.smart-onion.com \
             --audience https://arcane.smart-onion.com/ --export)"
           
