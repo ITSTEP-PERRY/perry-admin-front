@@ -17,7 +17,20 @@ jobs:
       contents: read
     steps:
       - name: Install the Arcane CLI
-        run: curl -fsSL https://getarcane.app/install-cli.sh | sh
+        run: |
+          curl -fsSL https://pkgs.getarcane.app/repository/raw/arcane-repo-signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/arcane-archive-keyring.gpg
+          
+          sudo tee /etc/apt/sources.list.d/arcane.sources << 'EOF'
+          Types: deb
+          URIs: https://pkgs.getarcane.app/repository/debian/
+          Suites: stable
+          Components: main
+          Signed-By: /usr/share/keyrings/arcane-archive-keyring.gpg
+          EOF
+          
+          sudo apt update && sudo apt install arcane-cli
+          
+          arcane-cli --version
       - name: Authenticate and deploy
         run: |
           eval "$(arcane-cli auth federated --server https://arcane.smart-onion.com --audience https://arcane.smart-onion.com --export)"
