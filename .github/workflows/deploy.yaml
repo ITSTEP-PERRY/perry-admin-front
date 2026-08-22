@@ -20,7 +20,8 @@ jobs:
         run: |
           # Download and execute the official installer script
           curl -fsSL https://getarcane.app | bash
-          
+      - name: Add the installation folder
+        run:
           # Add the installation folder directly to the GitHub Actions runner path
           echo "$HOME/.arcane/bin" >> $GITHUB_PATH
 
@@ -29,5 +30,6 @@ jobs:
           eval "$(arcane-cli auth federated \
             --server https://arcane.smart-onion.com \
             --audience https://arcane.smart-onion.com/ --export)"
+
       - name: Deploy Stack
         run: arcane-cli projects up my-app
