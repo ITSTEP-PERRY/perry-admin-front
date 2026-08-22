@@ -37,6 +37,5 @@ jobs:
           eval "$(arcane-cli auth federated \
             --server https://arcane.smart-onion.com \
             --audience https://arcane.smart-onion.com/ --export)"
-
-      - name: Deploy Stack
-        run: arcane-cli projects up PerryAdmin
+          
+          arcane-cli projects up PerryAdmin
