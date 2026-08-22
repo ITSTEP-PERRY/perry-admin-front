@@ -31,20 +31,8 @@ jobs:
           sudo apt update && sudo apt install arcane-cli
           
           arcane-cli --version
-
-      - name: Debug GitHub OIDC
-        run: |
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL:+SET}"
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+SET}"
-          arcane-cli --version
-          arcane-cli auth federated --help
-
-      - name: Authenticate and Deploy
-        run: |
-          arcane-cli auth federated \
-            --provider github \
+      - run: |
+          eval "$(arcane-cli auth federated \
             --server https://arcane.smart-onion.com \
-            --audience https://arcane.smart-onion.com \
-            --export
-
-          arcane-cli projects up PerryAdmin
+            --audience https://arcane.smart-onion.com --export)"
+      - run: arcane-cli projects up my-app
