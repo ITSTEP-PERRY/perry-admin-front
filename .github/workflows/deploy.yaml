@@ -18,7 +18,18 @@ jobs:
 
       - name: Install Arcane CLI
         run: |
-          npm install -g arcane-cli
+          curl -fsSL https://pkgs.getarcane.app/repository/raw/arcane-repo-signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/arcane-archive-keyring.gpg
+          
+          sudo tee /etc/apt/sources.list.d/arcane.sources << 'EOF'
+          Types: deb
+          URIs: https://pkgs.getarcane.app/repository/debian/
+          Suites: stable
+          Components: main
+          Signed-By: /usr/share/keyrings/arcane-archive-keyring.gpg
+          EOF
+          
+          sudo apt update && sudo apt install arcane-cli
+          
           arcane-cli --version
 
       - name: Authenticate via OIDC Federated Identity
@@ -28,4 +39,4 @@ jobs:
             --audience https://arcane.smart-onion.com/ --export)"
 
       - name: Deploy Stack
-        run: arcane-cli projects up my-app
+        run: arcane-cli projects up PerryAdmin
