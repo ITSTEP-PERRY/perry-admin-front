@@ -18,22 +18,22 @@ jobs:
           echo "ERROR: GitHub OIDC token permission is missing"
           exit 1
         fi
-      - name: Install the Arcane CLI
-        run: |
-          curl -fsSL https://pkgs.getarcane.app/repository/raw/arcane-repo-signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/arcane-archive-keyring.gpg
-          
-          sudo tee /etc/apt/sources.list.d/arcane.sources << 'EOF'
-          Types: deb
-          URIs: https://pkgs.getarcane.app/repository/debian/
-          Suites: stable
-          Components: main
-          Signed-By: /usr/share/keyrings/arcane-archive-keyring.gpg
-          EOF
-          
-          sudo apt update && sudo apt install arcane-cli
+    - name: Install the Arcane CLI
+      run: |
+        curl -fsSL https://pkgs.getarcane.app/repository/raw/arcane-repo-signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/arcane-archive-keyring.gpg
         
-          arcane-cli --version
-      - name: Authenticate and deploy
-        run: |
-          eval "$(arcane-cli auth federated --server https://arcane.smart-onion.com --audience https://arcane.smart-onion.com --export)"
-          arcane-cli projects up my-app
+        sudo tee /etc/apt/sources.list.d/arcane.sources << 'EOF'
+        Types: deb
+        URIs: https://pkgs.getarcane.app/repository/debian/
+        Suites: stable
+        Components: main
+        Signed-By: /usr/share/keyrings/arcane-archive-keyring.gpg
+        EOF
+        
+        sudo apt update && sudo apt install arcane-cli
+      
+        arcane-cli --version
+    - name: Authenticate and deploy
+      run: |
+        eval "$(arcane-cli auth federated --server https://arcane.smart-onion.com --audience https://arcane.smart-onion.com --export)"
+        arcane-cli projects up my-app
