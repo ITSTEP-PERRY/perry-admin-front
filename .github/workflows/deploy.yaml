@@ -37,6 +37,6 @@ jobs:
           eval "$(arcane-cli auth federated \
             --provider github \
             --server https://arcane.smart-onion.com \
-            --audience https://arcane.smart-onion.com/ --export)"
+            --audience https://arcane.smart-onion.com --export)"
           
           arcane-cli projects up PerryAdmin
