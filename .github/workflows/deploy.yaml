@@ -1,7 +1,7 @@
 name: Run Perry Admin
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
