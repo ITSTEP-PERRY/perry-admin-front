@@ -1,39 +1,41 @@
-name: Run Perry Admin
+name: Test Arcane Federation
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
+
     permissions:
-      id-token: write # required so the job can mint an OIDC token
+      id-token: write
       contents: read
+
     steps:
-    - name: Test GitHub OIDC
-      run: |
-        if [ -z "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
-          echo "ERROR: GitHub OIDC token permission is missing"
-          exit 1
-        fi
-    - name: Install the Arcane CLI
-      run: |
-        curl -fsSL https://pkgs.getarcane.app/repository/raw/arcane-repo-signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/arcane-archive-keyring.gpg
-        
-        sudo tee /etc/apt/sources.list.d/arcane.sources << 'EOF'
-        Types: deb
-        URIs: https://pkgs.getarcane.app/repository/debian/
-        Suites: stable
-        Components: main
-        Signed-By: /usr/share/keyrings/arcane-archive-keyring.gpg
-        EOF
-        
-        sudo apt update && sudo apt install arcane-cli
-      
-        arcane-cli --version
-    - name: Authenticate and deploy
-      run: |
-        eval "$(arcane-cli auth federated --server https://arcane.smart-onion.com --audience https://arcane.smart-onion.com --export)"
-        arcane-cli projects up my-app
+      - name: Install Arcane CLI
+        run: |
+          curl -fsSL https://getarcane.app/install-cli.sh | sh
+          echo "$HOME/.arcane/bin" >> "$GITHUB_PATH"
+
+      - name: Check GitHub OIDC
+        run: |
+          if [ -z "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
+            echo "GitHub OIDC is NOT available"
+            exit 1
+          fi
+
+          echo "GitHub OIDC is available"
+
+      - name: Authenticate with Arcane
+        run: |
+          eval "$(arcane-cli auth federated \
+            --server https://arcane.smart-onion.com \
+            --audience https://arcane.smart-onion.com \
+            --provider github \
+            --export)"
+
+          echo "Arcane authentication successful"
+
+      - name: Test API
+        run: |
+          arcane-cli projects list
