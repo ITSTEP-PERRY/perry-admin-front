@@ -12,27 +12,13 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required so the job can mint an OIDC token
+      contents: read
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Install Arcane CLI
+      - name: Install the Arcane CLI
+        run: curl -fsSL https://getarcane.app/install-cli.sh | sh
+      - name: Authenticate and deploy
         run: |
-          curl -fsSL https://pkgs.getarcane.app/repository/raw/arcane-repo-signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/arcane-archive-keyring.gpg
-          
-          sudo tee /etc/apt/sources.list.d/arcane.sources << 'EOF'
-          Types: deb
-          URIs: https://pkgs.getarcane.app/repository/debian/
-          Suites: stable
-          Components: main
-          Signed-By: /usr/share/keyrings/arcane-archive-keyring.gpg
-          EOF
-          
-          sudo apt update && sudo apt install arcane-cli
-          
-          arcane-cli --version
-      - run: |
-          eval "$(arcane-cli auth federated \
-            --server https://arcane.smart-onion.com \
-            --audience https://arcane.smart-onion.com --export)"
-      - run: arcane-cli projects up my-app
+          eval "$(arcane-cli auth federated --server https://arcane.smart-onion.com --audience https://arcane.smart-onion.com --export)"
+          arcane-cli projects up my-app
