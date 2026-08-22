@@ -4,19 +4,17 @@ import type {CategoryType} from "../../types/CategoryType.ts";
 import {
     categorySelectedStyles,
     categoryTreeStyles,
-} from "../css/categoryTreeStyles.ts";
+} from "./css/categoryTreeStyles.ts";
 import {useState} from "react";
 import {CategoryNode} from "./CategoryNode.tsx";
 import {Checkbox} from "../../Components/Inputs/Checkbox.tsx";
-import {Button} from "../../Components/Buttons/Button.tsx";
-import {PlusIcon} from "../../Components/Icon/PlusIcon.tsx";
-import {CreateCategoryModal} from "./CreateCategoryModal.tsx";
+import {CreateOrUpdateCategoryModal} from "./CreateOrUpdateCategoryModal.tsx";
 
 export type CategoryTreeProps = {
     categoryId: string;
 }
 
-const mainCategoryData: CategoryType = {
+export const mainCategoryData: CategoryType = {
     id: "fashion",
     name: "Fashion",
     slug: "fashion",
@@ -156,7 +154,7 @@ export const CategoryTree = (props: CategoryTreeProps) => {
                             handleChange(e.target.checked, categoryDetails)
                         }}
                 >{categoryDetails.name}</Checkbox>
-                <CreateCategoryModal />
+                <CreateOrUpdateCategoryModal categoryId={"guid"} />
             </Flex>
             <Divider style={dividerStyles} />
             {categoryDetails.subCategories?.map(category => (

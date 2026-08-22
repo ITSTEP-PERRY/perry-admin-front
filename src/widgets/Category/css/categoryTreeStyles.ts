@@ -1,5 +1,5 @@
 import type {CSSProperties} from "react";
-import {colors} from "../../theme/colors.ts";
+import {colors} from "../../../theme/colors.ts";
 
 export const categoryTreeStyles: Record<string, CSSProperties> = {
     root: {

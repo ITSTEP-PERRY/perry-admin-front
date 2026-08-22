@@ -1,5 +1,7 @@
 import type {InputDeepStylesType} from "../../../types/DeepStylesTypes/InputDeepStylesType.ts";
 import {colors} from "../../../theme/colors.ts";
+import type {ComponentProps, CSSProperties} from "react";
+import type TextArea from "antd/es/input/TextArea";
 
 export const inputStyles: InputDeepStylesType = {
     root: {
@@ -34,4 +36,28 @@ export const inputStyles: InputDeepStylesType = {
     input: {
         fontSize: '18px',
     }
+}
+
+
+export const textAreaStyles: ComponentProps<typeof TextArea>["styles"]  = {
+    count: {
+        position: 'absolute',
+        width: 'fit-content',
+        padding: '0 4px',
+        marginBottom: 11,
+        marginRight: 20,
+        backgroundColor: '#fff',
+        fontFamily: "Mulish",
+        fontWeight: "400",
+        fontSize: '14px',
+        color: colors.darkText,
+    },
+    textarea: {
+        padding: "10px 20px",
+    }
+}
+
+export const textAreaLabelStyles : CSSProperties = {
+    ...inputStyles.prefix,
+    zIndex: 1000
 }

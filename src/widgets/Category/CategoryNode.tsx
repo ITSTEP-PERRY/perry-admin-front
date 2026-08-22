@@ -6,7 +6,7 @@ import {type CSSProperties, useState} from "react";
 import {ArrowDownIcon} from "../../Components/Icon/ArrowDownIcon.tsx";
 import {type CheckboxDataType} from "./CategoryTree.tsx";
 import type {CategoryType} from "../../types/CategoryType.ts";
-import {categoryNodeStyles, secondCategoryNodeStyles} from "../css/categoryTreeStyles.ts";
+import {categoryNodeStyles, secondCategoryNodeStyles} from "./css/categoryTreeStyles.ts";
 
 export type CategoryNodeProps = {
     data: CategoryType;

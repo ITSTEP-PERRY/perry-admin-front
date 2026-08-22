@@ -33,7 +33,7 @@ export const Button = ({type, style, children, className = '', icon, ...props}: 
 
     return (
         type == "primary" ? <AntdButton className={`my-primary ${className}`} icon={processedIcon} {...props} type={type} style={style}>{children}</AntdButton>
-        : type == "secondary" ? <AntdButton className={`secondary ${className}`} icon={processedIcon} type={"default"} style={style}>{children}</AntdButton>
+        : type == "secondary" ? <AntdButton className={`secondary ${className}`} icon={processedIcon} {...props} type={"default"} style={style}>{children}</AntdButton>
         : type == "tertiary" ? <AntdButton type={"text"} className={`tertiary ${className}`} icon={processedIcon} {...props} style={style}>{children}</AntdButton>
         : type == "text" ? <AntdButton type={"text"} className={`${className}`} icon={processedIcon} {...props} style={style}>{children}</AntdButton>
         : type == "destructive" ? <AntdButton type={"default"} className={`destructive ${className}`} icon={processedIcon} {...props} style={style}>{children}</AntdButton> : null

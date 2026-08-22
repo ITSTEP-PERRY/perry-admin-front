@@ -39,6 +39,11 @@ export const config: ThemeConfig = {
             colorSplit: colors.lightBlue,
             lineWidth: 2.5,
             marginLG: 10
+        },
+        Radio:{
+            colorPrimary: colors.blue,
+            colorTextLightSolid: colors.darkText,
+            colorPrimaryHover: colors.blue,
         }
     }
 }

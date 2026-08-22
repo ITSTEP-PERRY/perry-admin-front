@@ -1,0 +1,20 @@
+name: Run Perry Admin
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write  # Required for requesting the JWT OIDC token
+  contents: read   # Required for checkout actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          eval "$(arcane-cli auth federated \
+            --server https://arcane.smart-onion.com \
+            --audience https://arcane.smart-onion.com/ --export)"
+      - run: arcane-cli projects up my-app
