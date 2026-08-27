@@ -1,5 +1,5 @@
 import type {ComponentProps, CSSProperties} from "react";
-import {Modal} from "antd";
+import {type Form, Modal} from "antd";
 import {colors} from "../../../theme/colors.ts";
 
 export const ccModalStyles: ComponentProps<typeof Modal>["styles"] = {
@@ -7,6 +7,12 @@ export const ccModalStyles: ComponentProps<typeof Modal>["styles"] = {
         borderRadius: 8,
         padding: 24,
     }
+}
+
+export const ccmFormStyles: ComponentProps<typeof Form>["styles"] = {
+    helpItem: {
+        margin: "5px 0 20px 20px"
+    },
 }
 
 export const ccmStyle: Record<string, CSSProperties> = {
@@ -22,7 +28,7 @@ export const ccmStyle: Record<string, CSSProperties> = {
     },
     nameInput: {
         width: "100%",
-        margin: 5
+        margin: 5,
     },
     image: {
         objectFit: "cover",
@@ -45,5 +51,26 @@ export const ccmStyle: Record<string, CSSProperties> = {
         padding: "8px 12px",
         width: 184,
         height: 47,
+    },
+
+    propsContainer:{
+        backgroundColor: colors.lightBlue,
+        margin: 0,
+        padding: 0,
+    },
+    propsItem:{
+        width: "100%",
+        padding: 0,
+        margin: "15px 0",
+        alignSelf: "center",
+    },
+    addProps:{
+        justifyContent: "start",
+        padding: "20px",
+        marginTop: 10
+    },
+    error: {
+        color: "red",
+        borderColor: colors.inputBorder
     }
 }

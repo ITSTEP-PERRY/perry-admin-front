@@ -13,8 +13,12 @@ export const selectStyles: ComponentProps<typeof Select>["styles"] = {
     popup: {
         root:{
             justifyItems: "normal",
-            padding: "20px",
-        },
+            padding: "16px 12px",
+            border: "2px solid #0E204280",
+            borderRadius: 4,
+            boxShadow: "0px 4px 8px 0px #08080840"
+
+},
         listItem: {
             ...text2
         },

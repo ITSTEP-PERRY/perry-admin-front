@@ -44,6 +44,21 @@ export const config: ThemeConfig = {
             colorPrimary: colors.blue,
             colorTextLightSolid: colors.darkText,
             colorPrimaryHover: colors.blue,
+        },
+        Table: {
+            headerSplitColor: "none",
+
+        },
+        Pagination: {
+            itemActiveBg: colors.primary,
+            itemActiveColor: colors.darkText,
+            itemSize: 42,
+            sizePopupArrow: 14,
+            borderRadius: 4,
+            itemBg: "none"
+        },
+        Select: {
+           
         }
     }
 }

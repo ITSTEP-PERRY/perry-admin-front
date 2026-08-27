@@ -1,0 +1,58 @@
+import {type UserData, UserRole} from "../../types/UserData.ts";
+import Human from "../../assets/images/Human.png"
+export const usersDummyData: UserData[] = [
+    {
+        userId: "1",
+        email: "test@perry.dev",
+        fullName: "Perry Dev",
+        role: UserRole.Admin,
+        status: true,
+        avatar: Human,
+        registrationDate: new Date("2019-02-05"),
+    },
+    {
+        userId: "2",
+        email: "test@perry.dev",
+        fullName: "Perry Dev",
+        role: UserRole.Customer,
+        status: false,
+        avatar: Human,
+        registrationDate: new Date("2019-02-05"),
+    },
+    {
+        userId: "3",
+        email: "test@perry.dev",
+        fullName: "Perry Dev",
+        role: UserRole.Admin,
+        status: true,
+        avatar: Human,
+        registrationDate: new Date("2019-02-05"),
+    },
+    {
+        userId: "4",
+        email: "test@perry.dev",
+        fullName: "Perry Dev",
+        role: UserRole.Admin,
+        status: true,
+        avatar: Human,
+        registrationDate: new Date("2019-02-05"),
+    },
+    {
+        userId: "5",
+        email: "test@perry.dev",
+        fullName: "Perry Dev",
+        role: UserRole.Admin,
+        status: false,
+        avatar: Human,
+        registrationDate: new Date("2019-02-05"),
+    },
+    {
+        userId: "6",
+        email: "test@perry.dev",
+        fullName: "Perry Dev",
+        role: UserRole.Customer,
+        status: true,
+        avatar: Human,
+        registrationDate: new Date("2019-02-05"),
+    },
+]

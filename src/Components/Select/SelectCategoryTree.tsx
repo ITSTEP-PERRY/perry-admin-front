@@ -1,5 +1,5 @@
 import {selectNodeStyles, selectTreeStyles} from "./css/selectTreeStyles.ts";
-import {type CSSProperties, type ReactNode, useEffect, useState} from "react";
+import {type ComponentProps, type CSSProperties, type ReactNode, useEffect, useState} from "react";
 import {ArrowUpIcon} from "../Icon/ArrowUpIcon.tsx";
 import {ArrowDownIcon} from "../Icon/ArrowDownIcon.tsx";
 import {motion} from "motion/react";
@@ -8,13 +8,20 @@ import "./css/styles.css"
 import type {SelectOptions} from "../../types/selectOptions.ts";
 import {TickIcon} from "../Icon/TickIcon.tsx";
 import {text2} from "../../theme/textStyles.ts";
+import {Form, type Select} from "antd";
+import {colors} from "../../theme/colors.ts";
 
 export type SelectTreeProps = {
     label?: string;
     placeholder?: string;
     suffix?: ReactNode;
     categories?: CategoryType[];
-    onSelect?: (categoryId: string) => void;
+    onChange?: (categoryId: string) => void;
+    value?: string | number;
+    styles?: {
+        label?: CSSProperties
+    };
+    status?: ComponentProps<typeof Select>["status"];
 }
 
 type SelectCategoryNodeProps = {
@@ -22,6 +29,7 @@ type SelectCategoryNodeProps = {
     style?: CSSProperties;
     setSelected?: (selected: SelectOptions) => void;
     selected?: SelectOptions;
+    setOpenRoot?: (open: boolean) => void;
 }
 
 const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps ) => {
@@ -44,6 +52,7 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
                                       label: category.name,
                                   })
                               }
+                              props.setOpenRoot?.(false)
                           }}
                     >
                         {category.name}
@@ -59,6 +68,7 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
                                     style={selectNodeStyles.innerContainer}
                                     selected={props.selected}
                                     setSelected={props.setSelected}
+                                    setOpenRoot={props.setOpenRoot}
                 />
             ))}
         </div>
@@ -66,18 +76,19 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
 }
 
 export const SelectCategoryTree = (props: SelectTreeProps) => {
+    const { status } = Form.Item.useStatus();
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState<SelectOptions>({value: ""});
+    const [selected, setSelected] = useState<SelectOptions>({value: props.value});
     const actualSuffix = props.suffix ? props.suffix : open ? <ArrowUpIcon size={18}/> : <ArrowDownIcon size={18}/>;
 
     useEffect(() => {
-        if(props.onSelect) props.onSelect(selected.value as string)
+        props.onChange?.(selected.value as string)
     }, [props, selected])
 
     return (
         <div style={selectTreeStyles.root}>
             <div style={selectTreeStyles.container} onClick={() => setOpen(!open)}>
-                <span style={selectTreeStyles.label}>Category</span>
+                <span style={{...selectTreeStyles.label, ...props.styles?.label, color: status === "error" ? colors.destructive : colors.darkText}}>Category</span>
                 <div style={selectTreeStyles.input}>
                     <span style={selected.label ? {...text2} : selectTreeStyles.placeholder}>{selected.label ?? "Choose category"}</span>
                 </div>
@@ -90,7 +101,12 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
                 exit={{ opacity: 0, scale: 0 }}
             >
                 {props.categories?.map((category: CategoryType) => (
-                    <SelectCategoryNode key={category.id} category={category} selected={selected} setSelected={setSelected}/>
+                    <SelectCategoryNode key={category.id}
+                                        category={category}
+                                        selected={selected}
+                                        setSelected={setSelected}
+                                        setOpenRoot={setOpen}
+                    />
                 ))}
             </motion.div>}
         </div>

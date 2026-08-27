@@ -3,11 +3,23 @@ import {colors} from "../../../theme/colors.ts";
 import type {ComponentProps, CSSProperties} from "react";
 import type TextArea from "antd/es/input/TextArea";
 
+export const inputErrorsStyles: InputDeepStylesType = {
+    prefix:{
+        color: colors.destructive
+    },
+    count:{},
+    input: {},
+    root: {
+        borderColor: colors.inputBorder,
+    }
+}
+
 export const inputStyles: InputDeepStylesType = {
     root: {
         margin: "20px 0 0px 0px",
         padding: '12px 20px',
         width: '100%',
+        borderColor: colors.inputBorder
     },
     count: {
         position: 'absolute',
@@ -35,11 +47,13 @@ export const inputStyles: InputDeepStylesType = {
     },
     input: {
         fontSize: '18px',
+        borderColor: colors.inputBorder,
     }
 }
 
 
-export const textAreaStyles: ComponentProps<typeof TextArea>["styles"]  = {
+export const textAreaStyles = (status?: string): ComponentProps<typeof TextArea>["styles"]  => ({
+
     count: {
         position: 'absolute',
         width: 'fit-content',
@@ -50,12 +64,14 @@ export const textAreaStyles: ComponentProps<typeof TextArea>["styles"]  = {
         fontFamily: "Mulish",
         fontWeight: "400",
         fontSize: '14px',
-        color: colors.darkText,
+        color: status === "error" ? colors.destructive:colors.darkText,
     },
     textarea: {
         padding: "10px 20px",
+        color: colors.darkText,
+
     }
-}
+})
 
 export const textAreaLabelStyles : CSSProperties = {
     ...inputStyles.prefix,
