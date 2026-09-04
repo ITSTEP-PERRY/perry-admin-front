@@ -1,1 +1,5 @@
-export type NestedStyles = Record<string, React.CSSProperties | undefined>;
+import type {CSSProperties} from "react";
+
+export interface NestedStyles {
+    [key: string]: CSSProperties | NestedStyles;
+}

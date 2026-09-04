@@ -8,7 +8,7 @@ export const userOptionsStyles: Record<string, CSSProperties> = {
     },
     popup: {
         position: "absolute",
-        right: 100,
+        right: 0,
         backgroundColor: colors.objects,
         padding: "12px 16px",
         boxShadow: "0px 4px 8px 0px #08080840",

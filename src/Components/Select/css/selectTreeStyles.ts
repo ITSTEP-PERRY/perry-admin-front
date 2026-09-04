@@ -41,7 +41,7 @@ export const selectTreeStyles: Record<string, CSSProperties> = {
     popup: {
         position: "absolute",
         width: "100%",
-        height: "312px",
+        // height: "312px",
         padding: 16,
         backgroundColor: "#FAFAFA",
         marginTop: 8,

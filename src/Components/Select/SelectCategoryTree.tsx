@@ -10,6 +10,7 @@ import {TickIcon} from "../Icon/TickIcon.tsx";
 import {text2} from "../../theme/textStyles.ts";
 import {Form, type Select} from "antd";
 import {colors} from "../../theme/colors.ts";
+import {ClosableDiv} from "../General/ClosableDiv.tsx";
 
 export type SelectTreeProps = {
     label?: string;
@@ -19,8 +20,10 @@ export type SelectTreeProps = {
     onChange?: (categoryId: string) => void;
     value?: string | number;
     styles?: {
-        label?: CSSProperties
+        label?: CSSProperties,
+        popup?: CSSProperties,
     };
+    style?: CSSProperties;
     status?: ComponentProps<typeof Select>["status"];
 }
 
@@ -86,16 +89,16 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
     }, [props, selected])
 
     return (
-        <div style={selectTreeStyles.root}>
+        <ClosableDiv onClose={setOpen}  style={{...selectTreeStyles.root, ...props.style}}>
             <div style={selectTreeStyles.container} onClick={() => setOpen(!open)}>
-                <span style={{...selectTreeStyles.label, ...props.styles?.label, color: status === "error" ? colors.destructive : colors.darkText}}>Category</span>
+                <span style={{...selectTreeStyles.label, ...props.styles?.label, color: status === "error" ? colors.destructive : colors.darkText}}>{props.label}</span>
                 <div style={selectTreeStyles.input}>
                     <span style={selected.label ? {...text2} : selectTreeStyles.placeholder}>{selected.label ?? "Choose category"}</span>
                 </div>
                 <div style={selectTreeStyles.suffix}>{actualSuffix}</div>
             </div>
             {open && <motion.div
-                style={selectTreeStyles.popup}
+                style={{...selectTreeStyles.popup, ...props.styles?.popup}}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0 }}
@@ -109,6 +112,6 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
                     />
                 ))}
             </motion.div>}
-        </div>
+        </ClosableDiv>
     )
 }

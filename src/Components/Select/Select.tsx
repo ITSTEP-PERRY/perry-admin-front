@@ -16,7 +16,6 @@ export const Select = ({styles, prefix,...props}: SelectProps) => {
     if(selectStyles && st) {
         customStyles = mergeComponentStyles(selectStyles as NestedStyles, st);
     }
-
     return (
         <AntdSelect styles={customStyles}
                     prefix={prefix}

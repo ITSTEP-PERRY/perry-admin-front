@@ -1,29 +1,36 @@
 import {Button} from "../../Components/Buttons/Button.tsx";
 import {PlusIcon} from "../../Components/Icon/PlusIcon.tsx";
-import {useState} from "react";
+import {type ComponentProps, useState} from "react";
 import {Divider,Modal} from "antd";
 import Title from "antd/es/typography/Title";
 import {header2} from "../../theme/headerStyles.ts";
 import { ccModalStyles, ccmStyle} from "./css/CreateCategoryModalStyles.ts";
 import {useForm} from "antd/es/form/Form";
 import {CreateOrUpdateCategoryForm} from "../../forms/Category/CreateOrUpdateCategoryForm.tsx";
+import type {CategoryType} from "../../types/CategoryType.ts";
 
 
 
-export type CreateOrUpdateCategoryModalProps = {
-    categoryId?: string;
+export interface CreateOrUpdateCategoryModalProps extends ComponentProps<"div">{
+    category?: CategoryType;
+
 }
 
 
-export const CreateOrUpdateCategoryModal = ({categoryId}: CreateOrUpdateCategoryModalProps) => {
-    const [open, setOpen] = useState(true);
+export const CreateOrUpdateCategoryModal = ({category, ...props}: CreateOrUpdateCategoryModalProps) => {
+    const [open, setOpen] = useState(false);
     const [form] = useForm();
 
     return (
-        <>
-            <Button type={"text"} style={{padding: 0}} onClick={() => setOpen(!open)}>
-                <PlusIcon size={24} />
-            </Button>
+        <div {...props}>
+            <span  onClick={() => {
+                form.resetFields();
+                setOpen(!open)
+            }}>
+                {props.children ? props.children : <Button type={"text"} style={{padding: 0}}>
+                    <PlusIcon size={24}/>
+                </Button>}
+            </span>
             <Modal
                 title={<>
                     <Title style={header2}>Create category</Title>
@@ -31,10 +38,13 @@ export const CreateOrUpdateCategoryModal = ({categoryId}: CreateOrUpdateCategory
                 </>}
                 footer={
                     <>
-                        <Button type={"secondary"} style={ccmStyle.footerCancelButtons} onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button type={"secondary"} style={ccmStyle.footerCancelButtons} onClick={() => {
+                            setOpen(false)
+                        }}>Cancel</Button>
                         <Button type={"primary"} style={ccmStyle.footerCreateButton}
                                 onClick={() => {
                                     form.submit()
+
                                 }}
                         >Create</Button>
                     </>
@@ -46,8 +56,8 @@ export const CreateOrUpdateCategoryModal = ({categoryId}: CreateOrUpdateCategory
                 width={816}
                 height={535}
             >
-                    <CreateOrUpdateCategoryForm form={form} categoryId={categoryId} />
+                    <CreateOrUpdateCategoryForm form={form} category={category} />
                 </Modal>
-        </>
+        </div>
     )
 }

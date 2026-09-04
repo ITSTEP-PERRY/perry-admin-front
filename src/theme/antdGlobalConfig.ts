@@ -58,7 +58,9 @@ export const config: ThemeConfig = {
             itemBg: "none"
         },
         Select: {
-           
+            controlItemBgHover: colors.lightBlue,
+            controlItemBgActive: colors.lightBlue,
+            controlItemBgActiveHover: colors.lightBlue,
         }
     }
 }

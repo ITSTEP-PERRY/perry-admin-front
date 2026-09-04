@@ -4,6 +4,7 @@ import { Route, Routes} from "react-router";
 import {Layout} from "./pages/Layout.tsx";
 import {CategoryPage} from "./pages/CategoryPage.tsx";
 import {UsersPage} from "./pages/UsersPage.tsx";
+import {ProductPage} from "./pages/ProductPage.tsx";
 const App = () => (
     <div className="App">
        <Routes>
@@ -11,6 +12,7 @@ const App = () => (
            <Route path="/" element={<Layout />}>
                <Route path="category" element={<CategoryPage />}/>
                <Route path="users" element={<UsersPage />}/>
+               <Route path="products" element={<ProductPage />}/>
            </Route>
        </Routes>
     </div>

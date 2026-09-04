@@ -7,8 +7,9 @@ export const categoryTreeStyles: Record<string, CSSProperties> = {
     },
     parentCategory: {
         margin: '10px 0',
-        padding: "5px 20px",
+        padding: "5px 15px 5px 40px",
         borderRadius: 8,
+        cursor: "pointer",
     },
     checkbox: {
         transform: "scale(1.3)",
@@ -25,7 +26,12 @@ export const categorySelectedStyles:CSSProperties = {
 export const categoryNodeStyles:CSSProperties = {
     marginLeft: "20px",
     marginTop: "15px",
+    cursor: "pointer",
+}
 
+export const categoryNodeBoxStyles: CSSProperties = {
+    padding: "5px 20px",
+    borderRadius: 4,
 }
 
 export const secondCategoryNodeStyles: CSSProperties = {

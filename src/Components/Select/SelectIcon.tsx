@@ -42,7 +42,7 @@ export const SelectIcon = (props: SelectIconProps) => {
                                 onClick={() => {
                                     setValue(child)
                                     setOpen(!open)
-                                    if(props.onSelect) props.onSelect(child.value)
+                                    if(props.onSelect) props.onSelect(child.value ?? "")
                                 }}
                             >
                                 {child.label}

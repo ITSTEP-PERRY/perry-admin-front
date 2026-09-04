@@ -20,12 +20,12 @@ export const selectStyles: ComponentProps<typeof Select>["styles"] = {
 
 },
         listItem: {
-            ...text2
+            ...text2,
         },
         list: {
-            gap: 16,
-            justifyItems: "start",
-            padding: "0 20px",
+            // gap: 16,
+            textAlign: "center",
+            // padding: "0 20px",
             marginTop: "5px",
         }
     },

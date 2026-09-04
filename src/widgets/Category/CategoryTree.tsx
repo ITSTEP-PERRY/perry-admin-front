@@ -2,63 +2,20 @@ import {Divider, Flex} from "antd";
 import {dividerStyles} from "../../pages/css/categoryPageStyles.ts";
 import type {CategoryType} from "../../types/CategoryType.ts";
 import {
-    categorySelectedStyles,
     categoryTreeStyles,
 } from "./css/categoryTreeStyles.ts";
 import {useState} from "react";
 import {CategoryNode} from "./CategoryNode.tsx";
 import {Checkbox} from "../../Components/Inputs/Checkbox.tsx";
 import {CreateOrUpdateCategoryModal} from "./CreateOrUpdateCategoryModal.tsx";
+import {useCategoryByIdQuery} from "../../api/categoryApiSlice.ts";
+import {LoadingDiv} from "../../Components/General/LoadingDiv.tsx";
+import {colors} from "../../theme/colors.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
+import {getCurrentCategory, setCurrentCategory} from "../../app/slices/categorySlice.ts";
 
 export type CategoryTreeProps = {
     categoryId: string;
-}
-
-export const mainCategoryData: CategoryType = {
-    id: "fashion",
-    name: "Fashion",
-    slug: "fashion",
-    isActive: true,
-    sortOrder: 1,
-    parentCategoryId: null,
-    subCategories: [
-        {
-            id: "electronics",
-            name: "Electronics",
-            slug: "electronics",
-            imageUrl: null,
-            subCategories: [
-                {
-                    id: "streaming-devices",
-                    name: "Streaming devices",
-                    slug: "streaming-devices",
-                    imageUrl: null,
-                    subCategories: [
-                        { id: "microphone", name: "Microphone", slug: "microphone", imageUrl: null },
-                        { id: "microphone1", name: "Microphone1", slug: "microphone1", imageUrl: null }
-                    ]
-                },
-                { id: "pcs-accessories", name: "PCs & Accessories", slug: "pcs-accessories", imageUrl: null }
-            ]
-        },
-        {
-            id: "close-fashion",
-            name: "Close Fashion",
-            slug: "close-fashion",
-            imageUrl: null,
-            subCategories: [
-                { id: "womens-fashion",
-                    name: "Women's fashion",
-                    slug: "womens-fashion",
-                    imageUrl: null,
-                    subCategories: [
-                        { id: "skirt", name: "Skirt", slug: "skirt", imageUrl: null },
-                        { id: "shoes", name: "Shoes", slug: "shoes", imageUrl: null }
-                    ]
-                }
-            ]
-        }
-    ]
 }
 
 export type CheckboxDataType = Record<string,{
@@ -68,12 +25,9 @@ export type CheckboxDataType = Record<string,{
 
 
 export const CategoryTree = (props: CategoryTreeProps) => {
-    const categoryDetails = {...mainCategoryData};
-    const [selectedCategory, setSelectedCategory] = useState({
-        styles: categoryTreeStyles.parentCategory,
-        selected: "",
-    })
-
+    const {data: categoryDetails, isLoading} = useCategoryByIdQuery(props.categoryId);
+    const selectCategory = useAppSelector(getCurrentCategory)
+    const dispatch = useAppDispatch();
     const [checked, setChecked] = useState<CheckboxDataType>({})
     const handleChange = (isChecked: boolean, node: CategoryType) => {
         setChecked(prev => {
@@ -83,6 +37,7 @@ export const CategoryTree = (props: CategoryTreeProps) => {
                 }}
 
             const createOrUpdateCheckboxData = (id:string, checked: boolean, indeterminate = false) => {
+                console.log(newState)
                 if(newState[id]){
                     newState[id].checked = checked
                     newState[id].indeterminate = indeterminate
@@ -101,7 +56,7 @@ export const CategoryTree = (props: CategoryTreeProps) => {
                 })
             }
             const updateParent = (child: CategoryType): boolean => {
-                if(!child.subCategories) {
+                if(!child.subCategories || child.subCategories.length === 0) {
                     return newState[child.id]?.checked
                 }
 
@@ -114,7 +69,7 @@ export const CategoryTree = (props: CategoryTreeProps) => {
 
 
             const updateIndeterminate = (child: CategoryType): boolean => {
-                if(!child.subCategories) {
+                if(!child.subCategories || child.subCategories.length === 0) {
                     return newState[child.id]?.checked
                 }
                 const someChild = child.subCategories?.map(c => updateIndeterminate(c))
@@ -124,9 +79,10 @@ export const CategoryTree = (props: CategoryTreeProps) => {
             }
 
             updateChildren(node)
-            updateParent(mainCategoryData)
-            updateIndeterminate(mainCategoryData)
-            console.log(newState)
+            if (categoryDetails) {
+                updateParent(categoryDetails)
+                updateIndeterminate(categoryDetails)
+            }
             return newState
         })
 
@@ -136,34 +92,30 @@ export const CategoryTree = (props: CategoryTreeProps) => {
     return (
         <Flex vertical style={categoryTreeStyles.root}>
             <Divider style={dividerStyles} />
-            <Flex justify={"space-between"} align={"center"}
-                style={selectedCategory.styles}
-                  onClick={() => {
-                      setSelectedCategory({
-                          ...selectedCategory,
-                          styles: selectedCategory.selected ? categorySelectedStyles : categoryTreeStyles.parentCategory,
-                          selected: categoryDetails.id
-                      })
-
-                  }}
-            >
-                <Checkbox indeterminate={checked[categoryDetails.id]?.checked ? false : checked[categoryDetails.id]?.indeterminate}
-                    checked={checked[categoryDetails.id]?.checked}
-                          onChange={e => {
-                              setSelectedCategory({...selectedCategory, checked: e.target.checked})
+            { categoryDetails && <LoadingDiv isLoading={isLoading}>
+                <Flex justify={"space-between"} align={"center"}
+                      style={{...categoryTreeStyles.parentCategory,
+                          backgroundColor: selectCategory.id === props.categoryId ? colors.lightBlue : ""
+                            }}
+                      onClick={() => dispatch(setCurrentCategory(categoryDetails))}
+                >
+                    <Checkbox
+                        indeterminate={checked[categoryDetails.id]?.checked ? false : checked[categoryDetails.id]?.indeterminate}
+                        checked={checked[categoryDetails.id]?.checked}
+                        onChange={e => {
                             handleChange(e.target.checked, categoryDetails)
                         }}
-                >{categoryDetails.name}</Checkbox>
-                <CreateOrUpdateCategoryModal categoryId={"guid"} />
-            </Flex>
-            <Divider style={dividerStyles} />
-            {categoryDetails.subCategories?.map(category => (
-                <CategoryNode key={category.id} data={category}
-                              checked={checked}
-                              onChange={handleChange}
-                />
-            ))}
-
+                    >{categoryDetails.name}</Checkbox>
+                    <CreateOrUpdateCategoryModal />
+                </Flex>
+                <Divider style={dividerStyles}/>
+                {categoryDetails.subCategories?.map(category => (
+                    <CategoryNode key={category.id} data={category}
+                                  checked={checked}
+                                  onChange={handleChange}
+                    />
+                ))}
+            </LoadingDiv>}
         </Flex>
     )
 }

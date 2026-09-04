@@ -1,4 +1,4 @@
-import {type ComponentProps, type ReactNode, useState} from "react";
+import {type ComponentProps, type CSSProperties, type ReactNode, useState} from "react";
 import {multipleSelectStyles} from "./css/multipleSelectStyles.ts";
 import type {SelectOptions} from "../../types/selectOptions.ts";
 import {text2} from "../../theme/textStyles.ts";
@@ -14,55 +14,66 @@ export interface MultipleSelectProps extends Omit<ComponentProps<'input'>, "onSe
     values?: SelectOptions[];
     options?: SelectOptions[];
     suffix?: ReactNode;
+    title?: string;
+    position?: "bottomRight" | "bottomLeft" | "topRight" | "topLeft";
+    selectAll?: boolean,
 }
 
-export const MultipleSelect = (props: MultipleSelectProps) => {
+
+
+export const MultipleSelect = ({values, ...props}: MultipleSelectProps) => {
     const [open, setOpen] = useState(false);
-    const [values, setValues] = useState<SelectOptions[]>(props.values ?? []);
 
     const ref = useOutsideClick(() => setOpen(false));
     const actualSuffix = props.suffix ? props.suffix : open ? <ArrowUpIcon size={18}/> : <ArrowDownIcon size={18}/>;
-    const allSelected = values.length === props.options?.length
+    const allSelected = values?.length === props.options?.length
 
     const handleSelect = (option: SelectOptions) => {
-
         props.onSelect?.(option)
     }
 
-    const handleAllSelect = () => {
-        if( allSelected ){ setValues([])}
-        else{
-            const allValues = props.options?.map((option) => option) || [];
-            setValues(allValues);
-        }
-        props.onSelectAll?.()
+    let position: CSSProperties = { left: 0 };
+
+    switch (props.position) {
+        case "topRight":break;
+        case "topLeft":break;
+        case "bottomLeft":
+            position = {left: 0}
+            break;
+        case "bottomRight":
+            position = {right: 0}
+            break;
+        default: break
     }
 
     return (
          <div ref={ref} style={{...multipleSelectStyles.root, ...props.style}}>
              <div style={multipleSelectStyles.container} onClick={() => setOpen(!open)}>
-                <span style={multipleSelectStyles.input}>{allSelected ? "All" : values[0]?.label}</span>
+                <span style={multipleSelectStyles.input}>{props.title ? props.title : allSelected ? props.placeholder : values && values[0]?.label}</span>
                 <span style={multipleSelectStyles.suffix}>
                     {actualSuffix}
                 </span>
              </div>
              {open &&
-                 <div style={multipleSelectStyles.popup}>
-                     <div className={"item-selected"} onClick={handleAllSelect}
-                          style={{...multipleSelectStyles.itemContainer, backgroundColor: allSelected ? colors.lightBlue : undefined}}
+                 <div style={{...multipleSelectStyles.popup, ...position}}>
+                     {props.selectAll && <div className={"item-selected"} onClick={props.onSelectAll}
+                           style={{
+                               ...multipleSelectStyles.itemContainer,
+                               backgroundColor: allSelected ? colors.lightBlue : undefined
+                           }}
                      >
                          <span style={text2}>All</span>
                          {allSelected && <TickIcon size={5}/>}
-                     </div>
+                     </div>}
                     {props.options?.map((option, index) => (
                         <div key={index}
                              className={"item-selected"}
                              style={{...multipleSelectStyles.itemContainer,
-                                 backgroundColor: values.some(v => v.value === option.value) ? colors.lightBlue : undefined}}
+                                 backgroundColor: values?.some(v => v.value === option.value) ? colors.lightBlue : undefined}}
                              onClick={() => handleSelect(option)}
                         >
                             <span style={text2}>{option.label}</span>
-                            {values.some(v => v.value === option.value) && <TickIcon size={5}/>}
+                            {values?.some(v => v.value === option.value) && <TickIcon size={5}/>}
                         </div>
                     ))}
                 </div>

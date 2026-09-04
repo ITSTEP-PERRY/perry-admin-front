@@ -1,0 +1,1065 @@
+[
+  {
+    "id": "cat-001",
+    "name": "Electronics",
+    "description": "Electronic devices, gadgets, and accessories",
+    "slug": "electronics",
+    "imageUrl": "https://example.com/images/electronics.jpg",
+    "iconUrl": "https://example.com/icons/electronics.svg",
+    "sortOrder": 1,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-001-001",
+        "name": "Computers",
+        "description": "Desktop computers and laptops",
+        "slug": "computers",
+        "imageUrl": "https://example.com/images/computers.jpg",
+        "iconUrl": null,
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-001",
+        "subCategories": [
+          {
+            "id": "cat-001-001-001",
+            "name": "Laptops",
+            "description": "Portable computers and notebooks",
+            "slug": "laptops",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-001-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-001-001-002",
+            "name": "Desktop PCs",
+            "description": "Desktop computers and workstations",
+            "slug": "desktop-pcs",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-001-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-001-001-003",
+            "name": "Computer Components",
+            "slug": "computer-components",
+            "sortOrder": 3,
+            "isActive": true,
+            "parentCategoryId": "cat-001-001",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-001-002",
+        "name": "Smartphones",
+        "description": "Mobile phones and smartphones",
+        "slug": "smartphones",
+        "imageUrl": null,
+        "iconUrl": "https://example.com/icons/smartphone.svg",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-001",
+        "subCategories": [
+          {
+            "id": "cat-001-002-001",
+            "name": "Android Phones",
+            "slug": "android-phones",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-001-002",
+            "subCategories": []
+          },
+          {
+            "id": "cat-001-002-002",
+            "name": "iPhones",
+            "slug": "iphones",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-001-002",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-001-003",
+        "name": "Audio",
+        "description": "Headphones, speakers, and audio equipment",
+        "slug": "audio",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-001",
+        "subCategories": [
+          {
+            "id": "cat-001-003-001",
+            "name": "Headphones",
+            "slug": "headphones",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-001-003",
+            "subCategories": []
+          },
+          {
+            "id": "cat-001-003-002",
+            "name": "Bluetooth Speakers",
+            "slug": "bluetooth-speakers",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-001-003",
+            "subCategories": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat-002",
+    "name": "Clothing",
+    "description": "Clothing and fashion products",
+    "slug": "clothing",
+    "imageUrl": "https://example.com/images/clothing.jpg",
+    "iconUrl": "https://example.com/icons/clothing.svg",
+    "sortOrder": 2,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-002-001",
+        "name": "Men's Clothing",
+        "slug": "mens-clothing",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-002",
+        "subCategories": [
+          {
+            "id": "cat-002-001-001",
+            "name": "T-Shirts",
+            "slug": "mens-t-shirts",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-002-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-002-001-002",
+            "name": "Jeans",
+            "slug": "mens-jeans",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-002-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-002-001-003",
+            "name": "Jackets",
+            "slug": "mens-jackets",
+            "sortOrder": 3,
+            "isActive": true,
+            "parentCategoryId": "cat-002-001",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-002-002",
+        "name": "Women's Clothing",
+        "description": "Clothing for women",
+        "slug": "womens-clothing",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-002",
+        "subCategories": [
+          {
+            "id": "cat-002-002-001",
+            "name": "Dresses",
+            "slug": "dresses",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-002-002",
+            "subCategories": []
+          },
+          {
+            "id": "cat-002-002-002",
+            "name": "Tops",
+            "slug": "womens-tops",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-002-002",
+            "subCategories": []
+          },
+          {
+            "id": "cat-002-002-003",
+            "name": "Skirts",
+            "slug": "skirts",
+            "sortOrder": 3,
+            "isActive": true,
+            "parentCategoryId": "cat-002-002",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-002-003",
+        "name": "Shoes",
+        "slug": "shoes",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-002",
+        "subCategories": [
+          {
+            "id": "cat-002-003-001",
+            "name": "Sneakers",
+            "slug": "sneakers",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-002-003",
+            "subCategories": []
+          },
+          {
+            "id": "cat-002-003-002",
+            "name": "Boots",
+            "slug": "boots",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-002-003",
+            "subCategories": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat-003",
+    "name": "Home & Garden",
+    "description": "Products for your home and garden",
+    "slug": "home-garden",
+    "imageUrl": "https://example.com/images/home-garden.jpg",
+    "iconUrl": null,
+    "sortOrder": 3,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-003-001",
+        "name": "Furniture",
+        "slug": "furniture",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-003",
+        "subCategories": [
+          {
+            "id": "cat-003-001-001",
+            "name": "Sofas",
+            "slug": "sofas",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-003-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-003-001-002",
+            "name": "Tables",
+            "slug": "tables",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-003-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-003-001-003",
+            "name": "Chairs",
+            "slug": "chairs",
+            "sortOrder": 3,
+            "isActive": true,
+            "parentCategoryId": "cat-003-001",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-003-002",
+        "name": "Kitchen",
+        "description": "Kitchen equipment and accessories",
+        "slug": "kitchen",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-003",
+        "subCategories": [
+          {
+            "id": "cat-003-002-001",
+            "name": "Cookware",
+            "slug": "cookware",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-003-002",
+            "subCategories": []
+          },
+          {
+            "id": "cat-003-002-002",
+            "name": "Kitchen Appliances",
+            "slug": "kitchen-appliances",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-003-002",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-003-003",
+        "name": "Garden",
+        "slug": "garden",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-003",
+        "subCategories": [
+          {
+            "id": "cat-003-003-001",
+            "name": "Garden Tools",
+            "slug": "garden-tools",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-003-003",
+            "subCategories": []
+          },
+          {
+            "id": "cat-003-003-002",
+            "name": "Plants",
+            "slug": "plants",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-003-003",
+            "subCategories": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat-004",
+    "name": "Sports & Fitness",
+    "description": "Sports equipment and fitness products",
+    "slug": "sports-fitness",
+    "sortOrder": 4,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-004-001",
+        "name": "Fitness Equipment",
+        "slug": "fitness-equipment",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-004",
+        "subCategories": [
+          {
+            "id": "cat-004-001-001",
+            "name": "Treadmills",
+            "slug": "treadmills",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-004-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-004-001-002",
+            "name": "Dumbbells",
+            "slug": "dumbbells",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-004-001",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-004-002",
+        "name": "Outdoor Sports",
+        "slug": "outdoor-sports",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-004",
+        "subCategories": [
+          {
+            "id": "cat-004-002-001",
+            "name": "Cycling",
+            "slug": "cycling",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-004-002",
+            "subCategories": []
+          },
+          {
+            "id": "cat-004-002-002",
+            "name": "Camping",
+            "slug": "camping",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-004-002",
+            "subCategories": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat-005",
+    "name": "Books & Media",
+    "description": "Books, magazines, music, and movies",
+    "slug": "books-media",
+    "sortOrder": 5,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-005-001",
+        "name": "Books",
+        "slug": "books",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-005",
+        "subCategories": [
+          {
+            "id": "cat-005-001-001",
+            "name": "Fiction",
+            "slug": "fiction",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-005-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-005-001-002",
+            "name": "Science",
+            "slug": "science-books",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-005-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-005-001-003",
+            "name": "Programming",
+            "slug": "programming-books",
+            "sortOrder": 3,
+            "isActive": true,
+            "parentCategoryId": "cat-005-001",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-005-002",
+        "name": "Movies",
+        "slug": "movies",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-005",
+        "subCategories": []
+      },
+      {
+        "id": "cat-005-003",
+        "name": "Music",
+        "slug": "music",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-005",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-006",
+    "name": "Automotive",
+    "description": "Cars, motorcycles, parts, and accessories",
+    "slug": "automotive",
+    "sortOrder": 6,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-006-001",
+        "name": "Car Parts",
+        "slug": "car-parts",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-006",
+        "subCategories": []
+      },
+      {
+        "id": "cat-006-002",
+        "name": "Car Accessories",
+        "slug": "car-accessories",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-006",
+        "subCategories": []
+      },
+      {
+        "id": "cat-006-003",
+        "name": "Motorcycles",
+        "slug": "motorcycles",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-006",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-007",
+    "name": "Beauty & Personal Care",
+    "slug": "beauty-personal-care",
+    "sortOrder": 7,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-007-001",
+        "name": "Skincare",
+        "slug": "skincare",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-007",
+        "subCategories": []
+      },
+      {
+        "id": "cat-007-002",
+        "name": "Hair Care",
+        "slug": "hair-care",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-007",
+        "subCategories": []
+      },
+      {
+        "id": "cat-007-003",
+        "name": "Fragrances",
+        "slug": "fragrances",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-007",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-008",
+    "name": "Toys & Games",
+    "description": "Toys, games, and entertainment for children",
+    "slug": "toys-games",
+    "sortOrder": 8,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-008-001",
+        "name": "Board Games",
+        "slug": "board-games",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-008",
+        "subCategories": []
+      },
+      {
+        "id": "cat-008-002",
+        "name": "Building Sets",
+        "slug": "building-sets",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-008",
+        "subCategories": []
+      },
+      {
+        "id": "cat-008-003",
+        "name": "Remote Control Toys",
+        "slug": "remote-control-toys",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-008",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-009",
+    "name": "Office Supplies",
+    "description": "Office equipment, stationery, and supplies",
+    "slug": "office-supplies",
+    "sortOrder": 9,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-009-001",
+        "name": "Stationery",
+        "slug": "stationery",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-009",
+        "subCategories": []
+      },
+      {
+        "id": "cat-009-002",
+        "name": "Printers",
+        "slug": "printers",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-009",
+        "subCategories": []
+      },
+      {
+        "id": "cat-009-003",
+        "name": "Office Furniture",
+        "slug": "office-furniture",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-009",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-010",
+    "name": "Pet Supplies",
+    "slug": "pet-supplies",
+    "sortOrder": 10,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-010-001",
+        "name": "Dog Supplies",
+        "slug": "dog-supplies",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-010",
+        "subCategories": []
+      },
+      {
+        "id": "cat-010-002",
+        "name": "Cat Supplies",
+        "slug": "cat-supplies",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-010",
+        "subCategories": []
+      },
+      {
+        "id": "cat-010-003",
+        "name": "Aquarium",
+        "slug": "aquarium",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-010",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-011",
+    "name": "Food & Beverages",
+    "description": "Food, snacks, and beverages",
+    "slug": "food-beverages",
+    "sortOrder": 11,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-011-001",
+        "name": "Snacks",
+        "slug": "snacks",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-011",
+        "subCategories": []
+      },
+      {
+        "id": "cat-011-002",
+        "name": "Coffee & Tea",
+        "slug": "coffee-tea",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-011",
+        "subCategories": []
+      },
+      {
+        "id": "cat-011-003",
+        "name": "Organic Food",
+        "slug": "organic-food",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-011",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-012",
+    "name": "Travel & Luggage",
+    "description": "Travel bags, luggage, and accessories",
+    "slug": "travel-luggage",
+    "sortOrder": 12,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-012-001",
+        "name": "Suitcases",
+        "slug": "suitcases",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-012",
+        "subCategories": []
+      },
+      {
+        "id": "cat-012-002",
+        "name": "Backpacks",
+        "slug": "backpacks",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-012",
+        "subCategories": []
+      },
+      {
+        "id": "cat-012-003",
+        "name": "Travel Accessories",
+        "slug": "travel-accessories",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-012",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-013",
+    "name": "Jewelry & Watches",
+    "slug": "jewelry-watches",
+    "sortOrder": 13,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-013-001",
+        "name": "Watches",
+        "slug": "watches",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-013",
+        "subCategories": []
+      },
+      {
+        "id": "cat-013-002",
+        "name": "Necklaces",
+        "slug": "necklaces",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-013",
+        "subCategories": []
+      },
+      {
+        "id": "cat-013-003",
+        "name": "Rings",
+        "slug": "rings",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-013",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-014",
+    "name": "Baby Products",
+    "slug": "baby-products",
+    "sortOrder": 14,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-014-001",
+        "name": "Baby Clothing",
+        "slug": "baby-clothing",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-014",
+        "subCategories": []
+      },
+      {
+        "id": "cat-014-002",
+        "name": "Baby Toys",
+        "slug": "baby-toys",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-014",
+        "subCategories": []
+      },
+      {
+        "id": "cat-014-003",
+        "name": "Baby Furniture",
+        "slug": "baby-furniture",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-014",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-015",
+    "name": "Music & Instruments",
+    "slug": "music-instruments",
+    "sortOrder": 15,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-015-001",
+        "name": "Guitars",
+        "slug": "guitars",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-015",
+        "subCategories": []
+      },
+      {
+        "id": "cat-015-002",
+        "name": "Keyboards",
+        "slug": "keyboards",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-015",
+        "subCategories": []
+      },
+      {
+        "id": "cat-015-003",
+        "name": "Drums",
+        "slug": "drums",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-015",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-016",
+    "name": "Industrial Equipment",
+    "description": "Professional and industrial equipment",
+    "slug": "industrial-equipment",
+    "sortOrder": 16,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-016-001",
+        "name": "Power Tools",
+        "slug": "power-tools",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-016",
+        "subCategories": []
+      },
+      {
+        "id": "cat-016-002",
+        "name": "Generators",
+        "slug": "generators",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-016",
+        "subCategories": []
+      },
+      {
+        "id": "cat-016-003",
+        "name": "Compressors",
+        "slug": "compressors",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-016",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-017",
+    "name": "Software",
+    "description": "Software, applications, and digital products",
+    "slug": "software",
+    "sortOrder": 17,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-017-001",
+        "name": "Business Software",
+        "slug": "business-software",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-017",
+        "subCategories": []
+      },
+      {
+        "id": "cat-017-002",
+        "name": "Security Software",
+        "slug": "security-software",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-017",
+        "subCategories": []
+      },
+      {
+        "id": "cat-017-003",
+        "name": "Developer Tools",
+        "slug": "developer-tools",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-017",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-018",
+    "name": "Photography",
+    "slug": "photography",
+    "sortOrder": 18,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-018-001",
+        "name": "Cameras",
+        "slug": "cameras",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-018",
+        "subCategories": []
+      },
+      {
+        "id": "cat-018-002",
+        "name": "Lenses",
+        "slug": "lenses",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-018",
+        "subCategories": []
+      },
+      {
+        "id": "cat-018-003",
+        "name": "Tripods",
+        "slug": "tripods",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-018",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-019",
+    "name": "Health & Wellness",
+    "description": "General wellness and personal health products",
+    "slug": "health-wellness",
+    "sortOrder": 19,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-019-001",
+        "name": "Fitness Trackers",
+        "slug": "fitness-trackers",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-019",
+        "subCategories": []
+      },
+      {
+        "id": "cat-019-002",
+        "name": "Massage Equipment",
+        "slug": "massage-equipment",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-019",
+        "subCategories": []
+      },
+      {
+        "id": "cat-019-003",
+        "name": "Wellness Accessories",
+        "slug": "wellness-accessories",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-019",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "id": "cat-020",
+    "name": "Services",
+    "description": "Professional and personal services",
+    "slug": "services",
+    "sortOrder": 20,
+    "isActive": true,
+    "parentCategoryId": null,
+    "subCategories": [
+      {
+        "id": "cat-020-001",
+        "name": "IT Services",
+        "slug": "it-services",
+        "sortOrder": 1,
+        "isActive": true,
+        "parentCategoryId": "cat-020",
+        "subCategories": [
+          {
+            "id": "cat-020-001-001",
+            "name": "Web Development",
+            "slug": "web-development",
+            "sortOrder": 1,
+            "isActive": true,
+            "parentCategoryId": "cat-020-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-020-001-002",
+            "name": "IT Support",
+            "slug": "it-support",
+            "sortOrder": 2,
+            "isActive": true,
+            "parentCategoryId": "cat-020-001",
+            "subCategories": []
+          },
+          {
+            "id": "cat-020-001-003",
+            "name": "Cloud Services",
+            "slug": "cloud-services",
+            "sortOrder": 3,
+            "isActive": true,
+            "parentCategoryId": "cat-020-001",
+            "subCategories": []
+          }
+        ]
+      },
+      {
+        "id": "cat-020-002",
+        "name": "Consulting",
+        "slug": "consulting",
+        "sortOrder": 2,
+        "isActive": true,
+        "parentCategoryId": "cat-020",
+        "subCategories": []
+      },
+      {
+        "id": "cat-020-003",
+        "name": "Repair Services",
+        "slug": "repair-services",
+        "sortOrder": 3,
+        "isActive": true,
+        "parentCategoryId": "cat-020",
+        "subCategories": []
+      }
+    ]
+  }
+]

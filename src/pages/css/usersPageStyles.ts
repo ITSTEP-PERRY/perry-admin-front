@@ -9,6 +9,7 @@ export const usersPageStyles: Record<string, CSSProperties> = {
     root: {
         margin: "0 auto",
         width: "85%",
+        height: "100%",
     },
     statusTag: {
         borderRadius: 4,
@@ -57,12 +58,15 @@ export const usersPageTableStyles: TableProps<UserData>["styles"] = {
             borderBottom: `2px solid ${colors.lightBlue}`,
             borderTop: `2px solid ${colors.lightBlue}`,
             borderRadius: 0,
+            justifyItems: "start",
             backgroundColor: "white",
             ...text1
         },
         row:{
-          border: "none"
+          border: "none",
         },
+        wrapper: {
+        }
     },
     pagination: {
         item: {

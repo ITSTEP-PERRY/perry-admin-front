@@ -23,7 +23,7 @@ export const header1: CSSProperties = {
 * */
 export const header2: CSSProperties = {
     letterSpacing: "-1.5%",
-    fontSize: "32",
+    fontSize: "32px",
     ...shared
 }
 

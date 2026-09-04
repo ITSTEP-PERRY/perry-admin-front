@@ -6,7 +6,10 @@ import {type CSSProperties, useState} from "react";
 import {ArrowDownIcon} from "../../Components/Icon/ArrowDownIcon.tsx";
 import {type CheckboxDataType} from "./CategoryTree.tsx";
 import type {CategoryType} from "../../types/CategoryType.ts";
-import {categoryNodeStyles, secondCategoryNodeStyles} from "./css/categoryTreeStyles.ts";
+import {categoryNodeBoxStyles, categoryNodeStyles, secondCategoryNodeStyles} from "./css/categoryTreeStyles.ts";
+import {colors} from "../../theme/colors.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
+import {getCurrentCategory, setCurrentCategory} from "../../app/slices/categorySlice.ts";
 
 export type CategoryNodeProps = {
     data: CategoryType;
@@ -17,12 +20,18 @@ export type CategoryNodeProps = {
 
 export const CategoryNode = ({data, ...props}: CategoryNodeProps) => {
     const [open , setOpen] = useState(false);
+    const selectCategory = useAppSelector(getCurrentCategory)
+    const dispatch = useAppDispatch()
     const isOpen = props.checked[data.id]?.checked || props.checked[data.id]?.indeterminate;
-
     return (
         <>
-                <Flex  style={categoryNodeStyles}  key={data.id} vertical>
-                <Flex justify="space-between">
+                <Flex  style={{...categoryNodeStyles,}}
+                       key={data.id} vertical onClick={(e) => {
+                           e.stopPropagation()
+                    dispatch(setCurrentCategory(data))
+
+                }}>
+                <Flex justify="space-between" style={{...categoryNodeBoxStyles,backgroundColor: selectCategory.id === data.id ? colors.lightBlue : ""}}>
                     <Checkbox
                            indeterminate={props.checked[data.id]?.checked ? false : props.checked[data.id]?.indeterminate}
                         onChange={(e) => {

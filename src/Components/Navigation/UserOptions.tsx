@@ -6,9 +6,12 @@ import Text from "antd/es/typography/Text";
 import {type UserData, UserRole} from "../../types/UserData.ts";
 import {userOptionsStyles} from "./css/userOptionsStyles.ts";
 import {useOutsideClick} from "../../shared/Hooks/useOutsideClick.ts";
+import {DeleteModal} from "../Inputs/DeleteModal.tsx";
+import {text1} from "../../theme/textStyles.ts";
 
 export const UserOptions = ({record}: { record: UserData }) => {
     const [open, setOpen] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState(false);
 
     const ref = useOutsideClick(() => {
         setOpen(false);
@@ -16,7 +19,7 @@ export const UserOptions = ({record}: { record: UserData }) => {
 
     return (
         <div ref={ref} style={userOptionsStyles.root}>
-            <Button  type={"text"} style={{padding: 0}} onClick={() => setOpen(true)}>
+            <Button  type={"text"} style={{padding: 0}} onClick={() => setOpen(!open)}>
                 <MeatballsMenu size={24} />
             </Button>
             {open &&
@@ -24,7 +27,7 @@ export const UserOptions = ({record}: { record: UserData }) => {
                     <Button type={"text"} style={userOptionsStyles.item}>
                         <Text>Make {record.role == UserRole.Admin ? UserRole.Customer : UserRole.Admin}</Text>
                     </Button>
-                    <Button type={"text"} style={userOptionsStyles.item}>
+                    <Button type={"text"} style={userOptionsStyles.item} onClick={() => setDeleteModal(true)}>
                         <Text>Delete</Text>
                     </Button>
                     <Divider />
@@ -36,6 +39,9 @@ export const UserOptions = ({record}: { record: UserData }) => {
                     </Button>
                 </Flex>
             }
+            <DeleteModal open={deleteModal} setOpen={(open) => setDeleteModal(open)}>
+                <Text style={text1}>This user will be deactivated</Text>
+            </DeleteModal>
         </div>
     )
 }

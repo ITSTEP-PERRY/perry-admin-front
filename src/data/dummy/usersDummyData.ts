@@ -8,7 +8,7 @@ export const usersDummyData: UserData[] = [
         role: UserRole.Admin,
         status: true,
         avatar: Human,
-        registrationDate: new Date("2019-02-05"),
+        registrationDate: new Date("2019-08-05"),
     },
     {
         userId: "2",
@@ -17,7 +17,7 @@ export const usersDummyData: UserData[] = [
         role: UserRole.Customer,
         status: false,
         avatar: Human,
-        registrationDate: new Date("2019-02-05"),
+        registrationDate: new Date("2020-03-25"),
     },
     {
         userId: "3",
@@ -26,7 +26,7 @@ export const usersDummyData: UserData[] = [
         role: UserRole.Admin,
         status: true,
         avatar: Human,
-        registrationDate: new Date("2019-02-05"),
+        registrationDate: new Date("2021-12-05"),
     },
     {
         userId: "4",
@@ -35,7 +35,7 @@ export const usersDummyData: UserData[] = [
         role: UserRole.Admin,
         status: true,
         avatar: Human,
-        registrationDate: new Date("2019-02-05"),
+        registrationDate: new Date("2022-1-05"),
     },
     {
         userId: "5",
@@ -44,7 +44,7 @@ export const usersDummyData: UserData[] = [
         role: UserRole.Admin,
         status: false,
         avatar: Human,
-        registrationDate: new Date("2019-02-05"),
+        registrationDate: new Date("2023-02-05"),
     },
     {
         userId: "6",
@@ -53,6 +53,6 @@ export const usersDummyData: UserData[] = [
         role: UserRole.Customer,
         status: true,
         avatar: Human,
-        registrationDate: new Date("2019-02-05"),
+        registrationDate: new Date("2023-03-05"),
     },
 ]

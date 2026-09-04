@@ -6,8 +6,6 @@ import {SelectCategoryTree} from "../../Components/Select/SelectCategoryTree.tsx
 import {Button} from "../../Components/Buttons/Button.tsx";
 import {PlusIcon} from "../../Components/Icon/PlusIcon.tsx";
 import Title from "antd/es/typography/Title";
-import {subcategoryDummyData} from "../../data/dummy/categoryDummyData.ts";
-import {mainCategoryData} from "../../widgets/Category/CategoryTree.tsx";
 import type {SelectOptions} from "../../types/selectOptions.ts";
 import {Icon} from "../../Components/Icon/Icon.tsx";
 import Hanger from "../../assets/icons/Hanger.svg";
@@ -19,6 +17,9 @@ import {colors} from "../../theme/colors.ts";
 import {header3} from "../../theme/headerStyles.ts";
 import {TrashcanIcon} from "../../Components/Icon/TrashcanIcon.tsx";
 import {TextArea} from "../../Components/Inputs/TextArea.tsx";
+import {useCategoriesQuery} from "../../api/categoryApiSlice.ts";
+import type {CategoryType} from "../../types/CategoryType.ts";
+import {useEffect} from "react";
 
 
 const options: SelectOptions[] = [
@@ -30,21 +31,19 @@ const options: SelectOptions[] = [
 ]
 
 type CreateOrUpdateCategoryFormProps = {
-    categoryId?: string,
+    category?: CategoryType,
     form: FormInstance
 }
 
 
 
-export const CreateOrUpdateCategoryForm = ({categoryId, form}:CreateOrUpdateCategoryFormProps) => {
+export const CreateOrUpdateCategoryForm = ({category, form}:CreateOrUpdateCategoryFormProps) => {
 
-    const category = !categoryId ? subcategoryDummyData : null;
-
-    const isSubcategory = !!categoryId;
-    const categories = mainCategoryData
+    const isSubcategory = !!category?.id;
+    const {data: categories} = useCategoriesQuery()
 
     const initialValues = {
-        id: categoryId ?? null,
+        id: category ?? null,
         categoryIcon: category?.iconUrl,
         categoryName: category?.name,
         isActive: category?.isActive ?? true,
@@ -61,6 +60,10 @@ export const CreateOrUpdateCategoryForm = ({categoryId, form}:CreateOrUpdateCate
     const onFinishFailed = () => {
 
     }
+
+    useEffect(() => {
+        form.setFieldsValue({...category})
+    },[category, form])
 
     return (
         <Form form={form}
@@ -127,7 +130,7 @@ export const CreateOrUpdateCategoryForm = ({categoryId, form}:CreateOrUpdateCate
                             message: "Subcategory cannot be created without the main category.",
                         },
                     ]} validateTrigger={"onSubmit"}>
-                        <SelectCategoryTree categories={categories.subCategories} />
+                        <SelectCategoryTree categories={categories} />
                     </Form.Item>
                 }
 
