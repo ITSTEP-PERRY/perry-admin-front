@@ -10,7 +10,6 @@ import {text1} from "../../theme/textStyles.ts";
 
 export const UsersOptions = ({users}:{users?: string[]}) => {
     const [open, setOpen] = useState(false);
-    const [deleteModal, setDeleteModal] = useState(false);
     const ref = useOutsideClick(() => {
         setOpen(false);
     })
@@ -25,15 +24,15 @@ export const UsersOptions = ({users}:{users?: string[]}) => {
                 <Flex vertical style={userOptionsStyles.popup}>
                     <Button style={{...userOptionsStyles.item, width: "240px"}}
                             type={"text"}>Restore</Button>
-                    <Button style={{...userOptionsStyles.item, width: "240px"}}
-                            type={"text"}
-                            onClick={()=>setDeleteModal(true)}
-                    >Delete</Button>
+                    <DeleteModal body={<Text style={text1}>Your selected users will be deactivated</Text>}>
+                        <Button style={{...userOptionsStyles.item, width: "240px"}}
+                                type={"text"}
+                        >Delete</Button>
+                    </DeleteModal>
+
                 </Flex>
             }
-            <DeleteModal open={deleteModal} setOpen={(open) => setDeleteModal(open)}>
-                <Text style={text1}>Your selected users will be deactivated</Text>
-            </DeleteModal>
+
         </div>
     )
 }

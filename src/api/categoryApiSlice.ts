@@ -14,6 +14,12 @@ export const categoryApi = api.injectEndpoints({
                 url: `/category-by-id?id=${id}`,
                 method: "GET"
             })
+        }),
+        deleteCategoryById: builder.mutation({
+            query: (id: string) => ({
+                url: `/category-by-id?id=${id}`,
+                method: "DELETE"
+            })
         })
     })
 })
@@ -23,4 +29,5 @@ export const {
     useCategoriesQuery,
     useCategoryByIdQuery,
     useLazyCategoryByIdQuery,
+    useDeleteCategoryByIdMutation
 } = categoryApi

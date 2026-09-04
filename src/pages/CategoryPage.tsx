@@ -18,18 +18,27 @@ import {Button} from "../Components/Buttons/Button.tsx";
 import {EditIcon} from "../Components/Icon/EditIcon.tsx";
 import {colors} from "../theme/colors.ts";
 import {TrashcanIcon} from "../Components/Icon/TrashcanIcon.tsx";
-import {useCategoriesQuery, useLazyCategoryByIdQuery} from "../api/categoryApiSlice.ts";
+import {
+    useCategoriesQuery,
+    useCategoryByIdQuery,
+    useDeleteCategoryByIdMutation,
+    useLazyCategoryByIdQuery
+} from "../api/categoryApiSlice.ts";
 import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {getCurrentCategory, setCurrentCategory} from "../app/slices/categorySlice.ts";
 import {CreateOrUpdateCategoryModal} from "../widgets/Category/CreateOrUpdateCategoryModal.tsx";
+import {DeleteModal} from "../Components/Inputs/DeleteModal.tsx";
 
 export const CategoryPage = () => {
-    const {data: categories, isLoading} = useCategoriesQuery()
+    const {data: categories, isLoading, refetch} = useCategoriesQuery()
     const [selectedCategory, setSelectedCategory] = useState("");
+    const {refetch: refetchSelectedCategory} = useCategoryByIdQuery(selectedCategory)
     const currentCategory = useAppSelector(getCurrentCategory)
     const [triggerFetch] = useLazyCategoryByIdQuery();
     const dispatch = useAppDispatch();
+    const [deleteCategory, {isLoading: deleteLoading}] = useDeleteCategoryByIdMutation();
+
     const options = categories?.map(category => ({
         value: category.id,
         label: category.name,
@@ -41,7 +50,7 @@ export const CategoryPage = () => {
                 <Col span={16}>
                     <Flex gap={16} align={"center"}>
                         <Text style={{...text1, textWrap: "nowrap"}}>Category</Text>
-                        {categories && <Select style={categoryPageSelectStyles}
+                        <Select style={categoryPageSelectStyles}
                                  loading={isLoading}
                                  placeholder="Choose a category"
                                  options={options}
@@ -49,7 +58,6 @@ export const CategoryPage = () => {
                                  onChange={async (e) => {
                                         setSelectedCategory(e);
                                         const t = await triggerFetch(e)
-
                                         dispatch(setCurrentCategory(t.data ?? currentCategory));
                                  }}
                                  popupRender={(menu) => (
@@ -60,7 +68,7 @@ export const CategoryPage = () => {
                                          {menu}
                                      </Flex>
                                  )}
-                        />}
+                        />
                         <BaseSearch style={categoryPageBaseSearchStyles}/>
                     </Flex>
                         {selectedCategory ?
@@ -77,8 +85,8 @@ export const CategoryPage = () => {
                     {currentCategory.id ?
                         <Flex vertical justify={"space-between"} style={{height: "100%"}}>
                             <Flex vertical>
-                                <img src={currentCategory.imageUrl!} alt={currentCategory.imageUrl!}
-                                     style={categoryPageDescriptionStyles.image}/>
+                                {currentCategory.imageUrl && <img src={currentCategory.imageUrl} alt={currentCategory.imageUrl}
+                                      style={categoryPageDescriptionStyles.image}/>}
                                 <Space style={categoryPageDescriptionStyles.margin} size={"medium"}>
                                     <img src={Hanger} alt={Hanger}/>
                                     <Title style={header3}>{currentCategory.name}</Title>
@@ -102,11 +110,22 @@ export const CategoryPage = () => {
                                         <Text style={text2}>Edit</Text>
                                     </Button>
                                 </CreateOrUpdateCategoryModal>
-
-                                <Button type={"destructive"} style={categoryPageDescriptionStyles.button}>
-                                    <TrashcanIcon size={28} color={colors.destructive}/>
-                                    <Text style={text2}>Delete </Text>
-                                </Button>
+                                <DeleteModal body={
+                                    <Flex vertical align={"center"}>
+                                        <Text style={text1}>You can't recover categories, subcategories;</Text>
+                                        <Text style={text1}>products will be deactivated.</Text>
+                                    </Flex>
+                                    }
+                                    onConfirm={async () => {
+                                    await deleteCategory(currentCategory.id)
+                                    await refetchSelectedCategory()
+                                    await refetch()
+                                }}>
+                                    <Button loading={deleteLoading} type={"destructive"} style={categoryPageDescriptionStyles.button}>
+                                        <TrashcanIcon size={28} color={colors.destructive}/>
+                                        <Text style={text2} >Delete</Text>
+                                    </Button>
+                                </DeleteModal>
                             </Flex>
                         </Flex>
                         :

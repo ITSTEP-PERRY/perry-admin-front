@@ -5,7 +5,7 @@ import {ArrowDownIcon} from "../Icon/ArrowDownIcon.tsx";
 import {Empty, type SelectProps, Tooltip} from "antd";
 import "./css/styles.css"
 import {colors} from "../../theme/colors.ts";
-import type {SelectOptions} from "../../types/selectOptions.ts";
+import type {SelectOptions} from "../../types/SelectOptions.ts";
 
 
 

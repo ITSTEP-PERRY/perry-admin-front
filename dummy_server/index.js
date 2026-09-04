@@ -8,7 +8,7 @@ const readCategories = async () => {
     return JSON.parse(result)
 }
 
-const categories = await readCategories()
+let categories = await readCategories()
 
 
 const findCategory = async (id, categories) => {
@@ -19,6 +19,17 @@ const findCategory = async (id, categories) => {
         const res = await findCategory(id, cat.subCategories)
         if (res) return res
     }
+}
+
+const deteleCategory = (id, categories) => {
+     const filteredCategories = categories.filter(cat => cat.id !== id);
+        for (const cat of filteredCategories) {
+        if (cat.subCategories && cat.subCategories.length > 0) {
+            cat.subCategories = deteleCategory(id, cat.subCategories);
+            }
+        }
+    
+        return filteredCategories;
 }
 
 
@@ -41,5 +52,12 @@ app.get("/category-by-id", async (req, res) => {
     res.send(result)
 })
 
+app.delete("/category-by-id", async (req, res) => {
+    const {id} = req.query
+     
+    categories = await deteleCategory(id, categories)
+
+    res.send(id)
+})
 
 app.listen(port, "0.0.0.0")

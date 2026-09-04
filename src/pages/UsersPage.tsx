@@ -10,7 +10,7 @@ import {BaseSearch} from "../Components/Search/BaseSearch.tsx";
 import {Checkbox} from "../Components/Inputs/Checkbox.tsx";
 import {type ComponentProps, type ReactElement, useState} from "react";
 import {MultipleSelect} from "../Components/Select/MultipleSelect.tsx";
-import type {SelectOptions} from "../types/selectOptions.ts";
+import type {SelectOptions} from "../types/SelectOptions.ts";
 import {ItemNotFound} from "../widgets/ItemNotFound.tsx";
 import {UsersOptions} from "../Components/Navigation/UsersOptions.tsx";
 import {dateFormatter} from "../shared/formatter.ts";

@@ -28,7 +28,7 @@ export const CategoryNode = ({data, ...props}: CategoryNodeProps) => {
                 <Flex  style={{...categoryNodeStyles,}}
                        key={data.id} vertical onClick={(e) => {
                            e.stopPropagation()
-                    dispatch(setCurrentCategory(data))
+                        dispatch(setCurrentCategory(data))
 
                 }}>
                 <Flex justify="space-between" style={{...categoryNodeBoxStyles,backgroundColor: selectCategory.id === data.id ? colors.lightBlue : ""}}>
@@ -41,7 +41,10 @@ export const CategoryNode = ({data, ...props}: CategoryNodeProps) => {
                         checked={props.checked[data.id]?.checked}
                     >{data.name}</Checkbox>
                     {data.subCategories && data.subCategories?.length > 0 &&
-                        <span onClick={() => setOpen(!open)}>
+                        <span onClick={(e) => {
+                            e.stopPropagation()
+                            setOpen(!open)
+                        }}>
                         {open ?<ArrowUpIcon size={20}/> : <ArrowDownIcon size={20}/>}
                     </span>
                     }

@@ -25,7 +25,11 @@ export const categoryPageDescriptionStyles: Record<string, CSSProperties> = {
         padding: 24,
     },
     image:{
-        margin: 0
+        margin: 0,
+        width: "100%",
+        height: "240px",
+        objectFit: "cover",
+        borderRadius: 4,
     },
     divider: {
         margin: "5px 0",

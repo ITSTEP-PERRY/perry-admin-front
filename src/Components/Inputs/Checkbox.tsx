@@ -13,6 +13,7 @@ export const Checkbox = ({checked,indeterminate,onChange,children,...props}: Che
     return (
         <label style={labelStales}>
             <input type={"checkbox"} checked={checked} onChange={(e) => {
+                e.stopPropagation()
                 if(onChange) onChange(e)
             }} {...props}/>
             <div style={(checked || indeterminate) ? checkboxActive : checkbox} aria-hidden={true}>

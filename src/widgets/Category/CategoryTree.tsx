@@ -1,4 +1,4 @@
-import {Divider, Flex} from "antd";
+import {Button, Divider, Flex} from "antd";
 import {dividerStyles} from "../../pages/css/categoryPageStyles.ts";
 import type {CategoryType} from "../../types/CategoryType.ts";
 import {
@@ -13,6 +13,9 @@ import {LoadingDiv} from "../../Components/General/LoadingDiv.tsx";
 import {colors} from "../../theme/colors.ts";
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategory, setCurrentCategory} from "../../app/slices/categorySlice.ts";
+import {text1} from "../../theme/textStyles.ts";
+import Text from "antd/es/typography/Text";
+import {DeleteModal} from "../../Components/Inputs/DeleteModal.tsx";
 
 export type CategoryTreeProps = {
     categoryId: string;
@@ -29,6 +32,15 @@ export const CategoryTree = (props: CategoryTreeProps) => {
     const selectCategory = useAppSelector(getCurrentCategory)
     const dispatch = useAppDispatch();
     const [checked, setChecked] = useState<CheckboxDataType>({})
+
+    const isAnyChecked = () => {
+        for (const [_, values] of Object.entries(checked))
+        {
+            if (values.checked) return true
+        }
+        return false
+    }
+
     const handleChange = (isChecked: boolean, node: CategoryType) => {
         setChecked(prev => {
             const newState: CheckboxDataType = { ...prev, [node.id]: {
@@ -37,7 +49,6 @@ export const CategoryTree = (props: CategoryTreeProps) => {
                 }}
 
             const createOrUpdateCheckboxData = (id:string, checked: boolean, indeterminate = false) => {
-                console.log(newState)
                 if(newState[id]){
                     newState[id].checked = checked
                     newState[id].indeterminate = indeterminate
@@ -106,7 +117,17 @@ export const CategoryTree = (props: CategoryTreeProps) => {
                             handleChange(e.target.checked, categoryDetails)
                         }}
                     >{categoryDetails.name}</Checkbox>
-                    <CreateOrUpdateCategoryModal />
+                    {isAnyChecked() ?
+                        <DeleteModal style={{width: "fit-content"}} body={
+                            <Text style={text1}>Removing the selected categories you will not be able to recover; products will be deactivated.</Text>
+                        }>
+                            <Button type={"text"} style={{padding: 0}} onClick={() => {}}>
+                                <Text style={{...text1, color: colors.destructive}}>Delete</Text>
+                            </Button>
+                        </DeleteModal>
+                        :
+                        <CreateOrUpdateCategoryModal/>
+                    }
                 </Flex>
                 <Divider style={dividerStyles}/>
                 {categoryDetails.subCategories?.map(category => (

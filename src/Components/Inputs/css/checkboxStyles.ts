@@ -22,4 +22,5 @@ export const labelStales: CSSProperties = {
         display: "flex",
         alignItems: "center",
         gap: "16px",
+        cursor: "pointer",
 }

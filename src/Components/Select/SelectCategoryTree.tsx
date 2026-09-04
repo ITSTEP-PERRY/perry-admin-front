@@ -5,12 +5,13 @@ import {ArrowDownIcon} from "../Icon/ArrowDownIcon.tsx";
 import {motion} from "motion/react";
 import type {CategoryType} from "../../types/CategoryType.ts";
 import "./css/styles.css"
-import type {SelectOptions} from "../../types/selectOptions.ts";
+import type {SelectOptions} from "../../types/SelectOptions.ts";
 import {TickIcon} from "../Icon/TickIcon.tsx";
 import {text2} from "../../theme/textStyles.ts";
 import {Form, type Select} from "antd";
 import {colors} from "../../theme/colors.ts";
 import {ClosableDiv} from "../General/ClosableDiv.tsx";
+import {searchCategoryToSelectOptions} from "../../utils/search/categorySearch.ts";
 
 export type SelectTreeProps = {
     label?: string;
@@ -18,7 +19,7 @@ export type SelectTreeProps = {
     suffix?: ReactNode;
     categories?: CategoryType[];
     onChange?: (categoryId: string) => void;
-    value?: string | number;
+    value?: string;
     styles?: {
         label?: CSSProperties,
         popup?: CSSProperties,
@@ -81,10 +82,11 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
 export const SelectCategoryTree = (props: SelectTreeProps) => {
     const { status } = Form.Item.useStatus();
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState<SelectOptions>({value: props.value});
+    const [selected, setSelected] = useState<SelectOptions>(searchCategoryToSelectOptions(props.value, props.categories) ?? {});
     const actualSuffix = props.suffix ? props.suffix : open ? <ArrowUpIcon size={18}/> : <ArrowDownIcon size={18}/>;
 
     useEffect(() => {
+        console.log(selected);
         props.onChange?.(selected.value as string)
     }, [props, selected])
 

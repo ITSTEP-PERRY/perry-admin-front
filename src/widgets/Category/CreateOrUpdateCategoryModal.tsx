@@ -56,7 +56,7 @@ export const CreateOrUpdateCategoryModal = ({category, ...props}: CreateOrUpdate
                 width={816}
                 height={535}
             >
-                    <CreateOrUpdateCategoryForm form={form} category={category} />
+                    <CreateOrUpdateCategoryForm form={form} categoryId={category?.id} parentId={category?.parentCategoryId}/>
                 </Modal>
         </div>
     )

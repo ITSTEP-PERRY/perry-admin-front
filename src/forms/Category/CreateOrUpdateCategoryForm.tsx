@@ -6,7 +6,7 @@ import {SelectCategoryTree} from "../../Components/Select/SelectCategoryTree.tsx
 import {Button} from "../../Components/Buttons/Button.tsx";
 import {PlusIcon} from "../../Components/Icon/PlusIcon.tsx";
 import Title from "antd/es/typography/Title";
-import type {SelectOptions} from "../../types/selectOptions.ts";
+import type {SelectOptions} from "../../types/SelectOptions.ts";
 import {Icon} from "../../Components/Icon/Icon.tsx";
 import Hanger from "../../assets/icons/Hanger.svg";
 import Text from "antd/es/typography/Text";
@@ -18,8 +18,8 @@ import {header3} from "../../theme/headerStyles.ts";
 import {TrashcanIcon} from "../../Components/Icon/TrashcanIcon.tsx";
 import {TextArea} from "../../Components/Inputs/TextArea.tsx";
 import {useCategoriesQuery} from "../../api/categoryApiSlice.ts";
-import type {CategoryType} from "../../types/CategoryType.ts";
-import {useEffect} from "react";
+import {useAppSelector} from "../../app/hooks.ts";
+import {getCurrentCategory} from "../../app/slices/categorySlice.ts";
 
 
 const options: SelectOptions[] = [
@@ -31,26 +31,18 @@ const options: SelectOptions[] = [
 ]
 
 type CreateOrUpdateCategoryFormProps = {
-    category?: CategoryType,
+    categoryId?: string,
+    parentId?: string | null,
     form: FormInstance
 }
 
 
 
-export const CreateOrUpdateCategoryForm = ({category, form}:CreateOrUpdateCategoryFormProps) => {
+export const CreateOrUpdateCategoryForm = ({categoryId,parentId, form}:CreateOrUpdateCategoryFormProps) => {
 
-    const isSubcategory = !!category?.id;
+    const exist = !!categoryId;
     const {data: categories} = useCategoriesQuery()
-
-    const initialValues = {
-        id: category ?? null,
-        categoryIcon: category?.iconUrl,
-        categoryName: category?.name,
-        isActive: category?.isActive ?? true,
-        description: category?.description,
-        categoryImage: category?.imageUrl,
-        parentCategory: undefined,
-    }
+    const category = useAppSelector(getCurrentCategory)
 
     const currentIcon: SelectOptions = category?.iconUrl ? {
         label: <Icon icon={category.iconUrl} />,
@@ -61,13 +53,9 @@ export const CreateOrUpdateCategoryForm = ({category, form}:CreateOrUpdateCatego
 
     }
 
-    useEffect(() => {
-        form.setFieldsValue({...category})
-    },[category, form])
-
     return (
         <Form form={form}
-              initialValues={initialValues}
+              initialValues={exist ? category : {}}
               styles={ccmFormStyles}
               onFinishFailed={onFinishFailed}
         >
@@ -94,7 +82,7 @@ export const CreateOrUpdateCategoryForm = ({category, form}:CreateOrUpdateCatego
                                             form.setFieldValue("icon", n)
                                 }} />
                             </Form.Item>
-                            <Form.Item name={"categoryName"} style={{width:'100%'}} rules={[
+                            <Form.Item name={"name"} style={{width:'100%'}} rules={[
                                 {required: true, message: "This field cannot be empty."},
                             ]} validateTrigger={"onSubmit"}
                             >
@@ -123,18 +111,18 @@ export const CreateOrUpdateCategoryForm = ({category, form}:CreateOrUpdateCatego
                     <TextArea rows={3} count={{max: 300, show: true}} label={"Description"} placeholder={"Describe your category "}/>
                 </Form.Item>
 
-                {isSubcategory &&
-                    <Form.Item name={"parentCategory"}  rules={[
+                {parentId &&
+                    <Form.Item name={"parentCategoryId"}  rules={[
                         {
                             required: true,
                             message: "Subcategory cannot be created without the main category.",
                         },
                     ]} validateTrigger={"onSubmit"}>
-                        <SelectCategoryTree categories={categories} />
+                        <SelectCategoryTree placeholder={categoryId} categories={categories} value={categoryId}/>
                     </Form.Item>
                 }
 
-                {category?.id &&
+                {category?.id && !parentId &&
                     <Flex justify="space-between" align={"center"}>
                         <Text style={text1Bold}>Role</Text>
                         <Space align={"center"}>
@@ -145,7 +133,7 @@ export const CreateOrUpdateCategoryForm = ({category, form}:CreateOrUpdateCatego
                         </Space>
                     </Flex>}
 
-                {isSubcategory &&
+                {parentId &&
                     <>
                         <Title style={header3}>Property keys</Title>
                         <Divider />

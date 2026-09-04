@@ -1,6 +1,6 @@
 import {type ComponentProps, type CSSProperties, type ReactNode, useState} from "react";
 import {multipleSelectStyles} from "./css/multipleSelectStyles.ts";
-import type {SelectOptions} from "../../types/selectOptions.ts";
+import type {SelectOptions} from "../../types/SelectOptions.ts";
 import {text2} from "../../theme/textStyles.ts";
 import {TickIcon} from "../Icon/TickIcon.tsx";
 import {ArrowUpIcon} from "../Icon/ArrowUpIcon.tsx";

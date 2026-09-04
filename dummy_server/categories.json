@@ -119,7 +119,7 @@
     "name": "Clothing",
     "description": "Clothing and fashion products",
     "slug": "clothing",
-    "imageUrl": "https://example.com/images/clothing.jpg",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlKzR0i6xg4Bq2ez5On4wz_5lPDYkwtmbtpRBwBA2b6fZcImSCJBeDhsvx&s=10",
     "iconUrl": "https://example.com/icons/clothing.svg",
     "sortOrder": 2,
     "isActive": true,
