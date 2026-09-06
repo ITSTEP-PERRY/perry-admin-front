@@ -8,17 +8,19 @@ import {useState} from "react";
 import {CategoryNode} from "./CategoryNode.tsx";
 import {Checkbox} from "../../Components/Inputs/Checkbox.tsx";
 import {CreateOrUpdateCategoryModal} from "./CreateOrUpdateCategoryModal.tsx";
-import {useCategoryByIdQuery} from "../../api/categoryApiSlice.ts";
+import {useCategoriesQuery, useCategoryByIdQuery} from "../../api/categoryApiSlice.ts";
 import {LoadingDiv} from "../../Components/General/LoadingDiv.tsx";
 import {colors} from "../../theme/colors.ts";
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategory, setCurrentCategory} from "../../app/slices/categorySlice.ts";
 import {text1} from "../../theme/textStyles.ts";
 import Text from "antd/es/typography/Text";
-import {DeleteModal} from "../../Components/Inputs/DeleteModal.tsx";
+import {ConfirmModal} from "../../Components/Inputs/ConfirmModal.tsx";
+import {findCategoriesByName} from "../../utils/search/categorySearch.ts";
 
 export type CategoryTreeProps = {
     categoryId: string;
+    searchValue?: string;
 }
 
 export type CheckboxDataType = Record<string,{
@@ -32,7 +34,7 @@ export const CategoryTree = (props: CategoryTreeProps) => {
     const selectCategory = useAppSelector(getCurrentCategory)
     const dispatch = useAppDispatch();
     const [checked, setChecked] = useState<CheckboxDataType>({})
-
+    const {data: categories} = useCategoriesQuery()
     const isAnyChecked = () => {
         for (const [_, values] of Object.entries(checked))
         {
@@ -103,40 +105,57 @@ export const CategoryTree = (props: CategoryTreeProps) => {
     return (
         <Flex vertical style={categoryTreeStyles.root}>
             <Divider style={dividerStyles} />
-            { categoryDetails && <LoadingDiv isLoading={isLoading}>
-                <Flex justify={"space-between"} align={"center"}
-                      style={{...categoryTreeStyles.parentCategory,
-                          backgroundColor: selectCategory.id === props.categoryId ? colors.lightBlue : ""
-                            }}
-                      onClick={() => dispatch(setCurrentCategory(categoryDetails))}
-                >
-                    <Checkbox
-                        indeterminate={checked[categoryDetails.id]?.checked ? false : checked[categoryDetails.id]?.indeterminate}
-                        checked={checked[categoryDetails.id]?.checked}
-                        onChange={e => {
-                            handleChange(e.target.checked, categoryDetails)
-                        }}
-                    >{categoryDetails.name}</Checkbox>
-                    {isAnyChecked() ?
-                        <DeleteModal style={{width: "fit-content"}} body={
-                            <Text style={text1}>Removing the selected categories you will not be able to recover; products will be deactivated.</Text>
-                        }>
-                            <Button type={"text"} style={{padding: 0}} onClick={() => {}}>
-                                <Text style={{...text1, color: colors.destructive}}>Delete</Text>
-                            </Button>
-                        </DeleteModal>
-                        :
-                        <CreateOrUpdateCategoryModal/>
-                    }
-                </Flex>
-                <Divider style={dividerStyles}/>
-                {categoryDetails.subCategories?.map(category => (
-                    <CategoryNode key={category.id} data={category}
-                                  checked={checked}
-                                  onChange={handleChange}
-                    />
-                ))}
-            </LoadingDiv>}
+                {props.searchValue ?
+                    <>
+                        {categories && findCategoriesByName(props.searchValue, categories)?.map(category => (
+                            <CategoryNode key={category.id} data={category}
+                                          checked={checked}
+                                          onChange={handleChange}
+                            />
+                        ))}
+                    </>
+
+                :
+                    <>
+                        { categoryDetails && <LoadingDiv isLoading={isLoading}>
+                            <Flex justify={"space-between"} align={"center"}
+                                  style={{...categoryTreeStyles.parentCategory,
+                                      backgroundColor: selectCategory.id === props.categoryId ? colors.lightBlue : ""
+                                  }}
+                                  onClick={() => dispatch(setCurrentCategory(categoryDetails))}
+                            >
+                                <Checkbox
+                                    indeterminate={checked[categoryDetails.id]?.checked ? false : checked[categoryDetails.id]?.indeterminate}
+                                    checked={checked[categoryDetails.id]?.checked}
+                                    onChange={e => {
+                                        handleChange(e.target.checked, categoryDetails)
+                                    }}
+                                >{categoryDetails.name}</Checkbox>
+                                {isAnyChecked() ?
+                                    <ConfirmModal type={"danger"} confirmText={"Delete"} style={{width: "fit-content"}} body={
+                                        <Text style={{...text1, textAlign: "center"}}
+                                        >Removing the selected categories you will not be able to recover;
+                                            products will be deactivated.</Text>
+                                    }>
+                                        <Button type={"text"} style={{padding: 0}} onClick={() => {}}>
+                                            <Text style={{...text1, color: colors.destructive}}>Delete</Text>
+                                        </Button>
+                                    </ConfirmModal>
+                                    :
+                                    <CreateOrUpdateCategoryModal/>
+                                }
+                            </Flex>
+                            <Divider style={dividerStyles}/>
+                            {categoryDetails.subCategories?.map(category => (
+                                <CategoryNode key={category.id} data={category}
+                                              checked={checked}
+                                              onChange={handleChange}
+                                />
+                            ))}
+                        </LoadingDiv>}
+                    </>
+                }
+
         </Flex>
     )
 }

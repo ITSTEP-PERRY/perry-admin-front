@@ -1,0 +1,902 @@
+[
+  {
+    "userId": "usr-0001",
+    "fullName": "James Anderson",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-01-05T09:15:00.000Z",
+    "email": "james.anderson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=1"
+  },
+  {
+    "userId": "usr-0002",
+    "fullName": "Emily Johnson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-01-08T11:30:00.000Z",
+    "email": "emily.johnson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=2"
+  },
+  {
+    "userId": "usr-0003",
+    "fullName": "Michael Williams",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-01-12T14:20:00.000Z",
+    "email": "michael.williams@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=3"
+  },
+  {
+    "userId": "usr-0004",
+    "fullName": "Sophia Brown",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-01-17T08:45:00.000Z",
+    "email": "sophia.brown@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=4"
+  },
+  {
+    "userId": "usr-0005",
+    "fullName": "Daniel Jones",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-01-22T16:10:00.000Z",
+    "email": "daniel.jones@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=5"
+  },
+  {
+    "userId": "usr-0006",
+    "fullName": "Olivia Garcia",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-01-28T10:05:00.000Z",
+    "email": "olivia.garcia@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=6"
+  },
+  {
+    "userId": "usr-0007",
+    "fullName": "William Miller",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-02-02T12:40:00.000Z",
+    "email": "william.miller@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=7"
+  },
+  {
+    "userId": "usr-0008",
+    "fullName": "Ava Davis",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-02-07T09:25:00.000Z",
+    "email": "ava.davis@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=8"
+  },
+  {
+    "userId": "usr-0009",
+    "fullName": "Alexander Rodriguez",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-02-11T15:35:00.000Z",
+    "email": "alexander.rodriguez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=9"
+  },
+  {
+    "userId": "usr-0010",
+    "fullName": "Isabella Martinez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-02-15T13:50:00.000Z",
+    "email": "isabella.martinez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=10"
+  },
+  {
+    "userId": "usr-0011",
+    "fullName": "Ethan Hernandez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-02-19T10:15:00.000Z",
+    "email": "ethan.hernandez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=11"
+  },
+  {
+    "userId": "usr-0012",
+    "fullName": "Mia Lopez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-02-24T17:05:00.000Z",
+    "email": "mia.lopez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=12"
+  },
+  {
+    "userId": "usr-0013",
+    "fullName": "Matthew Gonzalez",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-03-01T08:30:00.000Z",
+    "email": "matthew.gonzalez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=13"
+  },
+  {
+    "userId": "usr-0014",
+    "fullName": "Charlotte Wilson",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-03-06T11:45:00.000Z",
+    "email": "charlotte.wilson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=14"
+  },
+  {
+    "userId": "usr-0015",
+    "fullName": "David Anderson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-03-10T14:10:00.000Z",
+    "email": "david.anderson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=15"
+  },
+  {
+    "userId": "usr-0016",
+    "fullName": "Amelia Thomas",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-03-14T09:55:00.000Z",
+    "email": "amelia.thomas@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=16"
+  },
+  {
+    "userId": "usr-0017",
+    "fullName": "Joseph Taylor",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-03-18T16:25:00.000Z",
+    "email": "joseph.taylor@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=17"
+  },
+  {
+    "userId": "usr-0018",
+    "fullName": "Harper Moore",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-03-23T12:15:00.000Z",
+    "email": "harper.moore@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=18"
+  },
+  {
+    "userId": "usr-0019",
+    "fullName": "Christopher Jackson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-03-27T10:40:00.000Z",
+    "email": "christopher.jackson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=19"
+  },
+  {
+    "userId": "usr-0020",
+    "fullName": "Evelyn White",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-04-02T15:00:00.000Z",
+    "email": "evelyn.white@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=20"
+  },
+  {
+    "userId": "usr-0021",
+    "fullName": "Andrew Harris",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-04-07T09:20:00.000Z",
+    "email": "andrew.harris@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=21"
+  },
+  {
+    "userId": "usr-0022",
+    "fullName": "Abigail Martin",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-04-11T13:35:00.000Z",
+    "email": "abigail.martin@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=22"
+  },
+  {
+    "userId": "usr-0023",
+    "fullName": "Joshua Thompson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-04-15T11:10:00.000Z",
+    "email": "joshua.thompson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=23"
+  },
+  {
+    "userId": "usr-0024",
+    "fullName": "Ella Garcia",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-04-20T16:45:00.000Z",
+    "email": "ella.garcia@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=24"
+  },
+  {
+    "userId": "usr-0025",
+    "fullName": "Ryan Martinez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-04-25T08:50:00.000Z",
+    "email": "ryan.martinez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=25"
+  },
+  {
+    "userId": "usr-0026",
+    "fullName": "Scarlett Robinson",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-05-01T14:30:00.000Z",
+    "email": "scarlett.robinson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=26"
+  },
+  {
+    "userId": "usr-0027",
+    "fullName": "Nicholas Clark",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-05-05T10:25:00.000Z",
+    "email": "nicholas.clark@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=27"
+  },
+  {
+    "userId": "usr-0028",
+    "fullName": "Grace Rodriguez",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-05-09T12:55:00.000Z",
+    "email": "grace.rodriguez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=28"
+  },
+  {
+    "userId": "usr-0029",
+    "fullName": "Benjamin Lewis",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-05-14T09:40:00.000Z",
+    "email": "benjamin.lewis@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=29"
+  },
+  {
+    "userId": "usr-0030",
+    "fullName": "Chloe Lee",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-05-19T15:20:00.000Z",
+    "email": "chloe.lee@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=30"
+  },
+  {
+    "userId": "usr-0031",
+    "fullName": "Samuel Walker",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-05-23T11:35:00.000Z",
+    "email": "samuel.walker@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=31"
+  },
+  {
+    "userId": "usr-0032",
+    "fullName": "Victoria Hall",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-05-28T13:15:00.000Z",
+    "email": "victoria.hall@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=32"
+  },
+  {
+    "userId": "usr-0033",
+    "fullName": "Jack Allen",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-06-02T08:25:00.000Z",
+    "email": "jack.allen@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=33"
+  },
+  {
+    "userId": "usr-0034",
+    "fullName": "Lily Young",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-06-06T16:00:00.000Z",
+    "email": "lily.young@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=34"
+  },
+  {
+    "userId": "usr-0035",
+    "fullName": "Henry Hernandez",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-06-10T10:50:00.000Z",
+    "email": "henry.hernandez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=35"
+  },
+  {
+    "userId": "usr-0036",
+    "fullName": "Aria King",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-06-15T14:40:00.000Z",
+    "email": "aria.king@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=36"
+  },
+  {
+    "userId": "usr-0037",
+    "fullName": "Lucas Wright",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-06-20T09:05:00.000Z",
+    "email": "lucas.wright@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=37"
+  },
+  {
+    "userId": "usr-0038",
+    "fullName": "Sofia Lopez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-06-25T12:30:00.000Z",
+    "email": "sofia.lopez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=38"
+  },
+  {
+    "userId": "usr-0039",
+    "fullName": "Owen Hill",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-06-29T15:45:00.000Z",
+    "email": "owen.hill@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=39"
+  },
+  {
+    "userId": "usr-0040",
+    "fullName": "Camila Scott",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-07-04T11:20:00.000Z",
+    "email": "camila.scott@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=40"
+  },
+  {
+    "userId": "usr-0041",
+    "fullName": "Gabriel Green",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-07-08T09:35:00.000Z",
+    "email": "gabriel.green@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=41"
+  },
+  {
+    "userId": "usr-0042",
+    "fullName": "Penelope Adams",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-07-13T13:00:00.000Z",
+    "email": "penelope.adams@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=42"
+  },
+  {
+    "userId": "usr-0043",
+    "fullName": "Logan Baker",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-07-17T16:15:00.000Z",
+    "email": "logan.baker@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=43"
+  },
+  {
+    "userId": "usr-0044",
+    "fullName": "Riley Nelson",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-07-22T10:10:00.000Z",
+    "email": "riley.nelson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=44"
+  },
+  {
+    "userId": "usr-0045",
+    "fullName": "Anthony Carter",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-07-27T14:25:00.000Z",
+    "email": "anthony.carter@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=45"
+  },
+  {
+    "userId": "usr-0046",
+    "fullName": "Hannah Mitchell",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-08-01T08:40:00.000Z",
+    "email": "hannah.mitchell@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=46"
+  },
+  {
+    "userId": "usr-0047",
+    "fullName": "Isaac Perez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-08-05T12:05:00.000Z",
+    "email": "isaac.perez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=47"
+  },
+  {
+    "userId": "usr-0048",
+    "fullName": "Nora Roberts",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-08-10T15:30:00.000Z",
+    "email": "nora.roberts@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=48"
+  },
+  {
+    "userId": "usr-0049",
+    "fullName": "Dylan Turner",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-08-15T09:50:00.000Z",
+    "email": "dylan.turner@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=49"
+  },
+  {
+    "userId": "usr-0050",
+    "fullName": "Zoey Phillips",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-08-20T11:45:00.000Z",
+    "email": "zoey.phillips@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=50"
+  },
+  {
+    "userId": "usr-0051",
+    "fullName": "Nathan Campbell",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-08-24T14:00:00.000Z",
+    "email": "nathan.campbell@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=51"
+  },
+  {
+    "userId": "usr-0052",
+    "fullName": "Stella Parker",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-08-28T10:35:00.000Z",
+    "email": "stella.parker@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=52"
+  },
+  {
+    "userId": "usr-0053",
+    "fullName": "Caleb Evans",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-09-02T16:20:00.000Z",
+    "email": "caleb.evans@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=53"
+  },
+  {
+    "userId": "usr-0054",
+    "fullName": "Lucy Edwards",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-09-07T08:55:00.000Z",
+    "email": "lucy.edwards@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=54"
+  },
+  {
+    "userId": "usr-0055",
+    "fullName": "Christian Collins",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-09-12T13:40:00.000Z",
+    "email": "christian.collins@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=55"
+  },
+  {
+    "userId": "usr-0056",
+    "fullName": "Layla Stewart",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-09-17T15:05:00.000Z",
+    "email": "layla.stewart@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=56"
+  },
+  {
+    "userId": "usr-0057",
+    "fullName": "Jonathan Sanchez",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-09-22T09:15:00.000Z",
+    "email": "jonathan.sanchez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=57"
+  },
+  {
+    "userId": "usr-0058",
+    "fullName": "Lillian Morris",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-09-27T12:50:00.000Z",
+    "email": "lillian.morris@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=58"
+  },
+  {
+    "userId": "usr-0059",
+    "fullName": "Aaron Rogers",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-10-02T14:35:00.000Z",
+    "email": "aaron.rogers@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=59"
+  },
+  {
+    "userId": "usr-0060",
+    "fullName": "Natalie Reed",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-10-07T10:00:00.000Z",
+    "email": "natalie.reed@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=60"
+  },
+  {
+    "userId": "usr-0061",
+    "fullName": "Thomas Cook",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-10-12T16:10:00.000Z",
+    "email": "thomas.cook@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=61"
+  },
+  {
+    "userId": "usr-0062",
+    "fullName": "Audrey Morgan",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-10-17T08:45:00.000Z",
+    "email": "audrey.morgan@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=62"
+  },
+  {
+    "userId": "usr-0063",
+    "fullName": "Charles Bell",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-10-22T11:25:00.000Z",
+    "email": "charles.bell@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=63"
+  },
+  {
+    "userId": "usr-0064",
+    "fullName": "Bella Murphy",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-10-27T13:55:00.000Z",
+    "email": "bella.murphy@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=64"
+  },
+  {
+    "userId": "usr-0065",
+    "fullName": "Thomas Bailey",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-11-01T09:30:00.000Z",
+    "email": "thomas.bailey@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=65"
+  },
+  {
+    "userId": "usr-0066",
+    "fullName": "Claire Rivera",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-11-06T15:15:00.000Z",
+    "email": "claire.rivera@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=66"
+  },
+  {
+    "userId": "usr-0067",
+    "fullName": "Robert Cooper",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-11-11T10:45:00.000Z",
+    "email": "robert.cooper@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=67"
+  },
+  {
+    "userId": "usr-0068",
+    "fullName": "Madison Richardson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-11-16T12:20:00.000Z",
+    "email": "madison.richardson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=68"
+  },
+  {
+    "userId": "usr-0069",
+    "fullName": "Jason Cox",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-11-21T14:40:00.000Z",
+    "email": "jason.cox@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=69"
+  },
+  {
+    "userId": "usr-0070",
+    "fullName": "Elizabeth Howard",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-11-26T08:35:00.000Z",
+    "email": "elizabeth.howard@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=70"
+  },
+  {
+    "userId": "usr-0071",
+    "fullName": "Kevin Ward",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-12-01T11:05:00.000Z",
+    "email": "kevin.ward@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=71"
+  },
+  {
+    "userId": "usr-0072",
+    "fullName": "Samantha Torres",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2025-12-05T13:30:00.000Z",
+    "email": "samantha.torres@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=72"
+  },
+  {
+    "userId": "usr-0073",
+    "fullName": "Brandon Peterson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-12-10T16:00:00.000Z",
+    "email": "brandon.peterson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=73"
+  },
+  {
+    "userId": "usr-0074",
+    "fullName": "Caroline Gray",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2025-12-15T09:50:00.000Z",
+    "email": "caroline.gray@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=74"
+  },
+  {
+    "userId": "usr-0075",
+    "fullName": "Justin Ramirez",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-12-20T12:15:00.000Z",
+    "email": "justin.ramirez@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=75"
+  },
+  {
+    "userId": "usr-0076",
+    "fullName": "Sarah James",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-12-24T14:55:00.000Z",
+    "email": "sarah.james@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=76"
+  },
+  {
+    "userId": "usr-0077",
+    "fullName": "Edward Watson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2025-12-28T10:25:00.000Z",
+    "email": "edward.watson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=77"
+  },
+  {
+    "userId": "usr-0078",
+    "fullName": "Julia Brooks",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2026-01-03T15:40:00.000Z",
+    "email": "julia.brooks@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=78"
+  },
+  {
+    "userId": "usr-0079",
+    "fullName": "Patrick Kelly",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2026-01-08T08:20:00.000Z",
+    "email": "patrick.kelly@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=79"
+  },
+  {
+    "userId": "usr-0080",
+    "fullName": "Anna Sanders",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-01-13T11:35:00.000Z",
+    "email": "anna.sanders@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=80"
+  },
+  {
+    "userId": "usr-0081",
+    "fullName": "Stephen Price",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-01-18T13:10:00.000Z",
+    "email": "stephen.price@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=81"
+  },
+  {
+    "userId": "usr-0082",
+    "fullName": "Maya Bennett",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2026-01-23T16:25:00.000Z",
+    "email": "maya.bennett@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=82"
+  },
+  {
+    "userId": "usr-0083",
+    "fullName": "Mark Wood",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-01-28T09:45:00.000Z",
+    "email": "mark.wood@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=83"
+  },
+  {
+    "userId": "usr-0084",
+    "fullName": "Alice Barnes",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-02-02T12:00:00.000Z",
+    "email": "alice.barnes@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=84"
+  },
+  {
+    "userId": "usr-0085",
+    "fullName": "Brian Ross",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-02-07T14:35:00.000Z",
+    "email": "brian.ross@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=85"
+  },
+  {
+    "userId": "usr-0086",
+    "fullName": "Leah Henderson",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2026-02-12T10:15:00.000Z",
+    "email": "leah.henderson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=86"
+  },
+  {
+    "userId": "usr-0087",
+    "fullName": "Jason Coleman",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2026-02-17T15:50:00.000Z",
+    "email": "jason.coleman@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=87"
+  },
+  {
+    "userId": "usr-0088",
+    "fullName": "Madeline Jenkins",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-02-22T08:40:00.000Z",
+    "email": "madeline.jenkins@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=88"
+  },
+  {
+    "userId": "usr-0089",
+    "fullName": "Eric Perry",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-02-27T11:55:00.000Z",
+    "email": "eric.perry@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=89"
+  },
+  {
+    "userId": "usr-0090",
+    "fullName": "Kayla Powell",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-03-04T13:25:00.000Z",
+    "email": "kayla.powell@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=90"
+  },
+  {
+    "userId": "usr-0091",
+    "fullName": "George Long",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2026-03-09T16:05:00.000Z",
+    "email": "george.long@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=91"
+  },
+  {
+    "userId": "usr-0092",
+    "fullName": "Naomi Patterson",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-03-14T09:30:00.000Z",
+    "email": "naomi.patterson@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=92"
+  },
+  {
+    "userId": "usr-0093",
+    "fullName": "Steven Hughes",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2026-03-19T12:45:00.000Z",
+    "email": "steven.hughes@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=93"
+  },
+  {
+    "userId": "usr-0094",
+    "fullName": "Ruby Flores",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-03-24T14:20:00.000Z",
+    "email": "ruby.flores@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=94"
+  },
+  {
+    "userId": "usr-0095",
+    "fullName": "Peter Washington",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2026-03-29T10:05:00.000Z",
+    "email": "peter.washington@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=95"
+  },
+  {
+    "userId": "usr-0096",
+    "fullName": "Elena Butler",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-04-03T15:15:00.000Z",
+    "email": "elena.butler@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=96"
+  },
+  {
+    "userId": "usr-0097",
+    "fullName": "Richard Simmons",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-04-08T08:55:00.000Z",
+    "email": "richard.simmons@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=97"
+  },
+  {
+    "userId": "usr-0098",
+    "fullName": "Eva Foster",
+    "role": "Customer",
+    "status": true,
+    "registrationDate": "2026-04-13T11:40:00.000Z",
+    "email": "eva.foster@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=98"
+  },
+  {
+    "userId": "usr-0099",
+    "fullName": "Daniel Bryant",
+    "role": "Customer",
+    "status": false,
+    "registrationDate": "2026-04-18T13:50:00.000Z",
+    "email": "daniel.bryant@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=99"
+  },
+  {
+    "userId": "usr-0100",
+    "fullName": "Victoria Alexander",
+    "role": "Administrator",
+    "status": true,
+    "registrationDate": "2026-04-23T16:30:00.000Z",
+    "email": "victoria.alexander@example.com",
+    "avatar": "https://i.pravatar.cc/150?img=100"
+  }
+]

@@ -1,6 +1,5 @@
-import type {UserData} from "../types/UserData.ts";
+import type {UserData, UserFilterRequest, UserRole} from "../types/UserData.ts";
 import {Avatar,Flex, Space, Table, type TableProps, Tag} from "antd";
-import {usersDummyData} from "../data/dummy/usersDummyData.ts";
 import Text from "antd/es/typography/Text";
 import {text1, text2} from "../theme/textStyles.ts";
 import {colors} from "../theme/colors.ts";
@@ -15,6 +14,7 @@ import {ItemNotFound} from "../widgets/ItemNotFound.tsx";
 import {UsersOptions} from "../Components/Navigation/UsersOptions.tsx";
 import {dateFormatter} from "../shared/formatter.ts";
 import {ArrowsUpDownIcon} from "../Components/Icon/ArrowsUpDownIcon.tsx";
+import {useUsersQuery} from "../api/userApiSlice.ts";
 
 const roleOptions: SelectOptions[] = [
     {label: "Administrator", value: "Administrator"},
@@ -49,9 +49,10 @@ const columns : TableProps<UserData>["columns"] = [
         title: "Registration date",
         dataIndex: "registrationDate",
         render: (_, record: UserData) => (
-            <Text style={text1}>{dateFormatter.format(record.registrationDate)}</Text>
+            <Text style={text1}>{dateFormatter.format(new Date(record.registrationDate))}</Text>
         ),
-        sorter: (a, b) => Number(a.registrationDate.valueOf() - b.registrationDate.valueOf()),
+        sorter: (a, b) => Number(
+            new Date(a.registrationDate).valueOf() - new Date(b.registrationDate).valueOf() ),
         sortIcon: () =>
         <div style={{padding: "5px 0 0 5px"}}>
             <ArrowsUpDownIcon size={24}/>
@@ -64,7 +65,6 @@ const columns : TableProps<UserData>["columns"] = [
         render: (_, record: UserData) => (
             <Text style={text1}>{record.email}</Text>
         ),
-
     },
     {
         title: "",
@@ -82,16 +82,19 @@ const columnsOptions = columns.filter(c => c.title && c.key != "user")
     value: c.title as string,
     label: c.title as string,
 }))
+
+
 export const UsersPage = () => {
-    const [rolesSelect, setRolesSelect] = useState<SelectOptions[]>(roleOptions ?? []);
+    const [userFilter, setUserFilter] = useState<UserFilterRequest>();
+    const {data, isFetching} = useUsersQuery(userFilter)
     const [selectedColumns, setSelectedColumns] = useState<SelectOptions[]>(columnsOptions)
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
-    const [data, setData] = useState<UserData[]>(usersDummyData);
-    const allSelected = rolesSelect.length === roleOptions?.length
+    const allSelected = userFilter?.roles?.length === roleOptions?.length
 
     const rowSelection: TableProps<UserData>["rowSelection"] = {
-        onChange: (selectedRowKeys: React.Key[]) => {
-            setSelectedRowKeys(selectedRowKeys as string[])
+        selectedRowKeys: selectedRowKeys,
+        onChange: (rows: React.Key[]) => {
+            setSelectedRowKeys(rows as string[])
         },
         getCheckboxProps: (record: UserData) => ({
             disabled: record.fullName === 'Disabled User', // Column configuration not to be checked
@@ -111,22 +114,24 @@ export const UsersPage = () => {
 
     }
 
+    const handleSearch = (value: string) => {
+        setUserFilter({...userFilter, searchTerm: value})
+    }
+
     const handleAllSelect = () => {
         if( allSelected ){
-            setRolesSelect([])
-            setData([])
+            setUserFilter({...userFilter, roles: []})
         }
         else{
-            const allValues = roleOptions?.map((option) => option) || [];
-            setRolesSelect(allValues);
-            setData(usersDummyData)
+            const allValues: UserRole[] = roleOptions?.map((option) => option.value as UserRole) || [];
+            setUserFilter({...userFilter, roles: allValues})
         }
     }
 
     const handleOnSelect = (opt : SelectOptions) => {
 
-        setData(usersDummyData.filter(u => u.role === opt.value))
-        setRolesSelect([opt])
+        setUserFilter({...userFilter, roles: [opt.value as UserRole]})
+
     }
 
     const handleSelectColumns = (opt: SelectOptions) => {
@@ -137,18 +142,12 @@ export const UsersPage = () => {
         }else{
             newColumns = [...selectedColumns, opt]
         }
-        console.log(newColumns);
-
         setSelectedColumns(newColumns)
-    }
-
-    const handleSearch = (value: string) => {
-        console.log(value)
     }
 
     const newColumns = columns.map(c => ({
         ...c,
-        title: c.title ? c.title : selectedRowKeys.length > 0 ? <UsersOptions /> : "",
+        title: c.title ? c.title : selectedRowKeys.length > 0 ? <UsersOptions users={selectedRowKeys} /> : "",
         hidden: c.key ? false : !selectedColumns.find(i => i.value === c.title),
     }))
 
@@ -159,28 +158,38 @@ export const UsersPage = () => {
                 <MultipleSelect style={{ width: "13%" }}
                                 options={roleOptions}
                                 onSelect={handleOnSelect}
-                                selectAll onSelectAll={handleAllSelect}
-                                values={rolesSelect}
+                                selectAll
+                                onSelectAll={handleAllSelect}
+                                values={userFilter?.roles ?? roleOptions.map(v => v.value) as string[]}
                                 placeholder={"All"}
                 />
-                <BaseSearch style={{ width: "70%" }} onChange={(e) => handleSearch(e.target.value)}/>
+                <BaseSearch style={{ width: "70%" }} value={userFilter?.searchTerm}
+                            onChange={(e) => handleSearch(e.target.value)}/>
                 <MultipleSelect style={{ width: "12%" }}
                                 position={"bottomRight"}
                                 title={"Columns"}
                                 options={columnsOptions}
-                                values={selectedColumns}
+                                values={selectedColumns.map(v => v.value) as string[]}
                                 onSelect={handleSelectColumns}
                 />
             </Flex>
-            {data.length > 0 ?
+            {data && data.length > 0 ?
 
                 <Table columns={newColumns}
                     rowSelection={{type: "checkbox", ...rowSelection}}
                     dataSource={data}
                     styles={usersPageTableStyles}
-                    pagination={{placement: ["bottomCenter"], pageSize: 10}}
+                    pagination={{
+                        placement: ["bottomCenter"],
+                        defaultPageSize: 7,
+                        pageSizeOptions: [7, 20, 50, 100],
+                        onChange: () => {
+                            console.log("paggination")
+                            setSelectedRowKeys([])
+                        }
+                }}
                     rowKey={"userId"}
-
+                   loading={isFetching}
 
             /> :
                 <div style={{alignContent: "center", height: "80%"}}>

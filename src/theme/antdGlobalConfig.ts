@@ -6,7 +6,10 @@ export const config: ThemeConfig = {
         colorPrimary: colors.primary,
         fontFamily: "Mulish",
         colorTextLightSolid: colors.darkText,
-        colorBorderSecondary: colors.secondary
+        colorBorderSecondary: colors.secondary,
+        controlItemBgActive: colors.lightBlue,
+        controlItemBgHover: colors.lightBlue,
+        controlItemBgActiveHover: colors.lightBlue,
     },
     components:{
         Button: {

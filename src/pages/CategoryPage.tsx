@@ -28,7 +28,7 @@ import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {getCurrentCategory, setCurrentCategory} from "../app/slices/categorySlice.ts";
 import {CreateOrUpdateCategoryModal} from "../widgets/Category/CreateOrUpdateCategoryModal.tsx";
-import {DeleteModal} from "../Components/Inputs/DeleteModal.tsx";
+import {ConfirmModal} from "../Components/Inputs/ConfirmModal.tsx";
 
 export const CategoryPage = () => {
     const {data: categories, isLoading, refetch} = useCategoriesQuery()
@@ -38,6 +38,8 @@ export const CategoryPage = () => {
     const [triggerFetch] = useLazyCategoryByIdQuery();
     const dispatch = useAppDispatch();
     const [deleteCategory, {isLoading: deleteLoading}] = useDeleteCategoryByIdMutation();
+    const [searchValue, setSearchValue] = useState("");
+
 
     const options = categories?.map(category => ({
         value: category.id,
@@ -59,20 +61,26 @@ export const CategoryPage = () => {
                                         setSelectedCategory(e);
                                         const t = await triggerFetch(e)
                                         dispatch(setCurrentCategory(t.data ?? currentCategory));
+
                                  }}
                                  popupRender={(menu) => (
                                      <Flex vertical>
-                                         <AddButton>
-                                             <Text style={text2}>Add category</Text>
-                                         </AddButton>
+                                         <CreateOrUpdateCategoryModal>
+                                             <AddButton>
+                                                 <Text style={text2}
+                                                 >Add category</Text>
+                                             </AddButton>
+                                         </CreateOrUpdateCategoryModal>
                                          {menu}
                                      </Flex>
                                  )}
                         />
-                        <BaseSearch style={categoryPageBaseSearchStyles}/>
+                        <BaseSearch value={searchValue}
+                                    onChange={(e) => setSearchValue(e.target.value)}
+                                    style={categoryPageBaseSearchStyles}/>
                     </Flex>
                         {selectedCategory ?
-                             <CategoryTree categoryId={selectedCategory}/>
+                             <CategoryTree categoryId={selectedCategory} searchValue={searchValue}/>
                         :
                             <Flex align={"center"} justify={"center"} style={{height: "100%"}}>
 
@@ -110,13 +118,13 @@ export const CategoryPage = () => {
                                         <Text style={text2}>Edit</Text>
                                     </Button>
                                 </CreateOrUpdateCategoryModal>
-                                <DeleteModal body={
+                                <ConfirmModal type={"danger"} confirmText={"Delete"} body={
                                     <Flex vertical align={"center"}>
                                         <Text style={text1}>You can't recover categories, subcategories;</Text>
                                         <Text style={text1}>products will be deactivated.</Text>
                                     </Flex>
                                     }
-                                    onConfirm={async () => {
+                                              onConfirm={async () => {
                                     await deleteCategory(currentCategory.id)
                                     await refetchSelectedCategory()
                                     await refetch()
@@ -125,7 +133,7 @@ export const CategoryPage = () => {
                                         <TrashcanIcon size={28} color={colors.destructive}/>
                                         <Text style={text2} >Delete</Text>
                                     </Button>
-                                </DeleteModal>
+                                </ConfirmModal>
                             </Flex>
                         </Flex>
                         :

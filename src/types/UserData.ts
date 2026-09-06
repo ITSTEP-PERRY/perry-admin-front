@@ -11,7 +11,15 @@ export interface UserData {
     fullName: string;
     role: UserRole;
     status: boolean;
-    registrationDate: Date;
+    registrationDate: string;
     email: string;
     avatar: string;
+}
+
+export interface UserFilterRequest {
+    roles?: UserRole[];
+    name?: string;
+    email?: string;
+    active?: boolean;
+    searchTerm?: string;
 }

@@ -39,6 +39,7 @@ export const userPageSelectStyles: ComponentProps<typeof Select>["styles"] = {
 
 export const usersPageTableStyles: TableProps<UserData>["styles"] = {
     body: {
+
         cell: {
             border: "none",
             backgroundColor: "none"
@@ -51,7 +52,8 @@ export const usersPageTableStyles: TableProps<UserData>["styles"] = {
         boxShadow: "none",
         border: "none",
         borderRadius: 0,
-        backgroundColor: "none"
+        backgroundColor: "none",
+        minHeight: "70vh",
     },
     header: {
         cell: {

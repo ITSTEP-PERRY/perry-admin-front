@@ -5,31 +5,35 @@ import {useState} from "react";
 import Text from "antd/es/typography/Text";
 import {type UserData, UserRole} from "../../types/UserData.ts";
 import {userOptionsStyles} from "./css/userOptionsStyles.ts";
-import {useOutsideClick} from "../../shared/Hooks/useOutsideClick.ts";
-import {DeleteModal} from "../Inputs/DeleteModal.tsx";
+import {ConfirmModal} from "../Inputs/ConfirmModal.tsx";
 import {text1} from "../../theme/textStyles.ts";
+import {useChangeUserRoleMutation, useSetUserStatusByIdMutation, useUsersQuery} from "../../api/userApiSlice.ts";
+import {ClosableDiv} from "../General/ClosableDiv.tsx";
 
 export const UserOptions = ({record}: { record: UserData }) => {
     const [open, setOpen] = useState<boolean>(false);
-    const [deleteModal, setDeleteModal] = useState(false);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalRoleOpen, setModalRoleOpen] = useState<boolean>(false);
+    const [setUserStatus, {isLoading}] = useSetUserStatusByIdMutation()
+    const [changeUserRole, {isLoading: settingRole}] = useChangeUserRoleMutation()
+    const {refetch, } = useUsersQuery()
 
-    const ref = useOutsideClick(() => {
-        setOpen(false);
-    })
+    const newRole = record.role == UserRole.Admin ? UserRole.Customer : UserRole.Admin
 
     return (
-        <div ref={ref} style={userOptionsStyles.root}>
+        <div  style={userOptionsStyles.root}>
             <Button  type={"text"} style={{padding: 0}} onClick={() => setOpen(!open)}>
                 <MeatballsMenu size={24} />
             </Button>
             {open &&
+                <ClosableDiv onClose={setOpen}>
                 <Flex style={userOptionsStyles.popup} vertical align={"start"}>
-                    <Button type={"text"} style={userOptionsStyles.item}>
-                        <Text>Make {record.role == UserRole.Admin ? UserRole.Customer : UserRole.Admin}</Text>
+                    <Button type={"text"} style={userOptionsStyles.item} onClick={() => setModalRoleOpen(true)}>
+                        <Text>Make {newRole}</Text>
                     </Button>
-                    <Button type={"text"} style={userOptionsStyles.item} onClick={() => setDeleteModal(true)}>
-                        <Text>Delete</Text>
-                    </Button>
+                        <Button onClick={() => setModalOpen(!modalOpen)} type={"text"} style={userOptionsStyles.item}>
+                            <Text>{record.status ? "Delete" : "Restore"}</Text>
+                        </Button>
                     <Divider />
                     <Button type={"text"} style={userOptionsStyles.item}>
                         <Text>View orders</Text>
@@ -38,10 +42,32 @@ export const UserOptions = ({record}: { record: UserData }) => {
                         <Text>View reviews</Text>
                     </Button>
                 </Flex>
+                </ClosableDiv>
             }
-            <DeleteModal open={deleteModal} setOpen={(open) => setDeleteModal(open)}>
-                <Text style={text1}>This user will be deactivated</Text>
-            </DeleteModal>
+            <ConfirmModal
+                open={modalRoleOpen}
+                onCancel={() => setModalRoleOpen(false)}
+                loading={settingRole}
+                body={<Text style={text1}>This user will change role to {newRole}</Text>}
+                onConfirm={async () => {
+                    await changeUserRole({id: record.userId, role: newRole})
+                    await refetch()
+                    setModalRoleOpen(false)
+                }}
+            />
+            <ConfirmModal
+                open={modalOpen}
+                onCancel={() => setModalOpen(false)}
+                loading={isLoading}
+                body={<Text style={text1}>This user will be deactivated</Text>}
+                onConfirm={async () => {
+                    await setUserStatus(record.userId)
+                    await refetch()
+                    setModalOpen(false)
+                }}
+                type={record.status ? "danger" : "info"}
+                confirmText={record.status ? "Delete" : "Restore"}
+            />
         </div>
     )
 }

@@ -29,3 +29,23 @@ export const findCategoryByCategoryId = (id: string | undefined, categories : Ca
         }
     }
 }
+
+export const findCategoriesByName = (name: string, categories: CategoryType[]): CategoryType[] => {
+    const result: CategoryType[] = [];
+
+    const inner = ( cats: CategoryType[] ) => {
+        for (const cat of cats) {
+            if (cat.name.toLowerCase().includes(name.toLowerCase())) {
+                result.push(cat);
+                return;
+            }
+            if (cat.subCategories) {
+                inner(cat.subCategories);
+            }
+        }
+    }
+
+    inner(categories);
+
+    return result;
+}

@@ -11,7 +11,7 @@ import {colors} from "../../theme/colors.ts";
 export interface MultipleSelectProps extends Omit<ComponentProps<'input'>, "onSelect">{
     onSelect?: (value: SelectOptions) => void;
     onSelectAll?: () => void;
-    values?: SelectOptions[];
+    values?: string[];
     options?: SelectOptions[];
     suffix?: ReactNode;
     title?: string;
@@ -49,7 +49,7 @@ export const MultipleSelect = ({values, ...props}: MultipleSelectProps) => {
     return (
          <div ref={ref} style={{...multipleSelectStyles.root, ...props.style}}>
              <div style={multipleSelectStyles.container} onClick={() => setOpen(!open)}>
-                <span style={multipleSelectStyles.input}>{props.title ? props.title : allSelected ? props.placeholder : values && values[0]?.label}</span>
+                <span style={multipleSelectStyles.input}>{props.title ? props.title : allSelected ? props.placeholder : values && values[0]}</span>
                 <span style={multipleSelectStyles.suffix}>
                     {actualSuffix}
                 </span>
@@ -69,11 +69,11 @@ export const MultipleSelect = ({values, ...props}: MultipleSelectProps) => {
                         <div key={index}
                              className={"item-selected"}
                              style={{...multipleSelectStyles.itemContainer,
-                                 backgroundColor: values?.some(v => v.value === option.value) ? colors.lightBlue : undefined}}
+                                 backgroundColor: values?.some(v => v === option.value) ? colors.lightBlue : undefined}}
                              onClick={() => handleSelect(option)}
                         >
                             <span style={text2}>{option.label}</span>
-                            {values?.some(v => v.value === option.value) && <TickIcon size={5}/>}
+                            {values?.some(v => v === option.value) && <TickIcon size={5}/>}
                         </div>
                     ))}
                 </div>
