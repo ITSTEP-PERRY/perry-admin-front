@@ -242,43 +242,6 @@
     "parentCategoryId": null,
     "subCategories": [
       {
-        "id": "cat-003-001",
-        "name": "Furniture",
-        "slug": "furniture",
-        "sortOrder": 1,
-        "isActive": true,
-        "parentCategoryId": "cat-003",
-        "subCategories": [
-          {
-            "id": "cat-003-001-001",
-            "name": "Sofas",
-            "slug": "sofas",
-            "sortOrder": 1,
-            "isActive": true,
-            "parentCategoryId": "cat-003-001",
-            "subCategories": []
-          },
-          {
-            "id": "cat-003-001-002",
-            "name": "Tables",
-            "slug": "tables",
-            "sortOrder": 2,
-            "isActive": true,
-            "parentCategoryId": "cat-003-001",
-            "subCategories": []
-          },
-          {
-            "id": "cat-003-001-003",
-            "name": "Chairs",
-            "slug": "chairs",
-            "sortOrder": 3,
-            "isActive": true,
-            "parentCategoryId": "cat-003-001",
-            "subCategories": []
-          }
-        ]
-      },
-      {
         "id": "cat-003-002",
         "name": "Kitchen",
         "description": "Kitchen equipment and accessories",
@@ -1059,6 +1022,60 @@
         "isActive": true,
         "parentCategoryId": "cat-020",
         "subCategories": []
+      }
+    ]
+  },
+  {
+    "uploadedFile": "undefined",
+    "id": "1788885335139",
+    "categoryIcon": "undefined",
+    "name": "asda",
+    "isActive": "true",
+    "description": "asdasd",
+    "subCategories": [
+      {
+        "uploadedFile": "undefined",
+        "id": "1788885349675",
+        "categoryIcon": "undefined",
+        "name": "qweqadasdasd",
+        "isActive": "true",
+        "description": "dddddd",
+        "parentCategoryId": "1788885335139",
+        "properties": "",
+        "subCategories": [
+          {
+            "uploadedFile": "undefined",
+            "id": "1788943289158",
+            "categoryIcon": "undefined",
+            "name": "waw",
+            "isActive": "true",
+            "description": "undefined",
+            "parentCategoryId": "1788885349675",
+            "properties": "",
+            "subCategories": [
+              {
+                "uploadedFile": "undefined",
+                "id": "1788943334466",
+                "categoryIcon": "undefined",
+                "name": "werertert",
+                "isActive": "true",
+                "description": "undefined",
+                "parentCategoryId": "1788943289158",
+                "properties": ""
+              }
+            ]
+          },
+          {
+            "uploadedFile": "undefined",
+            "id": "1788943297262",
+            "categoryIcon": "undefined",
+            "name": "waw",
+            "isActive": "true",
+            "description": "undefined",
+            "parentCategoryId": "1788885349675",
+            "properties": ""
+          }
+        ]
       }
     ]
   }

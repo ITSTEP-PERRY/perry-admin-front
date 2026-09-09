@@ -4,7 +4,7 @@ import type {CSSProperties} from "react";
 export const productsPageStyles: NestedStyles = {
     root: {
         width:'85%',
-        margin: "0 auto",
+        margin: "auto",
         padding: 25,
         height: "872px"
     },
@@ -16,7 +16,7 @@ export const productsPageStyles: NestedStyles = {
         input: {
             width: "fit-content",
             padding: "8px 20px",
-            minWidth: "284px"
+            minWidth: "284px",
         },
         popup: {
             width: "420px",

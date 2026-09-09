@@ -1,0 +1,563 @@
+[
+  {
+    "id": "prod-001",
+    "name": "Apple iPhone 15",
+    "description": "6.1-inch smartphone with advanced camera system and USB-C connectivity.",
+    "slug": "apple-iphone-15",
+    "categoryId": "cat-001-002-002",
+    "brandId": "brand-apple",
+    "status": "active",
+    "averageRating": 4.7,
+    "reviewCount": 1284,
+    "isBestSeller": true,
+    "createdAt": "2026-01-15T10:30:00Z",
+    "updatedAt": "2026-08-20T14:15:00Z",
+    "attributes": [
+      {
+        "id": "attr-001",
+        "code": "storage",
+        "name": "Storage",
+        "dataType": "string",
+        "unit": "GB",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-002",
+        "code": "color",
+        "name": "Color",
+        "dataType": "string",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-001",
+        "productId": "prod-001",
+        "sku": "IPH15-128-BLK",
+        "barcode": "194253118945",
+        "title": "128GB Black",
+        "price": 699,
+        "oldPrice": 749,
+        "stockQuantity": 42,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-002",
+        "productId": "prod-001",
+        "sku": "IPH15-256-BLU",
+        "barcode": "194253118952",
+        "title": "256GB Blue",
+        "price": 799,
+        "stockQuantity": 25,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-002",
+    "name": "Samsung Galaxy S25",
+    "description": "Premium Android smartphone with AMOLED display and high-performance processor.",
+    "slug": "samsung-galaxy-s25",
+    "categoryId": "cat-001-002-001",
+    "brandId": "brand-samsung",
+    "status": "active",
+    "averageRating": 4.8,
+    "reviewCount": 956,
+    "isBestSeller": true,
+    "createdAt": "2026-02-03T09:15:00Z",
+    "updatedAt": "2026-08-25T11:40:00Z",
+    "attributes": [
+      {
+        "id": "attr-003",
+        "code": "storage",
+        "name": "Storage",
+        "dataType": "string",
+        "unit": "GB",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-004",
+        "code": "ram",
+        "name": "RAM",
+        "dataType": "number",
+        "unit": "GB",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-003",
+        "productId": "prod-002",
+        "sku": "S25-128-8",
+        "barcode": "8806095980001",
+        "title": "128GB / 8GB RAM",
+        "price": 849,
+        "oldPrice": 899,
+        "stockQuantity": 31,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-004",
+        "productId": "prod-002",
+        "sku": "S25-256-12",
+        "barcode": "8806095980002",
+        "title": "256GB / 12GB RAM",
+        "price": 949,
+        "stockQuantity": 18,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-003",
+    "name": "Sony WH-1000XM6",
+    "description": "Wireless noise-cancelling headphones with premium audio quality.",
+    "slug": "sony-wh-1000xm6",
+    "categoryId": "cat-001-003-001",
+    "brandId": "brand-sony",
+    "status": "active",
+    "averageRating": 4.9,
+    "reviewCount": 742,
+    "isBestSeller": true,
+    "createdAt": "2026-03-10T12:00:00Z",
+    "updatedAt": "2026-08-28T16:20:00Z",
+    "attributes": [
+      {
+        "id": "attr-005",
+        "code": "color",
+        "name": "Color",
+        "dataType": "string",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-006",
+        "code": "battery",
+        "name": "Battery Life",
+        "dataType": "number",
+        "unit": "hours",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-005",
+        "productId": "prod-003",
+        "sku": "WHXM6-BLK",
+        "barcode": "4548736150001",
+        "title": "Black",
+        "price": 399,
+        "oldPrice": 449,
+        "stockQuantity": 57,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-006",
+        "productId": "prod-003",
+        "sku": "WHXM6-SLV",
+        "barcode": "4548736150002",
+        "title": "Silver",
+        "price": 399,
+        "stockQuantity": 22,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-004",
+    "name": "MacBook Air M4",
+    "description": "Lightweight laptop powered by the Apple M4 chip with a high-resolution display.",
+    "slug": "macbook-air-m4",
+    "categoryId": "cat-001-001-001",
+    "brandId": "brand-apple",
+    "status": "active",
+    "averageRating": 4.8,
+    "reviewCount": 615,
+    "isBestSeller": true,
+    "createdAt": "2026-01-28T08:30:00Z",
+    "updatedAt": "2026-08-22T10:10:00Z",
+    "attributes": [
+      {
+        "id": "attr-007",
+        "code": "ram",
+        "name": "RAM",
+        "dataType": "number",
+        "unit": "GB",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-008",
+        "code": "storage",
+        "name": "Storage",
+        "dataType": "number",
+        "unit": "GB",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-007",
+        "productId": "prod-004",
+        "sku": "MBA-M4-16-256",
+        "title": "16GB / 256GB",
+        "price": 1099,
+        "stockQuantity": 15,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-008",
+        "productId": "prod-004",
+        "sku": "MBA-M4-24-512",
+        "title": "24GB / 512GB",
+        "price": 1399,
+        "stockQuantity": 8,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-005",
+    "name": "Nike Air Max 270",
+    "description": "Comfortable everyday sneakers featuring Air cushioning and breathable construction.",
+    "slug": "nike-air-max-270",
+    "categoryId": "cat-002-003-001",
+    "brandId": "brand-nike",
+    "status": "active",
+    "averageRating": 4.6,
+    "reviewCount": 438,
+    "isBestSeller": false,
+    "createdAt": "2026-04-12T14:00:00Z",
+    "updatedAt": "2026-08-30T09:30:00Z",
+    "attributes": [
+      {
+        "id": "attr-009",
+        "code": "size",
+        "name": "Shoe Size",
+        "dataType": "number",
+        "unit": "EU",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-010",
+        "code": "color",
+        "name": "Color",
+        "dataType": "string",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-009",
+        "productId": "prod-005",
+        "sku": "AM270-BLK-42",
+        "title": "Black / EU 42",
+        "price": 129.99,
+        "stockQuantity": 12,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-010",
+        "productId": "prod-005",
+        "sku": "AM270-WHT-43",
+        "title": "White / EU 43",
+        "price": 139.99,
+        "stockQuantity": 7,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-006",
+    "name": "Adidas Ultraboost 25",
+    "description": "Performance running shoes designed for responsive cushioning and daily training.",
+    "slug": "cat-002-003-001",
+    "categoryId": "cat-shoes",
+    "brandId": "brand-adidas",
+    "status": "active",
+    "averageRating": 4.7,
+    "reviewCount": 321,
+    "isBestSeller": false,
+    "createdAt": "2026-05-05T11:20:00Z",
+    "updatedAt": "2026-08-27T13:45:00Z",
+    "attributes": [
+      {
+        "id": "attr-011",
+        "code": "size",
+        "name": "Shoe Size",
+        "dataType": "number",
+        "unit": "EU",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-011",
+        "productId": "prod-006",
+        "sku": "UB25-BLK-42",
+        "title": "Black / EU 42",
+        "price": 179.99,
+        "oldPrice": 199.99,
+        "stockQuantity": 19,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-012",
+        "productId": "prod-006",
+        "sku": "UB25-BLK-44",
+        "title": "Black / EU 44",
+        "price": 179.99,
+        "stockQuantity": 11,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-007",
+    "name": "Dell UltraSharp 27 Monitor",
+    "description": "Professional 27-inch 4K monitor with accurate colors and USB-C connectivity.",
+    "slug": "dell-ultrasharp-27",
+    "categoryId": "cat-001-001-003",
+    "brandId": "brand-dell",
+    "status": "active",
+    "averageRating": 4.5,
+    "reviewCount": 286,
+    "isBestSeller": false,
+    "createdAt": "2026-02-20T15:30:00Z",
+    "updatedAt": "2026-08-19T12:00:00Z",
+    "attributes": [
+      {
+        "id": "attr-012",
+        "code": "size",
+        "name": "Screen Size",
+        "dataType": "number",
+        "unit": "inch",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-013",
+        "code": "resolution",
+        "name": "Resolution",
+        "dataType": "string",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-013",
+        "productId": "prod-007",
+        "sku": "DELL-U2724D",
+        "barcode": "5397184820001",
+        "title": "27-inch 4K",
+        "price": 549,
+        "oldPrice": 599,
+        "stockQuantity": 9,
+        "isDefault": true,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-008",
+    "name": "Logitech MX Master 4",
+    "description": "Advanced wireless productivity mouse with ergonomic design and customizable controls.",
+    "slug": "cat-001-001-003",
+    "categoryId": "cat-accessories",
+    "brandId": "brand-logitech",
+    "status": "active",
+    "averageRating": 4.8,
+    "reviewCount": 534,
+    "isBestSeller": true,
+    "createdAt": "2026-03-18T10:45:00Z",
+    "updatedAt": "2026-08-29T15:25:00Z",
+    "attributes": [
+      {
+        "id": "attr-014",
+        "code": "connection",
+        "name": "Connection",
+        "dataType": "string",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-015",
+        "code": "dpi",
+        "name": "DPI",
+        "dataType": "number",
+        "unit": "DPI",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-014",
+        "productId": "prod-008",
+        "sku": "MXM4-GRAPH",
+        "barcode": "0978551990001",
+        "title": "Graphite",
+        "price": 119.99,
+        "stockQuantity": 35,
+        "isDefault": true,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-009",
+    "name": "Samsung 990 Pro SSD",
+    "description": "High-performance NVMe SSD designed for gaming, workstations and demanding applications.",
+    "slug": "cat-001-001-003",
+    "categoryId": "cat-storage",
+    "brandId": "brand-samsung",
+    "status": "active",
+    "averageRating": 4.9,
+    "reviewCount": 812,
+    "isBestSeller": true,
+    "createdAt": "2026-01-10T09:00:00Z",
+    "updatedAt": "2026-08-31T17:10:00Z",
+    "attributes": [
+      {
+        "id": "attr-016",
+        "code": "capacity",
+        "name": "Capacity",
+        "dataType": "number",
+        "unit": "TB",
+        "isFilterable": true,
+        "isVariantLevel": true,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-017",
+        "code": "interface",
+        "name": "Interface",
+        "dataType": "string",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-015",
+        "productId": "prod-009",
+        "sku": "990PRO-1TB",
+        "barcode": "8806094210001",
+        "title": "1TB",
+        "price": 109.99,
+        "oldPrice": 129.99,
+        "stockQuantity": 48,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-016",
+        "productId": "prod-009",
+        "sku": "990PRO-2TB",
+        "barcode": "8806094210002",
+        "title": "2TB",
+        "price": 189.99,
+        "stockQuantity": 26,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  },
+  {
+    "id": "prod-010",
+    "name": "Anker PowerCore 20K",
+    "description": "High-capacity portable power bank with USB-C fast charging.",
+    "slug": "cat-001-001-003",
+    "categoryId": "cat-accessories",
+    "brandId": "brand-anker",
+    "status": "active",
+    "averageRating": 4.6,
+    "reviewCount": 392,
+    "isBestSeller": false,
+    "createdAt": "2026-04-01T13:15:00Z",
+    "updatedAt": "2026-08-26T08:50:00Z",
+    "attributes": [
+      {
+        "id": "attr-018",
+        "code": "capacity",
+        "name": "Battery Capacity",
+        "dataType": "number",
+        "unit": "mAh",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 1
+      },
+      {
+        "id": "attr-019",
+        "code": "fastCharging",
+        "name": "Fast Charging",
+        "dataType": "boolean",
+        "isFilterable": true,
+        "isVariantLevel": false,
+        "sortOrder": 2
+      }
+    ],
+    "variants": [
+      {
+        "id": "var-017",
+        "productId": "prod-010",
+        "sku": "ANK-PC20K-BLK",
+        "barcode": "1946441230001",
+        "title": "Black",
+        "price": 49.99,
+        "oldPrice": 59.99,
+        "stockQuantity": 64,
+        "isDefault": true,
+        "isActive": true
+      },
+      {
+        "id": "var-018",
+        "productId": "prod-010",
+        "sku": "ANK-PC20K-WHT",
+        "title": "White",
+        "price": 49.99,
+        "stockQuantity": 28,
+        "isDefault": false,
+        "isActive": true
+      }
+    ]
+  }
+]

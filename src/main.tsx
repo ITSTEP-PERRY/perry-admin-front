@@ -7,7 +7,7 @@ import {config} from "./theme/antdGlobalConfig.ts";
 import {buttonConfig} from "./theme/antdButtonConfig.ts";
 import {Provider} from "react-redux";
 import {store} from "./app/store.ts";
-import './utils/extentions/fieldErrorExtentions.ts'
+import './utils/extentions/extentionDeclaration.ts'
 import {BrowserRouter, Route, Routes} from "react-router";
 
 

@@ -7,23 +7,23 @@ import {header2} from "../../theme/headerStyles.ts";
 import { ccModalStyles, ccmStyle} from "./css/CreateCategoryModalStyles.ts";
 import {useForm} from "antd/es/form/Form";
 import {CreateOrUpdateCategoryForm} from "../../forms/Category/CreateOrUpdateCategoryForm.tsx";
-import type {CategoryType} from "../../types/CategoryType.ts";
 
 
 
 export interface CreateOrUpdateCategoryModalProps extends ComponentProps<"div">{
-    category?: CategoryType;
-
+    isSubcategory?: boolean;
+    edit?: boolean;
 }
 
 
-export const CreateOrUpdateCategoryModal = ({category, ...props}: CreateOrUpdateCategoryModalProps) => {
+export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryModalProps) => {
     const [open, setOpen] = useState(false);
     const [form] = useForm();
 
     return (
         <div {...props}>
-            <span  onClick={() => {
+            <span  onClick={(e) => {
+                e.stopPropagation();
                 form.resetFields();
                 setOpen(!open)
             }}>
@@ -44,9 +44,9 @@ export const CreateOrUpdateCategoryModal = ({category, ...props}: CreateOrUpdate
                         <Button type={"primary"} style={ccmStyle.footerCreateButton}
                                 onClick={() => {
                                     form.submit()
-
+                                    setOpen(false)
                                 }}
-                        >Create</Button>
+                        >{props.edit ? "Update" : "Create"}</Button>
                     </>
                 }
                 open={open}
@@ -56,7 +56,11 @@ export const CreateOrUpdateCategoryModal = ({category, ...props}: CreateOrUpdate
                 width={816}
                 height={535}
             >
-                    <CreateOrUpdateCategoryForm form={form} categoryId={category?.id} parentId={category?.parentCategoryId}/>
+                    <CreateOrUpdateCategoryForm
+                        form={form}
+                        isSubcategory={!!props.isSubcategory}
+                        edit={props.edit}
+                    />
                 </Modal>
         </div>
     )

@@ -6,11 +6,10 @@ export const selectTreeStyles: Record<string, CSSProperties> = {
     root: {
         width: "100%",
         position: "relative",
-
     },
     container: {
         display: "flex",
-        border: `1.5px solid ${colors.inputBorder}`,
+        border: `2px solid ${colors.inputBorder}`,
         justifyContent: "space-between",
         alignItems: "center",
         borderRadius: 4,
@@ -41,7 +40,7 @@ export const selectTreeStyles: Record<string, CSSProperties> = {
     popup: {
         position: "absolute",
         width: "100%",
-        // height: "312px",
+        height: "312px",
         padding: 16,
         backgroundColor: "#FAFAFA",
         marginTop: 8,
@@ -50,7 +49,7 @@ export const selectTreeStyles: Record<string, CSSProperties> = {
         borderRadius: 4,
         border: `1.5px solid ${colors.inputBorder}`,
         overflowY: "auto",
-        scrollbarWidth: "none",
+        // scrollbarWidth: "none",
     },
 }
 

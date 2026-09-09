@@ -12,6 +12,9 @@ import {Form, type Select} from "antd";
 import {colors} from "../../theme/colors.ts";
 import {ClosableDiv} from "../General/ClosableDiv.tsx";
 import {searchCategoryToSelectOptions} from "../../utils/search/categorySearch.ts";
+import {useCategoriesQuery} from "../../api/categoryApiSlice.ts";
+import {useAppSelector} from "../../app/hooks.ts";
+import {getCurrentCategoryId} from "../../app/slices/categorySlice.ts";
 
 export type SelectTreeProps = {
     label?: string;
@@ -34,14 +37,44 @@ type SelectCategoryNodeProps = {
     setSelected?: (selected: SelectOptions) => void;
     selected?: SelectOptions;
     setOpenRoot?: (open: boolean) => void;
+    open?: boolean;
 }
 
 const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps ) => {
     const [open, setOpen] = useState(false);
-
     const actualSuffix = open ? <ArrowUpIcon size={18} width={3}/> : <ArrowDownIcon size={18} width={3}/>
+    const {data: categories} = useCategoriesQuery()
+    const currentCategoryId = useAppSelector(getCurrentCategoryId);
+
+    const handleDisplaySelected = (id: string) => {
+        const tree: string[] = []
+        const inner = (id: string, categories: CategoryType[]): boolean => {
+            for (const item of categories) {
+                if (item.id === id) {
+                    return true;
+                }
+                if (item.subCategories && item.subCategories?.length > 0) {
+                    const result = inner(id, item.subCategories)
+                    if(result) tree.push(item.id)
+                }
+            }
+            return false
+        }
+        if (categories) inner(id, categories)
+        return tree
+    }
+    const include = handleDisplaySelected(props.selected?.value as string).includes(category.id)
+
+    useEffect(() => {
+        if (category.id === props.selected?.value) {
+            const elem = document.getElementById(props.selected.value as string);
+            elem?.scrollIntoView({behavior: "smooth"})
+        }
+    }, [category.id, props.selected]);
+
+
     return (
-        <div style={{...selectNodeStyles.root, ...style}}>
+        <div id={category.id} style={{...selectNodeStyles.root, ...style}}>
                 <div className="optionNode"
                     style={selectNodeStyles.container}
                      onClick={() => setOpen(!open)}
@@ -63,10 +96,10 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
                     </span>
                         <div style={selectNodeStyles.suffixContainer}>
                             { category.id === props.selected?.value && <TickIcon size={9} width={1}/>}
-                            {category?.subCategories && <span>{actualSuffix}</span>}
+                            {category?.subCategories && category?.subCategories?.length > 0 && <span>{actualSuffix}</span>}
                         </div>
                 </div>
-            {open && category.subCategories?.map((subCategory: CategoryType) => (
+            {(open || include) && category.subCategories?.filter(c => c.id !== currentCategoryId).map((subCategory: CategoryType) => (
                 <SelectCategoryNode key={subCategory.id}
                                     category={subCategory}
                                     style={selectNodeStyles.innerContainer}
@@ -85,14 +118,20 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
     const [selected, setSelected] = useState<SelectOptions>(searchCategoryToSelectOptions(props.value, props.categories) ?? {});
     const actualSuffix = props.suffix ? props.suffix : open ? <ArrowUpIcon size={18}/> : <ArrowDownIcon size={18}/>;
 
+    const handleOpen = () => {
+        setOpen(!open)
+
+        const elem = document.getElementById(selected.value as string);
+        elem?.scrollIntoView({behavior: "smooth"})
+    }
+
     useEffect(() => {
-        console.log(selected);
         props.onChange?.(selected.value as string)
     }, [props, selected])
 
     return (
         <ClosableDiv onClose={setOpen}  style={{...selectTreeStyles.root, ...props.style}}>
-            <div style={selectTreeStyles.container} onClick={() => setOpen(!open)}>
+            <div style={selectTreeStyles.container} onClick={handleOpen}>
                 <span style={{...selectTreeStyles.label, ...props.styles?.label, color: status === "error" ? colors.destructive : colors.darkText}}>{props.label}</span>
                 <div style={selectTreeStyles.input}>
                     <span style={selected.label ? {...text2} : selectTreeStyles.placeholder}>{selected.label ?? "Choose category"}</span>

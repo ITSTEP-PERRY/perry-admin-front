@@ -6,7 +6,10 @@ export interface ClosableDivProps extends ComponentProps<"div">{
 }
 
 export const ClosableDiv = (props: ClosableDivProps) => {
-    const ref = useOutsideClick(() => props.onClose?.(false));
+    const ref = useOutsideClick(() => {
+        console.log("close")
+        props.onClose?.(false)
+    });
     return (
         <div ref={ref} {...props}>
             {props.children}

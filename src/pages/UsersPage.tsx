@@ -3,11 +3,10 @@ import {Avatar,Flex, Space, Table, type TableProps, Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import {text1, text2} from "../theme/textStyles.ts";
 import {colors} from "../theme/colors.ts";
-import { usersPageStyles, usersPageTableStyles} from "./css/usersPageStyles.ts";
+import { usersPageStyles} from "./css/usersPageStyles.ts";
 import {UserOptions} from "../Components/Navigation/UserOptions.tsx";
 import {BaseSearch} from "../Components/Search/BaseSearch.tsx";
-import {Checkbox} from "../Components/Inputs/Checkbox.tsx";
-import {type ComponentProps, type ReactElement, useState} from "react";
+import {useState} from "react";
 import {MultipleSelect} from "../Components/Select/MultipleSelect.tsx";
 import type {SelectOptions} from "../types/SelectOptions.ts";
 import {ItemNotFound} from "../widgets/ItemNotFound.tsx";
@@ -15,6 +14,8 @@ import {UsersOptions} from "../Components/Navigation/UsersOptions.tsx";
 import {dateFormatter} from "../shared/formatter.ts";
 import {ArrowsUpDownIcon} from "../Components/Icon/ArrowsUpDownIcon.tsx";
 import {useUsersQuery} from "../api/userApiSlice.ts";
+import {useAntdTableRowSelect} from "../shared/Hooks/useAntdTableRowSelect.tsx";
+import {antdPageTableStyles} from "../theme/antdTableStyles.ts";
 
 const roleOptions: SelectOptions[] = [
     {label: "Administrator", value: "Administrator"},
@@ -88,31 +89,8 @@ export const UsersPage = () => {
     const [userFilter, setUserFilter] = useState<UserFilterRequest>();
     const {data, isFetching} = useUsersQuery(userFilter)
     const [selectedColumns, setSelectedColumns] = useState<SelectOptions[]>(columnsOptions)
-    const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
+    const {selectedRowKeys, setSelectedRowKeys, rowSelection} = useAntdTableRowSelect<UserData>()
     const allSelected = userFilter?.roles?.length === roleOptions?.length
-
-    const rowSelection: TableProps<UserData>["rowSelection"] = {
-        selectedRowKeys: selectedRowKeys,
-        onChange: (rows: React.Key[]) => {
-            setSelectedRowKeys(rows as string[])
-        },
-        getCheckboxProps: (record: UserData) => ({
-            disabled: record.fullName === 'Disabled User', // Column configuration not to be checked
-            name: record.userId,
-
-        }),
-        renderCell: (checked, _, index, originNode) => {
-            const props = (originNode as ReactElement)?.props as ComponentProps<"input">
-            return <Checkbox checked={checked} key={index} onChange={props.onChange}/>
-        },
-        columnTitle: (originNode) => {
-            const props = (originNode as ReactElement)?.props as ComponentProps<typeof Checkbox>
-
-            return <Checkbox checked={props.checked} onChange={props.onChange}
-                      indeterminate={props.indeterminate}/>
-        }
-
-    }
 
     const handleSearch = (value: string) => {
         setUserFilter({...userFilter, searchTerm: value})
@@ -147,7 +125,7 @@ export const UsersPage = () => {
 
     const newColumns = columns.map(c => ({
         ...c,
-        title: c.title ? c.title : selectedRowKeys.length > 0 ? <UsersOptions users={selectedRowKeys} /> : "",
+        title: c.title ? c.title : selectedRowKeys.length > 0 ? <UsersOptions users={selectedRowKeys} setUsers={setSelectedRowKeys} /> : "",
         hidden: c.key ? false : !selectedColumns.find(i => i.value === c.title),
     }))
 
@@ -178,13 +156,12 @@ export const UsersPage = () => {
                 <Table columns={newColumns}
                     rowSelection={{type: "checkbox", ...rowSelection}}
                     dataSource={data}
-                    styles={usersPageTableStyles}
+                    styles={antdPageTableStyles<UserData>()}
                     pagination={{
                         placement: ["bottomCenter"],
                         defaultPageSize: 7,
                         pageSizeOptions: [7, 20, 50, 100],
                         onChange: () => {
-                            console.log("paggination")
                             setSelectedRowKeys([])
                         }
                 }}

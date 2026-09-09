@@ -1,5 +1,9 @@
 import express from "express"
-import {readFile} from "fs/promises"
+import fileUpload from "express-fileupload"
+import {readFile, writeFile} from "fs/promises"
+import bodyParser from "body-parser"
+
+
 const app = express()
 const port = 3030
 
@@ -8,13 +12,33 @@ const readCategories = async () => {
     return JSON.parse(result)
 }
 
+const writeCategories = async (data) => {
+    data = JSON.stringify(data)
+    await writeFile("./categories.json", data, "utf8")
+}
+
 const readUsers = async () => {
     const result = await readFile("./users.json", "utf8")
     return JSON.parse(result)
 }
 
+const readProducts = async () => {
+    const result = await readFile("./products.json", "utf8")
+    let res = JSON.parse(result)
+    const imagePath = "./uploads/image.png"
+    const imageBuffer = await readFile(imagePath);
+    const base64Image = imageBuffer.toString('base64');
+    res = res.map(r => ({
+        ...r,
+        imageUrl: `data:image/jpeg;base64,${base64Image}`
+    }))
+    return res
+}
+
 let categories = await readCategories()
 let users = await readUsers()
+let products = await readProducts()
+
 
 const findCategory = async (id, categories) => {
     for (const cat of categories) {
@@ -23,6 +47,28 @@ const findCategory = async (id, categories) => {
             }
         const res = await findCategory(id, cat.subCategories)
         if (res) return res
+    }
+}
+
+const addCategory = (data, categories) => {
+    if(data.id === "undefined") data.id = `${Date.now()}`
+    if (!data.parentCategoryId) {
+        categories.push(data)
+        return
+    }
+    
+    for (const cat of categories) {
+        if (data.parentCategoryId == cat.id){
+            if (!cat.subCategories){
+                cat.subCategories = [data]
+            }else
+            {
+                cat.subCategories.push(data)
+            }
+            return
+        }
+
+        addCategory(data, cat.subCategories)
     }
 }
 
@@ -37,7 +83,9 @@ const deteleCategory = (id, categories) => {
         return filteredCategories;
 }
 
-
+// app.use(express.json());
+app.use(fileUpload())
+app.use(express.urlencoded({ extended: true }))
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*"); // Allow all domains
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Allow methods
@@ -52,10 +100,39 @@ app.get("/categories", async (req, res) => {
     res.send(categories)
 })
 
+app.post("/category-create",  async (req, res) => {
+
+    const data = req.body
+    if (data.id !== "undefined") {
+        let cat = await findCategory(data.id, categories)
+        for (const [k,v] of Object.entries(data)) {
+            cat[k] = v
+        }
+
+    }else{
+        addCategory(data, categories)
+    }
+
+    // await writeCategories(categories)
+
+    if (req.files && Object.keys(req.files).length !== 0) {
+        const uploadedFile = req.files.uploadedFile;
+
+        const uploadPath = `./uploads/${uploadedFile.name}`
+
+
+        uploadedFile.mv(uploadPath, function (err) {
+        if (err) {
+            console.log(err);
+            res.send("Failed !!");
+        } else res.send("Successfully Uploaded !!");
+        });
+    } else res.send("No file uploaded !!");
+})
+
 app.get("/category-by-id", async (req, res) => {
     const {id} = req.query
     const result = await findCategory(id, categories)
-    console.log(result)
     res.send(result)
 })
 
@@ -94,6 +171,8 @@ app.post("/set-user-role", (req,res) => {
 
 app.post("/users", (req, res) => {
     const {ids, status} = req.query
+    console.log(ids)
+
     users.forEach(u => {
         if(ids.includes(u.userId)) {
             u.status = status === "false" ? false : true
@@ -102,6 +181,14 @@ app.post("/users", (req, res) => {
 
     res.send("ok")
 
+})
+
+
+// priducts
+
+app.get("/products", (req, res) => {
+    
+    res.send(products)
 })
 
 app.post("/user", (req, res) => {

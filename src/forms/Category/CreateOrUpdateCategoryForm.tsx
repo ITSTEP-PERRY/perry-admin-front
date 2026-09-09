@@ -17,7 +17,8 @@ import {colors} from "../../theme/colors.ts";
 import {header3} from "../../theme/headerStyles.ts";
 import {TrashcanIcon} from "../../Components/Icon/TrashcanIcon.tsx";
 import {TextArea} from "../../Components/Inputs/TextArea.tsx";
-import {useCategoriesQuery} from "../../api/categoryApiSlice.ts";
+import {useCategoriesQuery, useCategoryByIdQuery, useCreateCategoryMutation} from "../../api/categoryApiSlice.ts";
+import {ImageUpload} from "../../Components/Inputs/ImageUpload.tsx";
 import {useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategory} from "../../app/slices/categorySlice.ts";
 
@@ -31,49 +32,70 @@ const options: SelectOptions[] = [
 ]
 
 type CreateOrUpdateCategoryFormProps = {
-    categoryId?: string,
-    parentId?: string | null,
-    form: FormInstance
+    form: FormInstance,
+    isSubcategory?: boolean,
+    edit?: boolean,
 }
 
 
 
-export const CreateOrUpdateCategoryForm = ({categoryId,parentId, form}:CreateOrUpdateCategoryFormProps) => {
-
-    const exist = !!categoryId;
-    const {data: categories} = useCategoriesQuery()
-    const category = useAppSelector(getCurrentCategory)
-
-    const currentIcon: SelectOptions = category?.iconUrl ? {
+export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCategoryFormProps) => {
+    const currentCategory = useAppSelector(getCurrentCategory)
+    const {data: categories, refetch} = useCategoriesQuery()
+    const {data: category} = useCategoryByIdQuery(props.edit ? currentCategory.id : "");
+    const [createCategory] = useCreateCategoryMutation()
+    const currentIcon: SelectOptions = category?.iconUrl && props.edit ? {
         label: <Icon icon={category.iconUrl} />,
         value: ""
     } : options[0]
 
+    const isSubcategory = !!currentCategory.parentCategoryId || props.isSubcategory
     const onFinishFailed = () => {
 
     }
 
+    const onFinish = async (data: ReturnType<typeof form.getFieldsValue>) => {
+        let rowFile;
+        if(data.fileList){
+            rowFile = data.fileList[0].originFileObj
+        }
+        const formData = new FormData()
+        formData.append("uploadedFile", rowFile)
+
+        for (const [key, value] of Object.entries(data)) {
+            if (key !== "fileList") {
+                formData.append(key, value as string)
+            }
+        }
+
+        await createCategory(formData)
+        await refetch()
+    }
+
+    const initialValues = {
+        isActive: true,
+        parentCategoryId: currentCategory.id,
+    }
+
     return (
         <Form form={form}
-              initialValues={exist ? category : {}}
+              initialValues={props.edit ? category : initialValues}
               styles={ccmFormStyles}
               onFinishFailed={onFinishFailed}
+              onFinish={onFinish}
+              encType={"multipart/form-data"}
         >
             <Form.Item name={"id"} hidden>
                 <input value={category?.id} />
             </Form.Item>
             <Flex vertical style={{marginBottom: 80}} justify="start">
                 <Flex justify="space-between" gap={24} style={ccmStyle.flexContainer}>
-                    {category?.imageUrl == "none" ?
-                        <Form.Item label="Upload" valuePropName="fileList" >
-
+                        <Form.Item name="fileList" getValueFromEvent={(e) => {
+                            if (Array.isArray(e)) return e;
+                            return e?.fileList;
+                        }}>
+                            <ImageUpload src={props.edit ? category?.imageUrl ?? "" : ""}/>
                         </Form.Item>
-                        :
-                        <Button type={"text"} style={ccmStyle.addImgButton}>
-                            <PlusIcon size={64}/>
-                        </Button>
-
-                    }
                     <Flex vertical style={{width:'100%'}} justify="space-between">
                         <Flex  gap={10}>
                             <Form.Item name={"categoryIcon"} style={{alignSelf:"center"}}>
@@ -96,7 +118,7 @@ export const CreateOrUpdateCategoryForm = ({categoryId,parentId, form}:CreateOrU
                         </Flex>
                         <Flex justify="space-between"  align={"baseline"}>
                             <Text style={text1Bold}>Status</Text>
-                            <Form.Item name={"isActive"}>
+                            <Form.Item name={"isActive"} >
                                 <Radio.Group buttonStyle={"solid"}  defaultValue={true}>
                                     <Flex gap={10}>
                                         <Radio.Button value={true} style={ccmStyle.radioButtons}>Active</Radio.Button>
@@ -111,18 +133,22 @@ export const CreateOrUpdateCategoryForm = ({categoryId,parentId, form}:CreateOrU
                     <TextArea rows={3} count={{max: 300, show: true}} label={"Description"} placeholder={"Describe your category "}/>
                 </Form.Item>
 
-                {parentId &&
+                {isSubcategory &&
                     <Form.Item name={"parentCategoryId"}  rules={[
                         {
                             required: true,
                             message: "Subcategory cannot be created without the main category.",
                         },
                     ]} validateTrigger={"onSubmit"}>
-                        <SelectCategoryTree placeholder={categoryId} categories={categories} value={categoryId}/>
+                        <SelectCategoryTree
+                            placeholder={currentCategory.id}
+                            categories={categories}
+                            value={currentCategory.id}
+                        />
                     </Form.Item>
                 }
 
-                {category?.id && !parentId &&
+                {category?.id && !isSubcategory &&
                     <Flex justify="space-between" align={"center"}>
                         <Text style={text1Bold}>Role</Text>
                         <Space align={"center"}>
@@ -133,7 +159,7 @@ export const CreateOrUpdateCategoryForm = ({categoryId,parentId, form}:CreateOrU
                         </Space>
                     </Flex>}
 
-                {parentId &&
+                {isSubcategory &&
                     <>
                         <Title style={header3}>Property keys</Title>
                         <Divider />

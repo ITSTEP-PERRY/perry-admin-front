@@ -5,7 +5,8 @@ import type {RootState} from "../store.ts";
 const initialState: CategoryType = {
     id: "",
     name: "",
-    slug: ""
+    slug: "",
+    isActive: true
 }
 
 export const categorySlice = createSlice({
@@ -28,6 +29,6 @@ export const categorySlice = createSlice({
 
 export const {setCurrentCategory} = categorySlice.actions;
 
+export const getCurrentCategoryId = (state: RootState) => state.category.id
 export const getCurrentCategory = (state: RootState) => state.category
-
 export default categorySlice.reducer;

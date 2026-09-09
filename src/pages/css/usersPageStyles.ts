@@ -1,8 +1,4 @@
 import type {ComponentProps, CSSProperties} from "react";
-import {type TableProps} from "antd";
-import type {UserData} from "../../types/UserData.ts";
-import {colors} from "../../theme/colors.ts";
-import {text1} from "../../theme/textStyles.ts";
 import type {Select} from "../../Components/Select/Select.tsx";
 
 export const usersPageStyles: Record<string, CSSProperties> = {
@@ -37,44 +33,3 @@ export const userPageSelectStyles: ComponentProps<typeof Select>["styles"] = {
     }
 }
 
-export const usersPageTableStyles: TableProps<UserData>["styles"] = {
-    body: {
-
-        cell: {
-            border: "none",
-            backgroundColor: "none"
-        },
-        row: {
-            backgroundColor: "none",
-        }
-    },
-    content: {
-        boxShadow: "none",
-        border: "none",
-        borderRadius: 0,
-        backgroundColor: "none",
-        minHeight: "70vh",
-    },
-    header: {
-        cell: {
-            borderBottom: `2px solid ${colors.lightBlue}`,
-            borderTop: `2px solid ${colors.lightBlue}`,
-            borderRadius: 0,
-            justifyItems: "start",
-            backgroundColor: "white",
-            ...text1
-        },
-        row:{
-          border: "none",
-        },
-        wrapper: {
-        }
-    },
-    pagination: {
-        item: {
-
-        },
-        root: {
-        }
-    },
-}

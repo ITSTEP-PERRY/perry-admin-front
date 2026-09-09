@@ -22,24 +22,25 @@ import {
     useCategoriesQuery,
     useCategoryByIdQuery,
     useDeleteCategoryByIdMutation,
-    useLazyCategoryByIdQuery
 } from "../api/categoryApiSlice.ts";
 import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {getCurrentCategory, setCurrentCategory} from "../app/slices/categorySlice.ts";
+import {getCurrentCategoryId, setCurrentCategory} from "../app/slices/categorySlice.ts";
 import {CreateOrUpdateCategoryModal} from "../widgets/Category/CreateOrUpdateCategoryModal.tsx";
 import {ConfirmModal} from "../Components/Inputs/ConfirmModal.tsx";
+import {findCategoryByCategoryId} from "../utils/search/categorySearch.ts";
+import type {CategoryType} from "../types/CategoryType.ts";
 
 export const CategoryPage = () => {
     const {data: categories, isLoading, refetch} = useCategoriesQuery()
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const {refetch: refetchSelectedCategory} = useCategoryByIdQuery(selectedCategory)
-    const currentCategory = useAppSelector(getCurrentCategory)
-    const [triggerFetch] = useLazyCategoryByIdQuery();
+    const [selectedCategory, setSelectedCategory] = useState();
+    const selectedCategoryId = useAppSelector(getCurrentCategoryId)
+    const {data: currentCategory, refetch: refetchSelectedCategory} = useCategoryByIdQuery(selectedCategoryId)
     const dispatch = useAppDispatch();
     const [deleteCategory, {isLoading: deleteLoading}] = useDeleteCategoryByIdMutation();
     const [searchValue, setSearchValue] = useState("");
 
+    const parentCategory = findCategoryByCategoryId(currentCategory?.parentCategoryId as string, categories) as CategoryType;
 
     const options = categories?.map(category => ({
         value: category.id,
@@ -59,8 +60,7 @@ export const CategoryPage = () => {
                                  value={selectedCategory}
                                  onChange={async (e) => {
                                         setSelectedCategory(e);
-                                        const t = await triggerFetch(e)
-                                        dispatch(setCurrentCategory(t.data ?? currentCategory));
+                                        if (currentCategory) dispatch(setCurrentCategory(currentCategory));
 
                                  }}
                                  popupRender={(menu) => (
@@ -80,7 +80,7 @@ export const CategoryPage = () => {
                                     style={categoryPageBaseSearchStyles}/>
                     </Flex>
                         {selectedCategory ?
-                             <CategoryTree categoryId={selectedCategory} searchValue={searchValue}/>
+                             <CategoryTree key={selectedCategory} categoryId={selectedCategory} searchValue={searchValue}/>
                         :
                             <Flex align={"center"} justify={"center"} style={{height: "100%"}}>
 
@@ -90,7 +90,7 @@ export const CategoryPage = () => {
                         }
                 </Col>
                 <Col span={8} style={categoryPageDescriptionStyles.container}>
-                    {currentCategory.id ?
+                    {currentCategory?.id ?
                         <Flex vertical justify={"space-between"} style={{height: "100%"}}>
                             <Flex vertical>
                                 {currentCategory.imageUrl && <img src={currentCategory.imageUrl} alt={currentCategory.imageUrl}
@@ -106,13 +106,23 @@ export const CategoryPage = () => {
                                     <Text style={text2Bold}>Status</Text>
                                     <Text style={text3}>{currentCategory.isActive ? "Active" : "Disabled"}</Text>
                                 </Flex>
-                                <Flex justify={"space-between"} >
+                                <Flex justify={"space-between"} align={"baseline"}>
                                     <Text style={text2Bold}>Role</Text>
-                                    <Text style={text3}>{currentCategory.parentCategoryId ? "Fashion" : "Parent category"}</Text>
+                                    <Text style={text3}>{currentCategory.parentCategoryId ? "Child" : "Parent"} category</Text>
                                 </Flex>
+
+                                {currentCategory.parentCategoryId &&
+                                    <>
+                                    <Flex justify={"space-between"} align={"baseline"}>
+                                        <Text style={text2Bold}>Parent category</Text>
+                                        <Text
+                                            style={text3}>{parentCategory.name}</Text>
+                                    </Flex>
+                                    </>
+                                }
                             </Flex>
                             <Flex justify={"space-between"} gap={12}>
-                                <CreateOrUpdateCategoryModal style={{width: "100%"}} category={currentCategory}>
+                                <CreateOrUpdateCategoryModal style={{width: "100%"}} edit>
                                     <Button type={"secondary"} style={categoryPageDescriptionStyles.button}>
                                         <EditIcon size={28} color={colors.secondary}/>
                                         <Text style={text2}>Edit</Text>
