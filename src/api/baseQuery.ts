@@ -1,7 +1,6 @@
 import {type BaseQueryApi, type FetchArgs, fetchBaseQuery} from "@reduxjs/toolkit/query";
 import {getCookie} from "typescript-cookie";
 import {refreshTokenArgs} from "./authApiSlice.ts";
-import {useAppDispatch} from "../app/hooks.ts";
 import {authSuccess} from "../app/slices/userSlice.ts";
 
 
