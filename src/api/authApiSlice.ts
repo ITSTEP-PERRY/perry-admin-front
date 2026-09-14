@@ -26,7 +26,7 @@ export const authApi = apiUser.injectEndpoints({
                 method: "GET"
             })
         }),
-        refreshToken: builder.mutation<void, void>({
+        refreshToken: builder.mutation<LoginResponseDto, void>({
             query: () => (refreshTokenArgs)
         })
     })

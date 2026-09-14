@@ -1,7 +1,8 @@
 import {type BaseQueryApi, type FetchArgs, fetchBaseQuery} from "@reduxjs/toolkit/query";
 import {getCookie} from "typescript-cookie";
 import {refreshTokenArgs} from "./authApiSlice.ts";
-import {authSuccess} from "../app/slices/userSlice.ts";
+import {authSuccess, setUser} from "../app/slices/userSlice.ts";
+import type {LoginResponseDto} from "../types/dto/LoginResponseDto.ts";
 
 
 const prepareHeaders = (headers: Headers) => {
@@ -26,11 +27,11 @@ export const baseUserQuery = fetchBaseQuery({
 export const baseQueryWithRefresh = (fun: ReturnType<typeof fetchBaseQuery>) => {
     return  async (args: (string | FetchArgs), api: BaseQueryApi, extraOptions: {}) => {
         let result = await fun(args, api, extraOptions)
-        console.log("baseQuery", result)
         if(result.error?.status === 401)
         {
             const resultRefetch = await fun(refreshTokenArgs, api, extraOptions)
             if (resultRefetch.error?.status !== 401) {
+                if (resultRefetch?.data)api.dispatch(setUser(resultRefetch.data as LoginResponseDto))
                 result = await fun(args, api, extraOptions)
             }
         }
