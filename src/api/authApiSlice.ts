@@ -3,6 +3,11 @@ import type {LoginRequestDto} from "../types/dto/LoginRequestDto.ts";
 import {apiUser} from "./apiUser.ts";
 import type {UserType} from "../types/UserType.ts";
 
+export const refreshTokenArgs = {
+    url: "auth/refresh",
+    method: "POST"
+}
+
 export const authApi = apiUser.injectEndpoints({
     endpoints: builder => ({
         login:  builder.mutation<LoginResponseDto, LoginRequestDto>({
@@ -20,10 +25,15 @@ export const authApi = apiUser.injectEndpoints({
                 url: "auth/me",
                 method: "GET"
             })
+        }),
+        refreshToken: builder.mutation<void, void>({
+            query: () => (refreshTokenArgs)
         })
     })
 })
 
 export const {
-    useLoginMutation
+    useLoginMutation,
+    useGetMyUserQuery,
+    useRefreshTokenMutation,
 } = authApi
