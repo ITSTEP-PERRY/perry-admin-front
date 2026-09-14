@@ -50,7 +50,7 @@ export const config: ThemeConfig = {
         },
         Table: {
             headerSplitColor: "none",
-
+            rowHoverBg: colors.lightBlue,
         },
         Pagination: {
             itemActiveBg: colors.primary,
@@ -64,6 +64,11 @@ export const config: ThemeConfig = {
             controlItemBgHover: colors.lightBlue,
             controlItemBgActive: colors.lightBlue,
             controlItemBgActiveHover: colors.lightBlue,
+        },
+        Anchor: {
+            colorBgTextActive: "red",
+            colorPrimary: colors.darkText,
+            colorText: colors.inputBorder,
         }
     }
 }

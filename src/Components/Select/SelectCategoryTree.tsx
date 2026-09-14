@@ -38,6 +38,7 @@ type SelectCategoryNodeProps = {
     selected?: SelectOptions;
     setOpenRoot?: (open: boolean) => void;
     open?: boolean;
+    onValueChange?: (value: string) => void;
 }
 
 const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps ) => {
@@ -89,6 +90,9 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
                                       label: category.name,
                                   })
                               }
+                              // console.log(category.id)
+
+                              props.onValueChange?.(category.id);
                               props.setOpenRoot?.(false)
                           }}
                     >
@@ -106,6 +110,7 @@ const SelectCategoryNode = ({category, style, ...props}: SelectCategoryNodeProps
                                     selected={props.selected}
                                     setSelected={props.setSelected}
                                     setOpenRoot={props.setOpenRoot}
+                                    onValueChange={props.onValueChange}
                 />
             ))}
         </div>
@@ -125,12 +130,12 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
         elem?.scrollIntoView({behavior: "smooth"})
     }
 
-    useEffect(() => {
-        props.onChange?.(selected.value as string)
-    }, [props, selected])
+    // useEffect(() => {
+    //     props.onChange?.(selected.value as string)
+    // }, [props, selected])
 
     return (
-        <ClosableDiv onClose={setOpen}  style={{...selectTreeStyles.root, ...props.style}}>
+        <div  style={{...selectTreeStyles.root, ...props.style}}>
             <div style={selectTreeStyles.container} onClick={handleOpen}>
                 <span style={{...selectTreeStyles.label, ...props.styles?.label, color: status === "error" ? colors.destructive : colors.darkText}}>{props.label}</span>
                 <div style={selectTreeStyles.input}>
@@ -138,7 +143,9 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
                 </div>
                 <div style={selectTreeStyles.suffix}>{actualSuffix}</div>
             </div>
-            {open && <motion.div
+            {open &&
+                <ClosableDiv onClose={setOpen}>
+                <motion.div
                 style={{...selectTreeStyles.popup, ...props.styles?.popup}}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -150,9 +157,11 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
                                         selected={selected}
                                         setSelected={setSelected}
                                         setOpenRoot={setOpen}
+                                        onValueChange={props.onChange}
                     />
                 ))}
-            </motion.div>}
-        </ClosableDiv>
+            </motion.div>
+                </ClosableDiv>}
+        </div>
     )
 }

@@ -1,7 +1,7 @@
-import {api} from "./apiSlice.ts";
+import {apiProduct} from "./apiProductSlice.ts";
 import type {CategoryType} from "../types/CategoryType.ts";
 
-export const categoryApi = api.injectEndpoints({
+export const categoryApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
         categories: builder.query<CategoryType[], void>({
             query: () => ({

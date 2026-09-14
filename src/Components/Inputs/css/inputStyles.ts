@@ -11,7 +11,8 @@ export const inputErrorsStyles: InputDeepStylesType = {
     input: {},
     root: {
         borderColor: colors.inputBorder,
-    }
+    },
+
 }
 
 export const inputStyles: InputDeepStylesType = {

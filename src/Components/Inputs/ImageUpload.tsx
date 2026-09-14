@@ -1,22 +1,25 @@
-import {Flex, Image, Upload, type UploadFile, type UploadProps} from "antd";
+import {Flex, Upload, type UploadFile, type UploadProps} from "antd";
 import {Button} from "../Buttons/Button.tsx";
 import {ccmStyle} from "../../widgets/Category/css/CreateCategoryModalStyles.ts";
 import {PlusIcon} from "../Icon/PlusIcon.tsx";
 import {type ComponentProps, useState} from "react";
-import {TrashcanIcon} from "../Icon/TrashcanIcon.tsx";
-import {EyeOpenIcon} from "../Icon/EyeOpenIcon.tsx";
-import {imageUploadStyles} from "./css/imageUploadStyles.ts";
-import {CloseIcon} from "../Icon/CloseIcon.tsx";
+import {ImagePreview} from "../Image/ImagePreview.tsx";
 
 
 export interface ImageUploadProps  extends ComponentProps<typeof Upload> {
     src?: string;
+    multiple?: boolean;
+    max?: number;
+    fileList?: UploadFile[];
+    setFileList?: (fileList: UploadFile[]) => void;
 }
 
 export const ImageUpload = ({...props} : ImageUploadProps) => {
-    const [imagePreview, setImagePreview] = useState<string>(props.src ?? "");
-    const [openPreview, setOpenPreview] = useState<boolean>(false);
-    const [fileList, setFileList] = useState<UploadFile[]>([])
+    const [imagePreview, setImagePreview] = useState<string[]>(props.src ? [props.src] : []);
+    const [infileList, setInFileList] = useState<UploadFile[]>([])
+
+    const fileList = props.fileList ?? infileList
+    const setFileList = props.setFileList ?? setInFileList
     const getFileSrc = async (file: UploadFile) => {
         if (file.url) {
             return file.url;
@@ -38,20 +41,29 @@ export const ImageUpload = ({...props} : ImageUploadProps) => {
         const latestFile = info.fileList[info.fileList.length - 1];
         if (latestFile) {
             const src = await getFileSrc(latestFile);
-            setImagePreview(src ?? "");
+            if (src) setImagePreview([...imagePreview, src]);
             setFileList([...info.fileList]);
         }
         props.onChange?.(info);
     }
 
-    const handleRemoveImage = () => {
-        setFileList([])
-        setImagePreview("");
+    const handleRemoveImage = (image: string) => {
+        setFileList(fileList.filter(f => f.preview !== image))
+        setImagePreview(imagePreview.filter(i => i !== image));
     }
+    const showUpload = props.multiple ? true : !(imagePreview.length > 0) ;
 
     return (
-        <>
-            {!imagePreview && (
+        <Flex gap={10} wrap>
+            {imagePreview && imagePreview.map((item) => (
+                    <ImagePreview
+                        handleRemoveImage={() => handleRemoveImage(item)}
+                        previewImage={item}
+                    />
+
+                ))}
+
+            {showUpload && (
                 <Upload {...props}
                         showUploadList={false}
                         beforeUpload={() => false}
@@ -63,33 +75,6 @@ export const ImageUpload = ({...props} : ImageUploadProps) => {
                     </Button>
                 </Upload>
             )}
-
-            {imagePreview && (
-                    <Image style={{position: "relative"}}
-                        styles={{ image: { width: 128, height: 128, borderRadius: 4 } }}
-                        preview={
-                        {open:  openPreview,
-                            mask:
-                                <Flex style={imageUploadStyles.image} gap={10}>
-                                    <Button type={"text"}
-                                            style={imageUploadStyles.button}
-                                            onClick={() => setOpenPreview(true)}
-                                    >
-                                        <EyeOpenIcon color={"white"} size={24} width={2} />
-                                    </Button>
-                                    <Button type={"text"}
-                                            style={imageUploadStyles.button}
-                                            onClick={() => handleRemoveImage()}
-                                    >
-                                        <TrashcanIcon color={"white"} size={24} width={2} />
-                                    </Button>
-                                </Flex>,
-                            closeIcon: <CloseIcon />,
-                            onOpenChange: setOpenPreview
-                        }}
-                        src={imagePreview}
-                    />
-            )}
-        </>
+        </Flex>
     )
 }

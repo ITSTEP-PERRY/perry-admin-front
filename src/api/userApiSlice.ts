@@ -1,7 +1,7 @@
-import {api} from "./apiSlice.ts";
+import {apiProduct} from "./apiProductSlice.ts";
 import type {UserData, UserFilterRequest, UserRole} from "../types/UserData.ts";
 
-export const userApi = api.injectEndpoints({
+export const userApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
         users: builder.query<UserData[], UserFilterRequest | void>({
             query: (params) => ({

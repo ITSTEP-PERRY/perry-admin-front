@@ -6,9 +6,18 @@ import {inputErrorStyles, loginFormItemStyles, loginFormStyle, loginFormStyles} 
 import {useState} from "react";
 import Title from "antd/es/typography/Title";
 import {header1, header3} from "../../theme/headerStyles.ts";
+import type {LoginRequestDto} from "../../types/dto/LoginRequestDto.ts";
+import {useLoginMutation} from "../../api/authApiSlice.ts";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {setUser} from "../../app/slices/userSlice.ts";
+import type {LoginResponseDto} from "../../types/dto/LoginResponseDto.ts";
+import {useNavigate} from "react-router";
 
 export const LoginForm = () => {
     const [form] = Form.useForm();
+    const dispatch = useAppDispatch();
+    const [login, {isLoading}] = useLoginMutation()
+    const navigate = useNavigate();
     const [hasErrors, setHasErrors] = useState<Record<string, boolean>>({
         email: false,
         password: false,
@@ -19,8 +28,16 @@ export const LoginForm = () => {
         setHasErrors({...er.hasErrorsOf()})
     }
 
+    const onFinish = async (data: LoginRequestDto) => {
+        const result = await login(data)
+        if (result.data) {
+            dispatch(setUser(result.data as LoginResponseDto))
+            navigate("/")
+        }
+    }
+
     return (
-        <Form styles={loginFormStyles} form={form} onFinishFailed={onFinishFailed}>
+        <Form styles={loginFormStyles} onFinish={onFinish} form={form} onFinishFailed={onFinishFailed}>
             <Flex vertical gap={4} justify={"space-between"} style={loginFormStyle} align={"center"}>
                 {/* Welcome title block*/}
                 <Flex vertical align={"center"} gap={6}>
@@ -35,7 +52,7 @@ export const LoginForm = () => {
                         <PasswordInput prefix="Password" placeholder="Enter your password" styles={hasErrors["password"] ? inputErrorStyles : undefined}/>
                     </Form.Item>
                 </Flex>
-                <Button type="primary" htmlType="submit" style={{width: '100%', height: '52px'}}>
+                <Button loading={isLoading} type="primary" htmlType="submit" style={{width: '100%', height: '52px'}}>
                     Log in
                 </Button>
             </Flex>

@@ -3,14 +3,20 @@ import {colors} from "./colors.ts";
 import {text1} from "./textStyles.ts";
 
 export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
+    section: {
+        borderRadius: 4
+    },
     body: {
 
         cell: {
             border: "none",
-            backgroundColor: "none"
+            backgroundColor: "none",
+
         },
         row: {
             backgroundColor: "none",
+        },
+        wrapper: {
         }
     },
     content: {
@@ -30,7 +36,6 @@ export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
             ...text1
         },
         row:{
-            border: "none",
         },
         wrapper: {
         }

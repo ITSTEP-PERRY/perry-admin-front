@@ -187,7 +187,14 @@ app.post("/users", (req, res) => {
 // priducts
 
 app.get("/products", (req, res) => {
-    
+    const {categoryId} = req.query
+
+    if(categoryId) {
+        console.log("products", categoryId)
+
+        // products = products.filter(p => p.categoryId === categoryId)
+        // console.log(products)
+    }
     res.send(products)
 })
 

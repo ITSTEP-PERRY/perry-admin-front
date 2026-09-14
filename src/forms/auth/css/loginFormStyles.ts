@@ -12,7 +12,6 @@ export const loginFormStyles: FormDeepStylesType = {
     root: {
         height: 574,
         width: 450,
-        background: "#F2F4F8",
     }
 }
 
