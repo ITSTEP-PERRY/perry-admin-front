@@ -4,6 +4,6 @@ import {baseQueryWithRefresh, baseUserQuery} from "./baseQuery.ts";
 export const apiUser = createApi({
     reducerPath: "apiUser",
     baseQuery: baseQueryWithRefresh(baseUserQuery),
-    tagTypes: ["User"],
+    tagTypes: ["Users"],
     endpoints: () => ({}),
 });

@@ -1,4 +1,4 @@
-import type {UserData, UserFilterRequest, UserRole} from "../types/UserData.ts";
+import {type UserData, type UserFilterRequest, type UserRole, UserStatus} from "../types/UserData.ts";
 import {Avatar,Flex, Space, Table, type TableProps, Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import {text1, text2} from "../theme/textStyles.ts";
@@ -31,7 +31,7 @@ const columns : TableProps<UserData>["columns"] = [
             <Space>
                 <Avatar src={record.avatar} size={50} />
                 <Flex vertical justify="center">
-                    <Text style={{...text1, lineHeight: "24px"}}>{record.fullName}</Text>
+                    <Text style={{...text1, lineHeight: "24px"}}>{record.firstName} {record.lastName}</Text>
                     <Text style={{...text2, lineHeight: "16px"}}>{record.role}</Text>
                 </Flex>
             </Space>
@@ -41,8 +41,8 @@ const columns : TableProps<UserData>["columns"] = [
         title: "Status",
         dataIndex: "status",
         render: (_, record: UserData) => (
-            <Tag color={ record.status ? colors.blue : colors.lightRed } style={usersPageStyles.statusTag}>
-                <Text style={text1}>{record.status ? "Active": "Deleted"}</Text>
+            <Tag color={ record.status === UserStatus.Active ? colors.blue : colors.lightRed } style={usersPageStyles.statusTag}>
+                <Text style={text1}>{record.status}</Text>
             </Tag>
         )
     },
@@ -50,10 +50,10 @@ const columns : TableProps<UserData>["columns"] = [
         title: "Registration date",
         dataIndex: "registrationDate",
         render: (_, record: UserData) => (
-            <Text style={text1}>{dateFormatter.format(new Date(record.registrationDate))}</Text>
+            <Text style={text1}>{dateFormatter.format(new Date(record.createdAt))}</Text>
         ),
         sorter: (a, b) => Number(
-            new Date(a.registrationDate).valueOf() - new Date(b.registrationDate).valueOf() ),
+            new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf() ),
         sortIcon: () =>
         <div style={{padding: "5px 0 0 5px"}}>
             <ArrowsUpDownIcon size={24}/>
@@ -151,11 +151,11 @@ export const UsersPage = () => {
                                 onSelect={handleSelectColumns}
                 />
             </Flex>
-            {data && data.length > 0 ?
+            {data && data.items.length > 0 ?
 
                 <Table columns={newColumns}
                     rowSelection={{type: "checkbox", ...rowSelection}}
-                    dataSource={data}
+                    dataSource={data.items}
                     styles={antdPageTableStyles<UserData>()}
                     pagination={{
                         placement: ["bottomCenter"],
@@ -165,7 +165,7 @@ export const UsersPage = () => {
                             setSelectedRowKeys([])
                         }
                 }}
-                    rowKey={"userId"}
+                    rowKey={"id"}
                    loading={isFetching}
 
             /> :
