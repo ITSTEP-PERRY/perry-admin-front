@@ -7,7 +7,7 @@ import {useState} from "react";
 import Title from "antd/es/typography/Title";
 import {header1, header3} from "../../theme/headerStyles.ts";
 import type {LoginRequestDto} from "../../types/dto/LoginRequestDto.ts";
-import {useLoginMutation} from "../../api/authApiSlice.ts";
+import {useGetMyUserQuery, useLoginMutation} from "../../api/authApiSlice.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {setUser} from "../../app/slices/userSlice.ts";
 import type {LoginResponseDto} from "../../types/dto/LoginResponseDto.ts";
@@ -17,6 +17,7 @@ export const LoginForm = () => {
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
     const [login, {isLoading}] = useLoginMutation()
+    const {refetch: myUserRefetch} = useGetMyUserQuery()
     const navigate = useNavigate();
     const [hasErrors, setHasErrors] = useState<Record<string, boolean>>({
         email: false,
@@ -32,6 +33,7 @@ export const LoginForm = () => {
         const result = await login(data)
         if (result.data) {
             dispatch(setUser(result.data as LoginResponseDto))
+            await myUserRefetch()
             navigate("/")
         }
     }

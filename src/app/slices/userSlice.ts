@@ -11,10 +11,12 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
+        authSuccess: (state) => {
+            state.isAuthenticated = true;
+        },
         setUser: (state, action: PayloadAction<LoginResponseDto>) => {
             setCookie("jwt", action.payload.accessToken, {
                 expires: 7,
-                domain: "/",
             });
             state.isAuthenticated = true;
         },
@@ -26,7 +28,7 @@ export const userSlice = createSlice({
 
 })
 
-export const {setUser} = userSlice.actions;
+export const {setUser, authSuccess, logout} = userSlice.actions;
 export const isUserAuthenticated = (state: RootState) => state.user.isAuthenticated;
 
 export default userSlice.reducer;

@@ -20,6 +20,8 @@ import {OrdersIcon} from "../Components/Icon/OrdersIcon.tsx";
 import {ReviewsIcon} from "../Components/Icon/ReviewsIcon.tsx";
 import {LogoutIcon} from "../Components/Icon/LogoutIcon.tsx";
 import {useNavigate} from "react-router";
+import {useAppDispatch} from "../app/hooks.ts";
+import {logout} from "../app/slices/userSlice.ts";
 
 
 const demmyData = {
@@ -56,7 +58,7 @@ const menuItems = [
 export const MenuDrawer = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
-
+    const dispatch = useAppDispatch();
     const onMenuSelected = (path: string) => {
         setOpen(false);
         navigate(path)
@@ -96,7 +98,7 @@ export const MenuDrawer = () => {
 
                 <Divider vertical={false} style={menuDrawerDividerStyles} />
 
-                <Button type={"text"} style={menuDrawerButtonStyles}>
+                <Button type={"text"} style={menuDrawerButtonStyles} onClick={() => dispatch(logout())}>
                     <LogoutIcon size={32}  color={colors.darkText} />
                     <Text style={text2}>Logout</Text>
                 </Button>
