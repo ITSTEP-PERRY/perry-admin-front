@@ -22,6 +22,7 @@ import {LogoutIcon} from "../Components/Icon/LogoutIcon.tsx";
 import {useNavigate} from "react-router";
 import {useAppDispatch} from "../app/hooks.ts";
 import {logout} from "../app/slices/userSlice.ts";
+import {useLogoutMutation} from "../api/authApiSlice.ts";
 
 
 const demmyData = {
@@ -59,6 +60,7 @@ export const MenuDrawer = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const [logoutMutation] = useLogoutMutation()
     const onMenuSelected = (path: string) => {
         setOpen(false);
         navigate(path)
@@ -98,7 +100,10 @@ export const MenuDrawer = () => {
 
                 <Divider vertical={false} style={menuDrawerDividerStyles} />
 
-                <Button type={"text"} style={menuDrawerButtonStyles} onClick={() => dispatch(logout())}>
+                <Button type={"text"} style={menuDrawerButtonStyles} onClick={async () => {
+                    await logoutMutation()
+                    dispatch(logout())
+                }}>
                     <LogoutIcon size={32}  color={colors.darkText} />
                     <Text style={text2}>Logout</Text>
                 </Button>

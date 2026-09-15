@@ -2,6 +2,7 @@ import type {LoginResponseDto} from "../types/dto/LoginResponseDto.ts";
 import type {LoginRequestDto} from "../types/dto/LoginRequestDto.ts";
 import {apiUser} from "./apiUser.ts";
 import type {UserType} from "../types/UserType.ts";
+import type {HealthCheckResponse} from "../types/dto/HealthCheckResponse.ts";
 
 export const refreshTokenArgs = {
     url: "auth/refresh",
@@ -28,6 +29,18 @@ export const authApi = apiUser.injectEndpoints({
         }),
         refreshToken: builder.mutation<LoginResponseDto, void>({
             query: () => (refreshTokenArgs)
+        }),
+        healthCheck: builder.query<HealthCheckResponse, void>({
+            query: () => ({
+                url: "health",
+                method: "GET"
+            })
+        }),
+        logout: builder.mutation<void,void>({
+            query: () => ({
+                url: "auth/logout",
+                method: "POST"
+            })
         })
     })
 })
@@ -36,4 +49,6 @@ export const {
     useLoginMutation,
     useGetMyUserQuery,
     useRefreshTokenMutation,
+    useHealthCheckQuery,
+    useLogoutMutation,
 } = authApi

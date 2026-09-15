@@ -4,6 +4,7 @@ import {categorySlice} from "./slices/categorySlice.ts";
 import {apiUser} from "../api/apiUser.ts";
 import {userSlice} from "./slices/userSlice.ts";
 import {globalErrorHandling} from "../features/redux-middleware/globalErrorHandling.ts";
+import {errorSlice} from "./slices/errorSlice.ts";
 
 
 
@@ -14,6 +15,7 @@ export const store = configureStore({
             [apiUser.reducerPath]: apiUser.reducer,
             category: categorySlice.reducer,
             user: userSlice.reducer,
+            error: errorSlice.reducer,
         },
         middleware: (getDefaultMiddleware) => getDefaultMiddleware()
             .concat(
