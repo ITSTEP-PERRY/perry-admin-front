@@ -1,7 +1,7 @@
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type {RootState} from "../store.ts";
 import type {LoginResponseDto} from "../../types/dto/LoginResponseDto.ts";
-import {setCookie, removeCookie} from "typescript-cookie";
+import {Cookies, setCookie} from "typescript-cookie";
 
 const initialState  = {
     isAuthenticated: false,
@@ -21,7 +21,7 @@ export const userSlice = createSlice({
             state.isAuthenticated = true;
         },
         logout: (state) => {
-            removeCookie("jwt");
+            Cookies.remove("jwt")
             state.isAuthenticated = false;
         }
     },

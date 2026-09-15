@@ -12,7 +12,8 @@ const prepareHeaders = (headers: Headers) => {
 export const baseProductQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_PRODUCT_URL,
     credentials: "include",
-    prepareHeaders: prepareHeaders
+    prepareHeaders: prepareHeaders,
+    timeout: 1000
 
 })
 
@@ -20,7 +21,9 @@ export const baseProductQuery = fetchBaseQuery({
 export const baseUserQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_AUTH_URL,
     credentials: "include",
-    prepareHeaders: prepareHeaders
+    prepareHeaders: prepareHeaders,
+    timeout: 1000
+    
 })
 
 
