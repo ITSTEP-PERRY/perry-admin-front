@@ -7,9 +7,9 @@ import {Navigate} from "react-router";
 
 export const LoginPage = () => {
     const isAuth = useAppSelector(isUserAuthenticated);
-    const {data, isFetching} = useGetMyUserQuery()
+    const {data, isLoading} = useGetMyUserQuery()
     return (
-        isFetching ? <></> :
+        isLoading ? <></> :
         isAuth && data ? <Navigate to={"/"} /> :
         <Flex vertical justify={"center"} align={"center"} style={{height: "100vh"}} >
             <LoginForm />
