@@ -6,7 +6,9 @@ export const Layout = () => {
     return (
         <AntdLayout style={{ height: "100vh", backgroundColor: "white" }}>
             <Header />
-            <Outlet />
+            <div style={{ width: "80%", margin: "0 auto" }}>
+                <Outlet />
+            </div>
         </AntdLayout>
     )
 }

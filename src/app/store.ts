@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {apiProduct} from "../api/apiProductSlice.ts";
+import {apiProduct} from "../api/apiProduct.ts";
 import {categorySlice} from "./slices/categorySlice.ts";
 import {apiUser} from "../api/apiUser.ts";
 import {userSlice} from "./slices/userSlice.ts";

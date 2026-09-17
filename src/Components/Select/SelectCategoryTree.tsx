@@ -12,7 +12,7 @@ import {Form, type Select} from "antd";
 import {colors} from "../../theme/colors.ts";
 import {ClosableDiv} from "../General/ClosableDiv.tsx";
 import {searchCategoryToSelectOptions} from "../../utils/search/categorySearch.ts";
-import {useCategoriesQuery} from "../../api/categoryApiSlice.ts";
+import {useCategoriesQuery} from "../../api/slices/categoryApiSlice.ts";
 import {useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategoryId} from "../../app/slices/categorySlice.ts";
 

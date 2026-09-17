@@ -1,6 +1,7 @@
-import type {UserFilterRequest, UserRole} from "../types/UserData.ts";
-import {apiUser} from "./apiUser.ts";
-import type {UserResponseDto} from "../types/dto/UsersResponseDto.ts";
+import type {UserFilterRequest, UserRole} from "../../types/UserData.ts";
+import {apiUser} from "../apiUser.ts";
+import type {UserResponseDto} from "../../types/dto/UsersResponseDto.ts";
+import type {UserType} from "../../types/UserType.ts";
 
 export const userApi = apiUser.injectEndpoints({
     endpoints: builder => ({
@@ -11,6 +12,12 @@ export const userApi = apiUser.injectEndpoints({
                 params: {...params}
             }),
             providesTags: ['Users'],
+        }),
+        getUserById: builder.query<UserType, string>({
+            query: (id: string) => ({
+                url: `/admin/users/${id}`,
+                method: "GET",
+            })
         }),
         changeUserRole: builder.mutation({
            query: ({id, role}:{id: string, role: UserRole}) => ({
@@ -45,5 +52,6 @@ export const {
     useUsersQuery,
     useChangeUserRoleMutation,
     useSetUserStatusByIdMutation,
-    useSetUsersStatusMutation
+    useSetUsersStatusMutation,
+    useGetUserByIdQuery,
 } = userApi

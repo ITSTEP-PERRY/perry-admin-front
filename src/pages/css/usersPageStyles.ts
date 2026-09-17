@@ -4,7 +4,6 @@ import type {Select} from "../../Components/Select/Select.tsx";
 export const usersPageStyles: Record<string, CSSProperties> = {
     root: {
         margin: "0 auto",
-        width: "85%",
         height: "100%",
     },
     statusTag: {

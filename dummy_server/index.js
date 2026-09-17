@@ -34,11 +34,15 @@ const readProducts = async () => {
     }))
     return res
 }
+const readOrders = async () => {
+    const result = await readFile("./orders.json", "utf8")
+    return JSON.parse(result)
 
+}
 let categories = await readCategories()
 let users = await readUsers()
 let products = await readProducts()
-
+let orders = await readOrders()
 
 const findCategory = async (id, categories) => {
     for (const cat of categories) {
@@ -209,6 +213,11 @@ app.post("/user", (req, res) => {
 
     res.send("ok")
 
+})
+
+app.get("/orders", (req,res)  => {
+    console.log("te")
+    res.send(orders)
 })
 
 app.listen(port, "0.0.0.0")

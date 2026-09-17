@@ -1,4 +1,4 @@
-import {useGetMyUserQuery} from "../../api/authApiSlice.ts";
+import {useGetMyUserQuery} from "../../api/slices/authApiSlice.ts";
 import {Outlet, useNavigate} from "react-router";
 import {Button} from "../Buttons/Button.tsx";
 import {Result} from "antd";

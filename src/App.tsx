@@ -9,6 +9,10 @@ import {CreateOrUpdateProductPage} from "./pages/CreateOrUpdateProductPage.tsx";
 import {RequireAuthentication} from "./Components/Auth/RequireAuthentication.tsx";
 import {HealthCheck} from "./Components/Utils/HealthCheck.tsx";
 import {RequireAuthorization} from "./Components/Auth/RequireAuthorization.tsx";
+import {NotFound404Page} from "./pages/NotFound404Page.tsx";
+import {OrdersPage} from "./pages/OrdersPage.tsx";
+
+
 const App = () => (
     <div className="App">
        <Routes>
@@ -16,15 +20,17 @@ const App = () => (
                <Route path="/login" element={<LoginPage />} />
                <Route element={<RequireAuthentication />}>
                    <Route element={<RequireAuthorization roles={["Admin"]} />}>
-                   <Route path={"/"} element={<Layout />}>
-                           <Route index element={<Navigate to={"/products"} replace/>} />
-                           <Route path="category" element={<CategoryPage />}/>
-                           <Route path="users" element={<UsersPage />}/>
-                           <Route path="products"  element={<ProductPage />}/>
-                           <Route path={"product"} element={<CreateOrUpdateProductPage />}/>
-                   </Route>
+                       <Route path={"/"} element={<Layout />}>
+                               <Route index element={<Navigate to={"/products"} replace/>} />
+                               <Route path="category" element={<CategoryPage />}/>
+                               <Route path="users" element={<UsersPage />}/>
+                               <Route path="products"  element={<ProductPage />}/>
+                               <Route path={"product"} element={<CreateOrUpdateProductPage />}/>
+                                <Route path={"orders"} element={<OrdersPage />} />
+                       </Route>
                    </Route>
                </Route>
+               <Route path={"/*"} element={<NotFound404Page />} />
            </Route>
        </Routes>
     </div>

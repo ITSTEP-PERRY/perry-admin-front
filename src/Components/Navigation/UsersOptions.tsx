@@ -6,7 +6,7 @@ import {userOptionsStyles} from "./css/userOptionsStyles.ts";
 import {ConfirmModal} from "../Inputs/ConfirmModal.tsx";
 import Text from "antd/es/typography/Text";
 import {text1} from "../../theme/textStyles.ts";
-import {useSetUsersStatusMutation} from "../../api/userApiSlice.ts";
+import {useSetUsersStatusMutation} from "../../api/slices/userApiSlice.ts";
 
 export type UsersOptionsProps = {
     users: string[],

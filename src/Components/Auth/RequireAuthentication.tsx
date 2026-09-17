@@ -1,7 +1,8 @@
 import {Navigate, Outlet, useLocation} from "react-router";
 import {useAppSelector} from "../../app/hooks.ts";
 import {isUserAuthenticated} from "../../app/slices/userSlice.ts";
-import {useGetMyUserQuery} from "../../api/authApiSlice.ts";
+import {useGetMyUserQuery} from "../../api/slices/authApiSlice.ts";
+import {CustomSpin} from "../Utils/CustomSpin.tsx";
 
 
 const expiryTimestamp = new Date()
@@ -13,7 +14,7 @@ export const RequireAuthentication = () => {
     const {data, isFetching} = useGetMyUserQuery()
     return (
         isFetching ?
-            <></>
+            <CustomSpin text={"Authenticating..."} />
             :
             isAuth && data ?
             <Outlet/>

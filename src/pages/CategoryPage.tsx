@@ -22,7 +22,7 @@ import {
     useCategoriesQuery,
     useCategoryByIdQuery,
     useDeleteCategoryByIdMutation,
-} from "../api/categoryApiSlice.ts";
+} from "../api/slices/categoryApiSlice.ts";
 import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {getCurrentCategoryId, setCurrentCategory} from "../app/slices/categorySlice.ts";
