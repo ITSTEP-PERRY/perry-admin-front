@@ -3,7 +3,6 @@ import type {CSSProperties} from "react";
 
 export const productsPageStyles: NestedStyles = {
     root: {
-        width:'85%',
         margin: "auto",
         padding: 25,
         height: "872px"

@@ -1,27 +1,16 @@
-import {useHealthCheckQuery} from "../../api/authApiSlice.ts";
+import {useHealthCheckQuery} from "../../api/slices/authApiSlice.ts";
 import {Outlet} from "react-router";
-import {Flex, Result, Spin} from "antd";
-import {LoadingOutlined} from "@ant-design/icons";
+import {Result} from "antd";
+import {CustomSpin} from "./CustomSpin.tsx";
 
 export const HealthCheck = () => {
     const {data, isFetching} = useHealthCheckQuery()
     const health = data?.status === "ok"
 
-    // useEffect(() => {
-    //     const int = setInterval(() =>{
-    //         refetch()
-    //     },1000)
-    //
-    //     return () => {
-    //         clearInterval(int)
-    //     }
-    // });
 
     return (
          isFetching ?
-             <Flex style={{height:'100vh'}} align={'center'} justify={"center"}>
-                 <Spin indicator={<LoadingOutlined style={{ fontSize: 72 }} spin />} />
-             </Flex>
+             <CustomSpin text={"Checking services health..." }/>
             :
              health ?
                  <Outlet />

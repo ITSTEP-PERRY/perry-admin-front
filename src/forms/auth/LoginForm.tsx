@@ -7,7 +7,7 @@ import {useState} from "react";
 import Title from "antd/es/typography/Title";
 import {header1, header3} from "../../theme/headerStyles.ts";
 import type {LoginRequestDto} from "../../types/dto/LoginRequestDto.ts";
-import {useGetMyUserQuery, useLoginMutation} from "../../api/authApiSlice.ts";
+import {useGetMyUserQuery, useLoginMutation} from "../../api/slices/authApiSlice.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {setUser} from "../../app/slices/userSlice.ts";
 import type {LoginResponseDto} from "../../types/dto/LoginResponseDto.ts";
@@ -31,6 +31,7 @@ export const LoginForm = () => {
 
     const onFinish = async (data: LoginRequestDto) => {
         const result = await login(data)
+        console.log(result)
         if (result.data) {
             dispatch(setUser(result.data as LoginResponseDto))
             await myUserRefetch()

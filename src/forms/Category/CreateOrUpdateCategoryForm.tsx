@@ -17,7 +17,7 @@ import {colors} from "../../theme/colors.ts";
 import {header3} from "../../theme/headerStyles.ts";
 import {TrashcanIcon} from "../../Components/Icon/TrashcanIcon.tsx";
 import {TextArea} from "../../Components/Inputs/TextArea.tsx";
-import {useCategoriesQuery, useCategoryByIdQuery, useCreateCategoryMutation} from "../../api/categoryApiSlice.ts";
+import {useCategoriesQuery, useCategoryByIdQuery, useCreateCategoryMutation} from "../../api/slices/categoryApiSlice.ts";
 import {ImageUpload} from "../../Components/Inputs/ImageUpload.tsx";
 import {useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategory} from "../../app/slices/categorySlice.ts";

@@ -13,7 +13,7 @@ import {ItemNotFound} from "../widgets/ItemNotFound.tsx";
 import {UsersOptions} from "../Components/Navigation/UsersOptions.tsx";
 import {dateFormatter} from "../shared/formatter.ts";
 import {ArrowsUpDownIcon} from "../Components/Icon/ArrowsUpDownIcon.tsx";
-import {useUsersQuery} from "../api/userApiSlice.ts";
+import {useUsersQuery} from "../api/slices/userApiSlice.ts";
 import {useAntdTableRowSelect} from "../shared/Hooks/useAntdTableRowSelect.tsx";
 import {antdPageTableStyles} from "../theme/antdTableStyles.ts";
 
@@ -132,7 +132,7 @@ export const UsersPage = () => {
     return (
         <div style={usersPageStyles.root}>
             <Flex gap={16} align={"center"} justify={"space-between"} style={usersPageStyles.header}>
-                <Text style={text2}>Role</Text>
+                <Text style={{...text2, textWrap: "nowrap"}}>Role</Text>
                 <MultipleSelect style={{ width: "13%" }}
                                 options={roleOptions}
                                 onSelect={handleOnSelect}
@@ -151,11 +151,10 @@ export const UsersPage = () => {
                                 onSelect={handleSelectColumns}
                 />
             </Flex>
-            {data && data.items.length > 0 ?
-
                 <Table columns={newColumns}
+
                     rowSelection={{type: "checkbox", ...rowSelection}}
-                    dataSource={data.items}
+                    dataSource={data?.items}
                     styles={antdPageTableStyles<UserData>()}
                     pagination={{
                         placement: ["bottomCenter"],
@@ -167,12 +166,8 @@ export const UsersPage = () => {
                 }}
                     rowKey={"id"}
                    loading={isFetching}
-
-            /> :
-                <div style={{alignContent: "center", height: "80%"}}>
-                    <ItemNotFound  text={"No users in the selected role"} />
-                </div>
-            }
+                       locale={{emptyText:<ItemNotFound  text={"No users in the selected role"} />}}
+            />
 
         </div>
     )

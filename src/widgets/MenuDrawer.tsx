@@ -22,7 +22,7 @@ import {LogoutIcon} from "../Components/Icon/LogoutIcon.tsx";
 import {useNavigate} from "react-router";
 import {useAppDispatch} from "../app/hooks.ts";
 import {logout} from "../app/slices/userSlice.ts";
-import {useLogoutMutation} from "../api/authApiSlice.ts";
+import {useGetMyUserQuery, useLogoutMutation} from "../api/slices/authApiSlice.ts";
 
 
 const demmyData = {
@@ -61,6 +61,7 @@ export const MenuDrawer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [logoutMutation] = useLogoutMutation()
+    const {data} = useGetMyUserQuery()
     const onMenuSelected = (path: string) => {
         setOpen(false);
         navigate(path)
@@ -82,8 +83,8 @@ export const MenuDrawer = () => {
                 <Flex>
                     <Flex vertical gap={8}>
                         <Avatar size={"large"} icon={demmyData.icon} />
-                        <Text style={menuDrawerNameStyles}>{demmyData.name}</Text>
-                        <Text style={text3}>{demmyData.role}</Text>
+                        <Text style={menuDrawerNameStyles}>{data?.firstName} {data?.lastName}</Text>
+                        <Text style={text3}>{data?.role}</Text>
                     </Flex>
                 </Flex>
 

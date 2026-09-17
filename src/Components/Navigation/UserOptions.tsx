@@ -7,7 +7,7 @@ import {type UserData, UserRole, UserStatus} from "../../types/UserData.ts";
 import {userOptionsStyles} from "./css/userOptionsStyles.ts";
 import {ConfirmModal} from "../Inputs/ConfirmModal.tsx";
 import {text1} from "../../theme/textStyles.ts";
-import {useChangeUserRoleMutation, useSetUserStatusByIdMutation, useUsersQuery} from "../../api/userApiSlice.ts";
+import {useChangeUserRoleMutation, useSetUserStatusByIdMutation, useUsersQuery} from "../../api/slices/userApiSlice.ts";
 import {ClosableDiv} from "../General/ClosableDiv.tsx";
 
 export const UserOptions = ({record}: { record: UserData }) => {

@@ -3,7 +3,6 @@ import {text1} from "../../theme/textStyles.ts";
 import {colors} from "../../theme/colors.ts";
 
 export const categoryPageRootStyles: CSSProperties = {
-    width:'85%',
     margin: "0 auto",
     padding: 25,
     height: "872px"

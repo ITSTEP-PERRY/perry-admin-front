@@ -1,5 +1,5 @@
-import {apiProduct} from "./apiProductSlice.ts";
-import type {CategoryType} from "../types/CategoryType.ts";
+import {apiProduct} from "../apiProduct.ts";
+import type {CategoryType} from "../../types/CategoryType.ts";
 
 export const categoryApi = apiProduct.injectEndpoints({
     endpoints: builder => ({

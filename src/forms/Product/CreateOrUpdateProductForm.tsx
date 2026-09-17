@@ -3,7 +3,7 @@ import Title from "antd/es/typography/Title";
 import {header2} from "../../theme/headerStyles.ts";
 import {TextInput} from "../../Components/Inputs/TextInput.tsx";
 import {SelectCategoryTree} from "../../Components/Select/SelectCategoryTree.tsx";
-import {useCategoriesQuery} from "../../api/categoryApiSlice.ts";
+import {useCategoriesQuery} from "../../api/slices/categoryApiSlice.ts";
 import {createOrUpdateProductFormStyles} from "./css/CreateOrUpdateProductFormStyles.ts";
 import {ImageUpload} from "../../Components/Inputs/ImageUpload.tsx";
 import Text from "antd/es/typography/Text";

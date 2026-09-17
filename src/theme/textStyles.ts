@@ -4,6 +4,7 @@ import {colors} from "./colors.ts";
 
 const shared = {
     color: colors.darkText,
+
 }
 
 
@@ -53,6 +54,14 @@ export const text2: CSSProperties = {
 */
 export const text3: CSSProperties = {
     fontWeight: 'regular',
+    letterSpacing: '2%',
+    fontSize: '14px',
+    ...shared
+
+}
+
+export const text3Bold: CSSProperties = {
+    fontWeight: 'bold',
     letterSpacing: '2%',
     fontSize: '14px',
     ...shared

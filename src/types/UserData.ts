@@ -1,7 +1,7 @@
 
 export const UserRole = {
     Admin: "Admin",
-    Customer: "Customer",
+    Customer: "User",
 } as const;
 
 export const UserStatus = {

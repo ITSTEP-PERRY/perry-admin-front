@@ -8,7 +8,7 @@ import {useState} from "react";
 import {CategoryNode} from "./CategoryNode.tsx";
 import {Checkbox} from "../../Components/Inputs/Checkbox.tsx";
 import {CreateOrUpdateCategoryModal} from "./CreateOrUpdateCategoryModal.tsx";
-import {useCategoriesQuery, useCategoryByIdQuery} from "../../api/categoryApiSlice.ts";
+import {useCategoriesQuery, useCategoryByIdQuery} from "../../api/slices/categoryApiSlice.ts";
 import {LoadingDiv} from "../../Components/General/LoadingDiv.tsx";
 import {colors} from "../../theme/colors.ts";
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
