@@ -31,6 +31,7 @@ export const LoginForm = () => {
 
     const onFinish = async (data: LoginRequestDto) => {
         const result = await login(data)
+        console.log(result)
         if (result.data) {
             dispatch(setUser(result.data as LoginResponseDto))
             await myUserRefetch()

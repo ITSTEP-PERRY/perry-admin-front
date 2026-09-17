@@ -151,11 +151,10 @@ export const UsersPage = () => {
                                 onSelect={handleSelectColumns}
                 />
             </Flex>
-            {data && data.items.length > 0 ?
-
                 <Table columns={newColumns}
+
                     rowSelection={{type: "checkbox", ...rowSelection}}
-                    dataSource={data.items}
+                    dataSource={data?.items}
                     styles={antdPageTableStyles<UserData>()}
                     pagination={{
                         placement: ["bottomCenter"],
@@ -167,12 +166,8 @@ export const UsersPage = () => {
                 }}
                     rowKey={"id"}
                    loading={isFetching}
-
-            /> :
-                <div style={{alignContent: "center", height: "80%"}}>
-                    <ItemNotFound  text={"No users in the selected role"} />
-                </div>
-            }
+                       locale={{emptyText:<ItemNotFound  text={"No users in the selected role"} />}}
+            />
 
         </div>
     )

@@ -13,9 +13,10 @@ export const userApi = apiUser.injectEndpoints({
             providesTags: ['Users'],
         }),
         changeUserRole: builder.mutation({
-           query: ({id}:{id: string, role: UserRole}) => ({
+           query: ({id, role}:{id: string, role: UserRole}) => ({
                url: `admin/users/${id}/role`,
-               method: "PATCH"
+               method: "PATCH",
+               body: {role}
            }),
             invalidatesTags: ["Users"],
 

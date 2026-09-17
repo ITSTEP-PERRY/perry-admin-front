@@ -7,15 +7,6 @@ export const HealthCheck = () => {
     const {data, isFetching} = useHealthCheckQuery()
     const health = data?.status === "ok"
 
-    // useEffect(() => {
-    //     const int = setInterval(() =>{
-    //         refetch()
-    //     },1000)
-    //
-    //     return () => {
-    //         clearInterval(int)
-    //     }
-    // });
 
     return (
          isFetching ?
