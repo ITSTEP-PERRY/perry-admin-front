@@ -23,12 +23,17 @@ export const categorySlice = createSlice({
             state.imageUrl = action.payload.imageUrl;
             state.isActive = action.payload.isActive;
             state.subCategories = action.payload.subCategories;
+        },
+        resetCurrentCategory: (state) => {
+            state = {...initialState};
+            state.isActive = true;
         }
     }
 })
 
-export const {setCurrentCategory} = categorySlice.actions;
+export const {setCurrentCategory, resetCurrentCategory} = categorySlice.actions;
 
 export const getCurrentCategoryId = (state: RootState) => state.category.id
+export const getCurrentCategorySlug = (state: RootState) => state.category.slug
 export const getCurrentCategory = (state: RootState) => state.category
 export default categorySlice.reducer;

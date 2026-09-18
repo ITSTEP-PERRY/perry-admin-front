@@ -7,6 +7,7 @@ import {header2} from "../../theme/headerStyles.ts";
 import { ccModalStyles, ccmStyle} from "./css/CreateCategoryModalStyles.ts";
 import {useForm} from "antd/es/form/Form";
 import {CreateOrUpdateCategoryForm} from "../../forms/Category/CreateOrUpdateCategoryForm.tsx";
+import {useCreateCategoryMutation, useUpdateCategoryMutation} from "../../api/slices/categoryApiSlice.ts";
 
 
 
@@ -19,6 +20,8 @@ export interface CreateOrUpdateCategoryModalProps extends ComponentProps<"div">{
 export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryModalProps) => {
     const [open, setOpen] = useState(false);
     const [form] = useForm();
+    const [,{isLoading: createLoading}] = useCreateCategoryMutation()
+    const [,{isLoading: updateLoading}] = useUpdateCategoryMutation()
 
     return (
         <div {...props}>
@@ -27,7 +30,8 @@ export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryMo
                 form.resetFields();
                 setOpen(!open)
             }}>
-                {props.children ? props.children : <Button type={"text"} style={{padding: 0}}>
+                {props.children ? props.children :
+                    <Button type={"text"} style={{padding: 0}}>
                     <PlusIcon size={24}/>
                 </Button>}
             </span>
@@ -41,15 +45,17 @@ export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryMo
                         <Button type={"secondary"} style={ccmStyle.footerCancelButtons} onClick={() => {
                             setOpen(false)
                         }}>Cancel</Button>
-                        <Button type={"primary"} style={ccmStyle.footerCreateButton}
-                                onClick={() => {
+                        <Button type={"primary"}
+                                loading={createLoading || updateLoading}
+                                style={ccmStyle.footerCreateButton}
+                                onClick={async () => {
                                     form.submit()
                                     setOpen(false)
                                 }}
                         >{props.edit ? "Update" : "Create"}</Button>
                     </>
                 }
-                open={open}
+                open={open && !createLoading && !updateLoading}
                 onCancel={() => setOpen(false)}
                 closeIcon={null}
                 styles={ccModalStyles}

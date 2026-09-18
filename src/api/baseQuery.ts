@@ -21,7 +21,7 @@ export const baseUserQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_AUTH_URL,
     credentials: "include",
     prepareHeaders: prepareHeaders,
-    timeout: 20000,
+    timeout: 40000,
 })
 
 
