@@ -1,17 +1,18 @@
 import {apiProduct} from "../apiProduct.ts";
-import type {ProductType} from "../../types/ProductType.ts";
 import type {FilterOptions} from "../../types/FilterOptions.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
+import type {ResponseProductsDto} from "../../types/dto/ProductsDto.ts";
 
 export const productApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
-        products: builder.query<ProductType[], FilterOptions>({
+        products: builder.query<ResponseProductsDto, FilterOptions>({
             query: (queryArg) => ({
-                url: "/products",
+                url: "products",
                 method: "GET",
                 params: {...queryArg}
             }),
         }),
+        productById: builder.query<>()
     })
 })
 

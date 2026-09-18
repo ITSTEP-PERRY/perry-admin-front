@@ -24,6 +24,7 @@ import {TrashcanIcon} from "../Components/Icon/TrashcanIcon.tsx";
 import Title from "antd/es/typography/Title";
 import {header3} from "../theme/headerStyles.ts";
 import {useNavigate} from "react-router";
+import {CustomSpin} from "../Components/Utils/CustomSpin.tsx";
 
 const categoriesType = productsPageStyles.categories as NestedStyles
 
@@ -31,10 +32,11 @@ const categoriesType = productsPageStyles.categories as NestedStyles
 export const ProductPage = () => {
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
         page: 1,
+        pageSize: 5,
     });
     const [selectedProductId, setSelectedProductId] = useState<string>("");
-    const {data: categories} = useCategoriesQuery()
-    const {data: products} = useProductsQuery(filterOptions)
+    const {data: categories, isFetching: categoriesFetching} = useCategoriesQuery()
+    const {data: productsDto, isFetching} = useProductsQuery(filterOptions)
     const {setSelectedRowKeys, rowSelection} = useAntdTableRowSelect<ProductType>()
     const navigate = useNavigate()
     const navigateToCreateProduct = () => navigate(`/product?id=${selectedProductId}`)
@@ -46,32 +48,40 @@ export const ProductPage = () => {
             key: "name",
             render: (_, record: ProductType) => (
                 <Space>
-                    <Image src={record.imageUrl} width={80} preview={false}/>
+                    <Image src={record.imageUrl} style={productsPageStyles.imagePreview} width={80} preview={false}/>
                     <Flex vertical justify="center">
-                        <Text style={{...text1, textWrap: "nowrap"}}>{record.name}</Text>
-                        <Text style={{...text1,textWrap: "nowrap"}}>{record.description.hideRest()}</Text>
+                        <Text style={{...text1, textWrap: "nowrap"}}>{record.name?.hideRest()}</Text>
+                        <Text style={{...text1,textWrap: "nowrap"}}>{record.description?.hideRest()}</Text>
                     </Flex>
                 </Space>
             ),
+            width: "50%"
         },
         {
             title: "Rating",
             dataIndex: "averageRating",
             render: (_, record: ProductType) => (
-                <Space align={"center"}>
+                <Space align={"center"} >
                     <StarFullIcon size={20}/>
                     <Text style={{...text1}}>{record.averageRating}</Text>
                 </Space>
             ),
-            align: "end",
+
         },
         {
             title: "Price",
             dataIndex: "price",
             render: (_, record: ProductType) => (
-                <Text style={text1}>$ {record.variants?.[0].price}</Text>
+                <Flex gap={10} style={{textWrap: "nowrap"}} align={"baseline"}>
+                        <Text style={text1}>$ {record.price} </Text>
+                    {record.oldPrice && <Text style={{
+                        ...text2,
+                        color: colors.inputBorder,
+                        textDecoration: "line-through"
+                    }}>${record.oldPrice}</Text>}
+                </Flex>
+
             ),
-            align: "center"
         },
         {
             title: <Button type={"text"}
@@ -85,13 +95,15 @@ export const ProductPage = () => {
         }
     ]
 
-
+    const products = productsDto?.items
+    console.log("products", productsDto)
     return (
         <Row style={productsPageStyles.root} gutter={24} >
             <Col span={16}>
                 <Flex gap={10} align={"center"}>
                     <Text style={{...text1, width: "fit-content", textWrap: "nowrap"}}>Category</Text>
                     <SelectCategoryTree categories={categories}
+                                        loading={categoriesFetching}
                                         style={categoriesType.input}
                                         styles={{popup: categoriesType.popup}}
                                         value={filterOptions.categoryId}
@@ -99,24 +111,29 @@ export const ProductPage = () => {
                     />
                     <BaseSearch style={productsPageStyles.search}/>
                 </Flex>
-                {products ?
+                {isFetching && !products ?
+                    <CustomSpin style={{height: "90%"}} text={"Searching products"}/>
+                    :
+                    products ?
                     <Table
+                        loading={isFetching}
                         styles={antdPageTableStyles<ProductType>()}
                         rowKey={"id"}
                         rowSelection={{type: "checkbox", ...rowSelection}}
                         dataSource={products}
                         columns={columns}
-                        scroll={{y: "70vh"}}
+                        scroll={{y: "68vh"}}
                         pagination={{
                             placement: ["bottomCenter"],
-                            defaultPageSize: 5,
+                            defaultPageSize: filterOptions.pageSize,
                             showSizeChanger: true,
                             pageSizeOptions: [5, 20, 50, 100],
-                            onShowSizeChange: (pageSize, ) => setFilterOptions({...filterOptions, pageSize}),
-                            onChange: (n) => {
+                            onChange: (page, pageSize) => {
                                 setSelectedRowKeys([])
-                                setFilterOptions({...filterOptions, page: n})
-                            }
+                                setFilterOptions({...filterOptions, page, pageSize})
+                            },
+                            total: productsDto.total,
+                            showTotal: (n) => <Text style={text2}>Total: {n}</Text>
                         }}
 
                         onRow={(record) => {

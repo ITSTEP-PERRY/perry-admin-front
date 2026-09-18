@@ -39,6 +39,8 @@ export type ProductType = {
     createdAt: string,
     updatedAt: string,
     imageUrl?: string,
+    price: number,
+    oldPrice?: number,
     attributes? : AttributeDefinitionsType[],
     variants? : ProductVariantsType[],
 }

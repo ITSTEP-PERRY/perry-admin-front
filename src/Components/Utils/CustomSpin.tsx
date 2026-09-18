@@ -9,11 +9,12 @@ export type CustomSpinProps = {
     text?: ReactNode,
     className?: string,
     style?: CSSProperties,
+    size?: number
 }
 
-export const CustomSpin = ({text, style, className}: CustomSpinProps) => (
-    <Flex className={className} style={{height:'100vh', ...style}} align={'center'} justify={"center"} vertical gap={20}>
-        <Spin  indicator={<LoadingOutlined color={colors.secondary} style={{ fontSize: 72 }} spin />} />
+export const CustomSpin = ({text, style, className, size=72}: CustomSpinProps) => (
+    <Flex className={className} style={{height:'100%', ...style}} align={'center'} justify={"center"} vertical gap={20}>
+        <Spin  indicator={<LoadingOutlined color={colors.secondary} style={{ fontSize: size }} spin />} />
         <Text style={text1}>{text}</Text>
     </Flex>
 )

@@ -26,5 +26,8 @@ export const productsPageStyles: NestedStyles = {
         backgroundColor: "white",
         borderRadius: 8,
         padding: 24,
+    },
+    imagePreview: {
+        borderRadius: 8,
     }
 }
