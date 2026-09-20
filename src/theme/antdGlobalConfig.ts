@@ -69,6 +69,7 @@ export const config: ThemeConfig = {
             colorBgTextActive: "red",
             colorPrimary: colors.darkText,
             colorText: colors.inputBorder,
+            colorSplit:  colors.inputBorder
         }
     }
 }

@@ -3,8 +3,13 @@ import {colors} from "./colors.ts";
 import {text1} from "./textStyles.ts";
 
 export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
+    root: {
+        height: "100%",
+    },
     section: {
-        borderRadius: 4
+        borderRadius: 4,
+        height: "70vh",
+
     },
     body: {
 

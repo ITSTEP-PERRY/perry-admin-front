@@ -24,23 +24,45 @@ export type ProductVariantsType = {
     netContent?:number,
     netContentUnit?:string
 }
-
+export type ProductImageType = {
+    id?: string,
+    url?: string,
+    isPrimary?: boolean,
+    isVideo?: boolean,
+    altText?: string,
+}
 export type ProductType = {
-    id: string,
-    name: string,
-    description: string,
-    slug: string,
-    categoryId: string,
+    id?: string,
+    name?: string,
+    description?: string,
+    slug?: string,
+    categoryId?: string,
+    category?: {
+        id?: string,
+        name?: string,
+        description?: string,
+    }
     brandId?: string,
-    status: string,
+    status?: string,
     averageRating?: number,
-    reviewCount: number,
-    isBestSeller: boolean,
-    createdAt: string,
-    updatedAt: string,
+    reviewCount?: number,
+    isBestSeller?: boolean,
+    createdAt?: string,
+    updatedAt?: string,
     imageUrl?: string,
-    price: number,
+    images?: ProductImageType[],
+    price?: number,
     oldPrice?: number,
-    attributes? : AttributeDefinitionsType[],
-    variants? : ProductVariantsType[],
+    discountPercent?: number,
+    // attributes? ?: AttributeDefinitionsType[],
+    // variants? ?: ProductVariantsType[],
+    attributes?: {
+        name?: string,
+        value?: string,
+        isFilterable?: boolean,
+    },
+    aboutItems?: {
+        title?: string,
+        description?: string,
+    }
 }

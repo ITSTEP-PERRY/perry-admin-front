@@ -7,13 +7,14 @@ import {useState} from "react";
 
 export type ImagePreviewProps = {
     handleRemoveImage?: () => void;
-    previewImage?: string
+    previewImage?: string,
 }
 
 export const ImagePreview = ({...props}: ImagePreviewProps) => {
     const [openPreview, setOpenPreview] = useState(false);
     return (
-        <Image style={{position: "relative"}}
+        <Image
+            style={{position: "relative", objectFit: "cover"}}
                styles={{ image: { width: 128, height: 128, borderRadius: 4 } }}
                preview={
                    {open:  openPreview,
