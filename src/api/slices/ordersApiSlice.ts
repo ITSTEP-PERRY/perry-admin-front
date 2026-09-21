@@ -1,5 +1,5 @@
 import type {OrderType} from "../../types/OrderType.ts";
-import {apiProduct} from "../apiProduct.ts";
+import {apiProduct} from "../api.ts";
 
 export const ordersApi = apiProduct.injectEndpoints({
     endpoints: builder => ({

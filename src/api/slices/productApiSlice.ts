@@ -1,8 +1,8 @@
-import {apiProduct} from "../apiProduct.ts";
 import type {FilterOptions} from "../../types/FilterOptions.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
 import type {ResponseProductsDto} from "../../types/dto/ProductsDto.ts";
 import type {ProductType} from "../../types/ProductType.ts";
+import {apiProduct} from "../api.ts";
 
 export const productApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
