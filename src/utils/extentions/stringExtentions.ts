@@ -12,7 +12,7 @@ declare global {
 
 
 String.prototype.hideRest = function (this: string, countToShow=25, rest="..."): string {
-    return this.slice(0, countToShow) + rest;
+    return this.length >= countToShow ? this.slice(0, countToShow) + rest : this;
 }
 // er.forEach(error => {
 //     hasErrors[error.name[0]] = error.errors.length > 0

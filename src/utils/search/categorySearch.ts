@@ -35,7 +35,7 @@ export const findCategoriesByName = (name: string, categories: CategoryType[]): 
 
     const inner = ( cats: CategoryType[] ) => {
         for (const cat of cats) {
-            if (cat.name.toLowerCase().includes(name.toLowerCase())) {
+            if (cat.name?.toLowerCase().includes(name.toLowerCase())) {
                 result.push(cat);
                 return;
             }

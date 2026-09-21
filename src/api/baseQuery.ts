@@ -18,13 +18,18 @@ export const baseProductQuery = fetchBaseQuery({
 
 
 export const baseUserQuery = fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_API_USER_URL,
+    credentials: "include",
+    prepareHeaders: prepareHeaders,
+    timeout: 1000 * 60,
+})
+
+export const baseAuthQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_AUTH_URL,
     credentials: "include",
     prepareHeaders: prepareHeaders,
-    timeout: 20000,
+    timeout: 1000 * 60,
 })
-
-
 export const baseQueryWithRefresh = (fun: ReturnType<typeof fetchBaseQuery>) => {
     return  async (args: (string | FetchArgs), api: BaseQueryApi, extraOptions: {}) => {
         let result = await fun(args, api, extraOptions)

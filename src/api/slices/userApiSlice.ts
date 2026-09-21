@@ -1,7 +1,7 @@
 import type {UserFilterRequest, UserRole} from "../../types/UserData.ts";
-import {apiUser} from "../apiUser.ts";
 import type {UserResponseDto} from "../../types/dto/UsersResponseDto.ts";
 import type {UserType} from "../../types/UserType.ts";
+import {apiUser} from "../api.ts";
 
 export const userApi = apiUser.injectEndpoints({
     endpoints: builder => ({

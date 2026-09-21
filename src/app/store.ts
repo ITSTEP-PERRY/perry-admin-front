@@ -1,10 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {apiProduct} from "../api/apiProduct.ts";
 import {categorySlice} from "./slices/categorySlice.ts";
-import {apiUser} from "../api/apiUser.ts";
 import {userSlice} from "./slices/userSlice.ts";
 import {globalErrorHandling} from "../features/redux-middleware/globalErrorHandling.ts";
 import {errorSlice} from "./slices/errorSlice.ts";
+import {apiAuth, apiProduct, apiUser} from "../api/api.ts";
 
 
 
@@ -13,6 +12,7 @@ export const store = configureStore({
         reducer: {
             [apiProduct.reducerPath]: apiProduct.reducer,
             [apiUser.reducerPath]: apiUser.reducer,
+            [apiAuth.reducerPath]: apiAuth.reducer,
             category: categorySlice.reducer,
             user: userSlice.reducer,
             error: errorSlice.reducer,
@@ -21,6 +21,7 @@ export const store = configureStore({
             .concat(
                 apiProduct.middleware,
                 apiUser.middleware,
+                apiAuth.middleware,
                 globalErrorHandling
             ),  // Add new middleware as parameters
     }

@@ -1,13 +1,13 @@
 import {Button} from "../Buttons/Button.tsx";
 import {MeatballsMenu} from "../Icon/MeatballsMenu.tsx";
-import {Divider, Flex} from "antd";
+import {Divider, Flex, message} from "antd";
 import {useState} from "react";
 import Text from "antd/es/typography/Text";
 import {type UserData, UserRole, UserStatus} from "../../types/UserData.ts";
 import {userOptionsStyles} from "./css/userOptionsStyles.ts";
 import {ConfirmModal} from "../Inputs/ConfirmModal.tsx";
 import {text1} from "../../theme/textStyles.ts";
-import {useChangeUserRoleMutation, useSetUserStatusByIdMutation, useUsersQuery} from "../../api/slices/userApiSlice.ts";
+import {useChangeUserRoleMutation, useSetUserStatusByIdMutation} from "../../api/slices/userApiSlice.ts";
 import {ClosableDiv} from "../General/ClosableDiv.tsx";
 
 export const UserOptions = ({record}: { record: UserData }) => {
@@ -16,7 +16,6 @@ export const UserOptions = ({record}: { record: UserData }) => {
     const [modalRoleOpen, setModalRoleOpen] = useState<boolean>(false);
     const [setUserStatus, {isLoading}] = useSetUserStatusByIdMutation()
     const [changeUserRole, {isLoading: settingRole}] = useChangeUserRoleMutation()
-    const {refetch} = useUsersQuery()
 
     const newRole = record.role == UserRole.Admin ? UserRole.Customer : UserRole.Admin
     const isActive = record.status === UserStatus.Active
@@ -50,9 +49,13 @@ export const UserOptions = ({record}: { record: UserData }) => {
                 loading={settingRole}
                 body={<Text style={text1}>This user will change role to {newRole}</Text>}
                 onConfirm={async () => {
-                    await changeUserRole({id: record.id, role: newRole})
-                    await refetch()
-                    setModalRoleOpen(false)
+                    try{
+                        await changeUserRole({id: record.id, role: newRole}).unwrap()
+                        message.success("Role changed successfully.")
+                    }
+                    finally {
+                        setModalRoleOpen(false)
+                    }
                 }}
             />
             <ConfirmModal
@@ -61,9 +64,16 @@ export const UserOptions = ({record}: { record: UserData }) => {
                 loading={isLoading}
                 body={<Text style={text1}>This user will be deactivated</Text>}
                 onConfirm={async () => {
-                    await setUserStatus({id: record.id, status: isActive ? UserStatus.Deleted : UserStatus.Active})
-                    await refetch()
-                    setModalOpen(false)
+                    try{
+                        await setUserStatus({id: record.id, status: isActive ? UserStatus.Deleted : UserStatus.Active}).unwrap()
+                        await message.success("Status changed successfully.")
+                    }catch {
+                        // await message.error("Some Error")
+                    }
+                    finally {
+                        setModalOpen(false)
+                    }
+
                 }}
                 type={isActive ? "danger" : "info"}
                 confirmText={isActive ? "Delete" : "Restore"}

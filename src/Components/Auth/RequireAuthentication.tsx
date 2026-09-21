@@ -14,7 +14,7 @@ export const RequireAuthentication = () => {
     const {data, isFetching} = useGetMyUserQuery()
     return (
         isFetching ?
-            <CustomSpin text={"Authenticating..."} />
+            <CustomSpin text={"Authenticating..."} style={{height: "100vh"}}/>
             :
             isAuth && data ?
             <Outlet/>

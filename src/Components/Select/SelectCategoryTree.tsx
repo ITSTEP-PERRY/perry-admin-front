@@ -15,6 +15,7 @@ import {searchCategoryToSelectOptions} from "../../utils/search/categorySearch.t
 import {useCategoriesQuery} from "../../api/slices/categoryApiSlice.ts";
 import {useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategoryId} from "../../app/slices/categorySlice.ts";
+import {CustomSpin} from "../Utils/CustomSpin.tsx";
 
 export type SelectTreeProps = {
     label?: string;
@@ -29,6 +30,7 @@ export type SelectTreeProps = {
     };
     style?: CSSProperties;
     status?: ComponentProps<typeof Select>["status"];
+    loading?: boolean;
 }
 
 type SelectCategoryNodeProps = {
@@ -130,10 +132,6 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
         elem?.scrollIntoView({behavior: "smooth"})
     }
 
-    // useEffect(() => {
-    //     props.onChange?.(selected.value as string)
-    // }, [props, selected])
-
     return (
         <div  style={{...selectTreeStyles.root, ...props.style}}>
             <div style={selectTreeStyles.container} onClick={handleOpen}>
@@ -151,7 +149,11 @@ export const SelectCategoryTree = (props: SelectTreeProps) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0 }}
             >
-                {props.categories?.map((category: CategoryType) => (
+                {
+                    props.loading ?
+                        <CustomSpin size={55}/>
+                        :
+                    props.categories?.map((category: CategoryType) => (
                     <SelectCategoryNode key={category.id}
                                         category={category}
                                         selected={selected}

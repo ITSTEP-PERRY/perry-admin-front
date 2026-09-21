@@ -1,13 +1,20 @@
 import {Flex, Spin} from "antd";
 import {LoadingOutlined} from "@ant-design/icons";
-import type {ReactNode} from "react";
+import type {CSSProperties, ReactNode} from "react";
 import Text from "antd/es/typography/Text";
 import {text1} from "../../theme/textStyles.ts";
 import {colors} from "../../theme/colors.ts";
 
-export const CustomSpin = ({text}: {text?: ReactNode}) => (
-    <Flex style={{height:'100vh'}} align={'center'} justify={"center"} vertical gap={20}>
-        <Spin  indicator={<LoadingOutlined color={colors.secondary} style={{ fontSize: 72 }} spin />} />
+export type CustomSpinProps = {
+    text?: ReactNode,
+    className?: string,
+    style?: CSSProperties,
+    size?: number
+}
+
+export const CustomSpin = ({text, style, className, size=72}: CustomSpinProps) => (
+    <Flex className={className} style={{height:'100%', ...style}} align={'center'} justify={"center"} vertical gap={20}>
+        <Spin  indicator={<LoadingOutlined color={colors.secondary} style={{ fontSize: size }} spin />} />
         <Text style={text1}>{text}</Text>
     </Flex>
 )

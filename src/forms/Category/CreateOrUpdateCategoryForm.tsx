@@ -17,10 +17,16 @@ import {colors} from "../../theme/colors.ts";
 import {header3} from "../../theme/headerStyles.ts";
 import {TrashcanIcon} from "../../Components/Icon/TrashcanIcon.tsx";
 import {TextArea} from "../../Components/Inputs/TextArea.tsx";
-import {useCategoriesQuery, useCategoryByIdQuery, useCreateCategoryMutation} from "../../api/slices/categoryApiSlice.ts";
+import {
+    useCategoriesQuery,
+    useCategoryByIdQuery,
+    useCreateCategoryMutation,
+    useUpdateCategoryMutation
+} from "../../api/slices/categoryApiSlice.ts";
 import {ImageUpload} from "../../Components/Inputs/ImageUpload.tsx";
 import {useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategory} from "../../app/slices/categorySlice.ts";
+import type {CategoryType} from "../../types/CategoryType.ts";
 
 
 const options: SelectOptions[] = [
@@ -41,9 +47,14 @@ type CreateOrUpdateCategoryFormProps = {
 
 export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCategoryFormProps) => {
     const currentCategory = useAppSelector(getCurrentCategory)
-    const {data: categories, refetch} = useCategoriesQuery()
-    const {data: category} = useCategoryByIdQuery(props.edit ? currentCategory.id : "");
+    const {data: categories} = useCategoriesQuery()
+    const categoryId = props.edit ? currentCategory.id : ""
+    const {data: category} = useCategoryByIdQuery(categoryId, {
+        skip: !categoryId
+    });
+
     const [createCategory] = useCreateCategoryMutation()
+    const [updateCategory] = useUpdateCategoryMutation()
     const currentIcon: SelectOptions = category?.iconUrl && props.edit ? {
         label: <Icon icon={category.iconUrl} />,
         value: ""
@@ -54,22 +65,12 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
 
     }
 
-    const onFinish = async (data: ReturnType<typeof form.getFieldsValue>) => {
-        let rowFile;
-        if(data.fileList){
-            rowFile = data.fileList[0].originFileObj
+    const onFinish = async (data: CategoryType) => {
+        if(data.id){
+            await updateCategory(data)
+        }else {
+            await createCategory(data)
         }
-        const formData = new FormData()
-        formData.append("uploadedFile", rowFile)
-
-        for (const [key, value] of Object.entries(data)) {
-            if (key !== "fileList") {
-                formData.append(key, value as string)
-            }
-        }
-
-        await createCategory(formData)
-        await refetch()
     }
 
     const initialValues = {
@@ -90,10 +91,7 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
             </Form.Item>
             <Flex vertical style={{marginBottom: 80}} justify="start">
                 <Flex justify="space-between" gap={24} style={ccmStyle.flexContainer}>
-                        <Form.Item name="fileList" getValueFromEvent={(e) => {
-                            if (Array.isArray(e)) return e;
-                            return e?.fileList;
-                        }}>
+                        <Form.Item name="imageUrl" getValueFromEvent={({fileList}) => fileList[0].preview}>
                             <ImageUpload src={props.edit ? category?.imageUrl ?? "" : ""}/>
                         </Form.Item>
                     <Flex vertical style={{width:'100%'}} justify="space-between">
@@ -170,7 +168,6 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
                                         <Form.Item
                                             key={field.key}
                                             noStyle
-
                                         >
                                                 <Form.Item
                                                     {...field}
