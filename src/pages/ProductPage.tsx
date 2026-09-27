@@ -7,7 +7,7 @@ import Text from "antd/es/typography/Text";
 import {text1, text2} from "../theme/textStyles.ts";
 import type {NestedStyles} from "../types/NestedStyles.ts";
 import {useCategoriesQuery} from "../api/slices/categoryApiSlice.ts";
-import {useDeleteProductMutation, useProductByIdQuery, useProductsQuery} from "../api/slices/productApiSlice.ts";
+import {useDeleteProductMutation, useProductForUpdateByIdQuery, useProductsQuery} from "../api/slices/productApiSlice.ts";
 import type {ProductType} from "../types/ProductType.ts";
 import {useAntdTableRowSelect} from "../shared/Hooks/useAntdTableRowSelect.tsx";
 import {StarFullIcon} from "../Components/Icon/StarFullIcon.tsx";
@@ -34,14 +34,15 @@ const categoriesType = productsPageStyles.categories as NestedStyles
 
 
 export const ProductPage = () => {
-    const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+    const [filterOptions, setFilterOptions] = useState<FilterOptions<ProductType>>({
         page: 1,
         pageSize: 5,
+        descendingOrder: true
     });
     const [selectedProductId, setSelectedProductId] = useState<string>("");
     const {data: categories, isFetching: categoriesFetching} = useCategoriesQuery()
     const {data: productsDto, isFetching} = useProductsQuery(filterOptions)
-    const {data: product, isFetching: productFetching} = useProductByIdQuery(selectedProductId, {
+    const {data: product, isFetching: productFetching} = useProductForUpdateByIdQuery(selectedProductId, {
         skip: !selectedProductId
     })
     const [deleteProduct, {isLoading: deleteLoading}] = useDeleteProductMutation()
@@ -120,7 +121,7 @@ export const ProductPage = () => {
                     />
                     <BaseSearch style={productsPageStyles.search} onChange={(e) =>
                         setFilterOptions({...filterOptions, search: e.target.value})} />
-                    <Button type={"secondary"} onClick={() => setFilterOptions({})}>Reset</Button>
+                    <Button type={"secondary"} onClick={() => setFilterOptions({descendingOrder: true})}>Reset</Button>
                 </Flex>
                 {isFetching && !products ?
                     <CustomSpin style={{height: "90%"}} text={"Searching products"}/>
@@ -151,7 +152,7 @@ export const ProductPage = () => {
                             return {
                                 onClick: (e) => {
                                     e.stopPropagation()
-                                   setSelectedProductId(record.id as string)
+                                    setSelectedProductId(record.id as string)
                                 },
                                 style: {
                                     cursor: "pointer",

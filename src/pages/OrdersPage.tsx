@@ -1,7 +1,7 @@
-import {DatePicker, Flex,Table, type TableProps, Tag} from "antd";
+import {DatePicker, Flex, Table, type TableProps, Tabs, type TabsProps, Tag} from "antd";
 import {BaseSearch} from "../Components/Search/BaseSearch.tsx";
-import {ordersPageStyles, ordersRangePickerStyles} from "./css/ordersPageStyles.ts";
-import {OrderStatusColors, type OrderType, OrderStatus} from "../types/OrderType.ts";
+import {orderPageTabsStyles, ordersPageStyles, ordersRangePickerStyles} from "./css/ordersPageStyles.ts";
+import {OrderStatusColors, type OrderType, OrderStatus, type OrderFilterType} from "../types/OrderType.ts";
 import {useOrdersQuery} from "../api/slices/ordersApiSlice.ts";
 import Text from "antd/es/typography/Text";
 import {text3} from "../theme/textStyles.ts";
@@ -13,10 +13,9 @@ import {useAntdTableRowSelect} from "../shared/Hooks/useAntdTableRowSelect.tsx";
 import {Button} from "../Components/Buttons/Button.tsx";
 import {EditIcon} from "../Components/Icon/EditIcon.tsx";
 import {colors} from "../theme/colors.ts";
-import {OrderStatusCard} from "../widgets/Orders/OrderStatusCard.tsx";
 import {useState} from "react";
 import {OrderDetailsDrawer} from "../widgets/Orders/OrderDetailsDrawer.tsx";
-
+import {OrderStatusChart, type OrderStatusChartProps} from "../widgets/Charts/OrderStatusChart.tsx";
 const {RangePicker} = DatePicker
 
 const columns: TableProps<OrderType>["columns"] = [
@@ -85,20 +84,45 @@ const columns: TableProps<OrderType>["columns"] = [
     }
 ]
 
+
 export const OrdersPage = () => {
     const [showDrawer, setShowDrawer] = useState(false);
+    const [filterOptions, setFilterOptions] = useState<OrderFilterType>({});
     const [selectedRow, setSelectedRow] = useState<OrderType>();
-    const {data, isFetching} = useOrdersQuery()
+    const {data, isFetching} = useOrdersQuery(filterOptions)
     const {setSelectedRowKeys, rowSelection} = useAntdTableRowSelect<OrderType>()
 
-    return (
-       <>
-           <OrderStatusCard style={{width: "fit-content", margin: 20}} status={OrderStatus.Ordered} count={12} icon={<><EditIcon /></>} />
+    const tabs: TabsProps["items"] = Object.entries(OrderStatus).map((v) => ({
+        key: v[0],
+        label:v[0]
+    }))
 
+    tabs?.splice(0,0,{
+        key: "all",
+        label: "All"
+    })
+
+    const chartData: OrderStatusChartProps["data"] = {
+        Ordered: 123,
+        Shipped: 22,
+        Received: 233,
+        ReadyForPickup: 23,
+        Cancelled: 53
+    }
+
+    return (
+       <div>
+          <OrderStatusChart total={1200} data={chartData} style={{ width: "45%", margin: 20 }} />
+           {/*<Flex justify="start" gap={10}>*/}
+           {/*{Object.entries(OrderStatus).map(([orderType], i) => (*/}
+           {/*    <OrderStatusCard style={ordersPageStyles.statusCard} status={orderType} count={12} icon={<><EditIcon /></>} />*/}
+           {/*))}*/}
+           {/*</Flex>*/}
             <Flex>
                 <BaseSearch />
                 <RangePicker styles={ordersRangePickerStyles} picker={"month"}/>
             </Flex>
+           <Tabs items={tabs} onChange={(v) => setFilterOptions({...filterOptions, status: v})} styles={orderPageTabsStyles}/>
            <Table
                 rowSelection={{type: "checkbox", ...rowSelection}}
                 columns={columns}
@@ -110,8 +134,10 @@ export const OrdersPage = () => {
                     pageSizeOptions: [7, 20, 50, 100],
                     onChange: () => {
                         setSelectedRowKeys([])
-                    }
+                    },
+                    showSizeChanger: true,
                 }}
+                scroll={{y: "60vh"}}
                 rowKey={"id"}
                 loading={isFetching}
                 locale={{emptyText:<ItemNotFound  text={"No orders found"} />}}
@@ -124,6 +150,6 @@ export const OrdersPage = () => {
                 })}
            />
            {selectedRow && <OrderDetailsDrawer open={showDrawer} onClose={() => setShowDrawer(false)} order={selectedRow}/>}
-       </>
+       </div>
     )
 }

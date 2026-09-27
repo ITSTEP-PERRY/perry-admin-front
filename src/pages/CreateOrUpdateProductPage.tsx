@@ -8,7 +8,7 @@ import {useForm} from "antd/es/form/Form";
 import {Button} from "../Components/Buttons/Button.tsx";
 import type {AnchorContainer} from "antd/es/anchor/Anchor";
 import {useNavigate, useParams} from "react-router";
-import {useCreateProductMutation, useProductByIdQuery} from "../api/slices/productApiSlice.ts";
+import {useCreateProductMutation, useProductForUpdateByIdQuery} from "../api/slices/productApiSlice.ts";
 import {CustomSpin} from "../Components/Utils/CustomSpin.tsx";
 
 const anchorItems : AnchorProps["items"] = [
@@ -30,7 +30,7 @@ const anchorItems : AnchorProps["items"] = [
 
 export const CreateOrUpdateProductPage = () => {
     const {productId} = useParams();
-    const {data: product, isFetching} = useProductByIdQuery(productId ?? "", {
+    const {data: product, isFetching} = useProductForUpdateByIdQuery(productId ?? "", {
         skip: !productId,
     });
     const [,{isLoading: createLoading}] = useCreateProductMutation({

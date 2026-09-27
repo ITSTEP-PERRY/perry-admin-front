@@ -5,6 +5,7 @@ import {text1} from "./textStyles.ts";
 export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
     root: {
         height: "100%",
+        overflowX: "auto",
     },
     section: {
         borderRadius: 4,

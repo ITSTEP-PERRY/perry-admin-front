@@ -36,6 +36,7 @@ export type ProductType = {
     name?: string,
     description?: string,
     slug?: string,
+    sku?: string,
     categoryId?: string,
     category?: {
         id?: string,

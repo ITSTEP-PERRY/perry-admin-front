@@ -11,6 +11,7 @@ import {HealthCheck} from "./Components/Utils/HealthCheck.tsx";
 import {RequireAuthorization} from "./Components/Auth/RequireAuthorization.tsx";
 import {NotFound404Page} from "./pages/NotFound404Page.tsx";
 import {OrdersPage} from "./pages/OrdersPage.tsx";
+import {ReviewPage} from "./pages/ReviewPage.tsx";
 
 
 const App = () => (
@@ -27,12 +28,13 @@ const App = () => (
                                <Route path="users" element={<UsersPage />}/>
                                <Route path="products"  element={<ProductPage />}/>
                                <Route path={"product/:productId?"} element={<CreateOrUpdateProductPage />}/>
-                                <Route path={"orders"} element={<OrdersPage />} />
+                           <Route path={"orders"} element={<OrdersPage />} />
+                           <Route path={"reviews/:id?"} element={<ReviewPage />} />
                        </Route>
                    </Route>
                </Route>
-               <Route path={"/*"} element={<NotFound404Page />} />
            </Route>
+           <Route path={"/*"} element={<NotFound404Page />} />
        </Routes>
     </div>
 );

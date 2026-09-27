@@ -8,5 +8,6 @@ export type UserType = {
     firstName: string,
     lastName: string,
     role: string,
+    avatar?:string
     status: UserStatus
 }

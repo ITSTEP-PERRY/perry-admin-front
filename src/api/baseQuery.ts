@@ -3,7 +3,7 @@ import {getCookie} from "typescript-cookie";
 import {refreshTokenArgs} from "./slices/authApiSlice.ts";
 import {authSuccess, setUser} from "../app/slices/userSlice.ts";
 import type {LoginResponseDto} from "../types/dto/LoginResponseDto.ts";
-
+import qs from "qs"
 
 const prepareHeaders = (headers: Headers) => {
     headers.set("Authorization", `Bearer ${getCookie("jwt")}`);
@@ -13,13 +13,14 @@ export const baseProductQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_PRODUCT_URL,
     // credentials: "include",
     prepareHeaders: prepareHeaders,
+    paramsSerializer: (params) => qs.stringify(params, { allowDots: true }),
 
 })
 
 
 export const baseUserQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_USER_URL,
-    credentials: "include",
+    // credentials: "include",
     prepareHeaders: prepareHeaders,
     timeout: 1000 * 60,
 })
@@ -33,7 +34,6 @@ export const baseAuthQuery = fetchBaseQuery({
 export const baseQueryWithRefresh = (fun: ReturnType<typeof fetchBaseQuery>) => {
     return  async (args: (string | FetchArgs), api: BaseQueryApi, extraOptions: {}) => {
         let result = await fun(args, api, extraOptions)
-        console.log(result)
         if(result.error?.status === 401)
         {
             const resultRefetch = await fun(refreshTokenArgs, api, extraOptions)

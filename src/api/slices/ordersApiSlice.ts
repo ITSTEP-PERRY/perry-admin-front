@@ -1,12 +1,13 @@
-import type {OrderType} from "../../types/OrderType.ts";
+import type {OrderFilterType, OrderType} from "../../types/OrderType.ts";
 import {apiProduct} from "../api.ts";
 
 export const ordersApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
-        orders: builder.query<OrderType[], void>({
-            query: () =>({
+        orders: builder.query<OrderType[], OrderFilterType>({
+            query: (opts) =>({
                 url: "/orders",
-                method: "GET"
+                method: "GET",
+                params: opts
             })
         }),
         getOrderById: builder.query<OrderType, string>({

@@ -11,11 +11,16 @@ export const OrderStatus = {
 export type OrderStatusType = typeof OrderStatus[keyof typeof OrderStatus];
 export const OrderStatusColors: Record<keyof typeof OrderStatus, string> = {
     Cancelled: colors.destructive,
-    Ordered: colors.inputBorder,
-    Shipped: colors.inputBorder,
+    Ordered: "grey",
+    Shipped: colors.lightBlue,
     ReadyForPickup: colors.primary,
     Received: colors.secondary,
 }
+
+export type OrderFilterType = {
+    status?: string
+}
+
 export interface OrderType {
     id: string;
     userId: string;
