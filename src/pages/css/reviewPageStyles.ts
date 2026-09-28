@@ -35,6 +35,9 @@ export  const ReviewPageStyles: NestedStyles = {
     },
     switch: {
         // backgroundColor: colors.darkText
+    },
+    productRoot: {
+        marginBottom: 50
     }
 }
 

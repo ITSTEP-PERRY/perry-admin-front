@@ -30,7 +30,10 @@ export function useAntdTableRowSelect<Type>(): UseAntdTableRowSelectType<Type> {
             return <Checkbox  checked={props.checked} onChange={props.onChange}
             indeterminate={props.indeterminate}/>
         },
-        columnWidth: 60
+        columnWidth: 60,
+        onCell: () => ({
+            onClick: e => e.stopPropagation()
+        })
     }
 
     return {selectedRowKeys, setSelectedRowKeys, rowSelection}

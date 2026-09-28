@@ -23,16 +23,15 @@ import {
 } from "antd";
 import {antdPageTableStyles} from "../theme/antdTableStyles.ts";
 import Text from "antd/es/typography/Text";
-import {useProductPartialByIdQuery} from "../api/slices/productApiSlice.ts";
+import {useProductByIdQuery, useProductPartialByIdQuery} from "../api/slices/productApiSlice.ts";
 import {ReviewPageStyles} from "./css/reviewPageStyles.ts";
-import {text1, text3, text3Bold} from "../theme/textStyles.ts";
+import {text1, text1Bold, text3, text3Bold} from "../theme/textStyles.ts";
 import {colors} from "../theme/colors.ts";
 import {Button} from "../Components/Buttons/Button.tsx";
 import {VscMute, VscUnmute} from "react-icons/vsc";
 import {ArrowsUpDownIcon} from "../Components/Icon/ArrowsUpDownIcon.tsx";
 import type {SorterResult} from "antd/es/table/interface";
 import {dateFormatter} from "../shared/formatter.ts";
-import {ReviewListItem} from "../widgets/Reviews/ReviewList.tsx";
 import {GrPowerReset} from "react-icons/gr";
 import {RateStat} from "../widgets/Reviews/RateStat.tsx";
 import { TbMessageReport } from "react-icons/tb";
@@ -42,6 +41,7 @@ import {StarFullIcon} from "../Components/Icon/StarFullIcon.tsx";
 import {header2} from "../theme/headerStyles.ts";
 import {XOR} from "../utils/helpers/logicalHelpers.ts";
 import {useParams} from "react-router";
+import {ReviewListItem} from "../widgets/Reviews/ReviewListItem.tsx";
 const {RangePicker} = DatePicker
 
 
@@ -94,14 +94,16 @@ export const ReviewPage = () => {
     const {setSelectedRowKeys, rowSelection, selectedRowKeys} = useAntdTableRowSelect<ProductReview>()
 
 
-    const {id} = useParams()
+    const {id, type} = useParams()
 
     const {data, isFetching: dataFetching} = useAllReviewsQuery({
         options: filterOptions,
         id
     });
 
-
+    const {data: product} = useProductByIdQuery(id as string, {
+        skip: type !== "product"
+    });
 
 
     const [muteReview, {isLoading: muteFetching}] = useSetApprovalReviewMutation()
@@ -393,6 +395,37 @@ export const ReviewPage = () => {
                     />
                 </Col>
                 <Col span={8} style={ReviewPageStyles.statCol}>
+
+                    {product &&
+                        <>
+                        <Flex vertical gap={5} style={ReviewPageStyles.productRoot}>
+                            <Text style={header2}>Product Details</Text>
+                            <Flex justify={"space-between"}>
+                                <Text style={text1}>Name:</Text>
+                                <Text style={text1Bold}>{product.name?.hideRest(35)}</Text>
+                            </Flex>
+                            <Flex justify={"space-between"}>
+                                <Text style={text1}>Category:</Text>
+                                <Text style={text1Bold}>{product.category?.name}</Text>
+                            </Flex>
+                            <Flex justify={"space-between"}>
+                                <Text style={text1}>SKU:</Text>
+                                <Text style={text1Bold}>{product.sku}</Text>
+                            </Flex>
+                            <Flex justify={"space-between"}>
+                                <Text style={text1}>Average rating:</Text>
+                                <Space align={"center"}>
+                                    <Text style={text1Bold}>{product.averageRating}</Text>
+                                    <StarFullIcon size={24} />
+                                </Space>
+                            </Flex>
+
+                        </Flex>
+                            <Divider />
+                        </>
+                        }
+
+
                     <Flex vertical gap={20}>
                     <Flex justify={"space-between"} align={"center"}>
                         <Text style={header2}>Filters</Text>
@@ -438,7 +471,6 @@ export const ReviewPage = () => {
 
                             />
                         </Space>
-                        <Text style={text1}>Average Score:</Text>
                     {data?.statistic && <RateStat data={data.statistic}
                                                   onRateSelect={(value) => {
                                                 const filterObj = filterOptions.filterObjects?.filter(f => f.propertyName !== "rating") ?? []
@@ -452,7 +484,6 @@ export const ReviewPage = () => {
                     </Flex>
                 </Col>
 
-
                 <Modal
                     centered
                     width={1200}
@@ -461,7 +492,7 @@ export const ReviewPage = () => {
                     onCancel={() => setShowReview(false)}
                 >
                     <div style={{paddingTop: 20}}>
-                        {selectedRecord && <ReviewListItem item={selectedRecord}/>}
+                        {selectedRecord && <ReviewListItem onActionFinish={() => setShowReview(false)} item={selectedRecord}/>}
                     </div>
                 </Modal>
             </Row>

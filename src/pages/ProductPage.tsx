@@ -23,7 +23,7 @@ import {ConfirmModal} from "../Components/Inputs/ConfirmModal.tsx";
 import {TrashcanIcon} from "../Components/Icon/TrashcanIcon.tsx";
 import Title from "antd/es/typography/Title";
 import {header3} from "../theme/headerStyles.ts";
-import {useNavigate} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {CustomSpin} from "../Components/Utils/CustomSpin.tsx";
 import {ProductImageCollage} from "../widgets/Product/ProductImageCollage.tsx";
 import Fallback from "../assets/images/SiginSignup.png"
@@ -186,7 +186,7 @@ export const ProductPage = () => {
                             <ProductImageCollage images={product?.images ?? []} />
                             <Text style={header3}>{product?.name}</Text>
                             <Divider />
-                            <Text style={text1}>See all customer reviews</Text>
+                            <Link to={`/reviews/${selectedProductId}/product`}>See all customer reviews</Link>
                         </Flex>
                         <Flex gap={20}>
                             <Button type={"secondary"}

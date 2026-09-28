@@ -29,7 +29,7 @@ const App = () => (
                                <Route path="products"  element={<ProductPage />}/>
                                <Route path={"product/:productId?"} element={<CreateOrUpdateProductPage />}/>
                            <Route path={"orders"} element={<OrdersPage />} />
-                           <Route path={"reviews/:id?"} element={<ReviewPage />} />
+                           <Route path={"reviews/:id?/:type?"} element={<ReviewPage />} />
                        </Route>
                    </Route>
                </Route>

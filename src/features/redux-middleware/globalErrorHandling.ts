@@ -6,9 +6,9 @@ export const globalErrorHandling: Middleware = (_: MiddlewareAPI) => (next) => (
 
     if(isRejectedWithValue(action)) {
         const payload = action.payload as UserApiError;
-        if(payload.data){
+        if(payload.data && payload.data.message){
             notification.error({
-                title: payload.data.message ? payload.data.message : "An Error occurred",
+                title: payload.data.message,
             });
         }
     }

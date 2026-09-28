@@ -36,7 +36,7 @@ export const baseQueryWithRefresh = (fun: ReturnType<typeof fetchBaseQuery>) => 
         let result = await fun(args, api, extraOptions)
         if(result.error?.status === 401)
         {
-            const resultRefetch = await fun(refreshTokenArgs, api, extraOptions)
+            const resultRefetch = await baseAuthQuery(refreshTokenArgs, api, extraOptions)
             if (resultRefetch.error?.status !== 401) {
                 if (resultRefetch?.data)api.dispatch(setUser(resultRefetch.data as LoginResponseDto))
                 result = await fun(args, api, extraOptions)
