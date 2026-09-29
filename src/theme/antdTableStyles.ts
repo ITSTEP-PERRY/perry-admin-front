@@ -1,6 +1,6 @@
 import type {TableProps} from "antd";
 import {colors} from "./colors.ts";
-import {text1} from "./textStyles.ts";
+import {text2,} from "./textStyles.ts";
 
 export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
     root: {
@@ -21,6 +21,8 @@ export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
         },
         row: {
             backgroundColor: "none",
+            maxHeight: "1px",
+            // minHeight: "1px",
         },
         wrapper: {
         }
@@ -39,7 +41,7 @@ export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
             borderRadius: 0,
             justifyItems: "start",
             backgroundColor: "white",
-            ...text1
+            ...text2
         },
         row:{
         },

@@ -33,5 +33,17 @@ export const ordersPageStyles: NestedStyles = {
     },
     statusCard: {
         margin: "10px 0",
+    },
+    tableCol: {
+        // width: "55%",
+    },
+    filterCol: {
+        boxShadow: "0px 4px 11.5px -5px #2050AD40",
+        backgroundColor: "white",
+        borderRadius: 8,
+        padding: 24,
+    },
+    orderStatusChart: {
+        // width: "40%",
     }
 }

@@ -177,11 +177,11 @@ export const ReviewPage = () => {
             title: "Created At",
             dataIndex: "createdAtUtc",
             render: (_, record) => {
-                const date = dateFormatter.format(new Date(record.createdAtUtc + "Z"))
+                const date = dateFormatter.format(new Date(record.createdAtUtc))
                 return (
                     <Space vertical>
                         <Text style={text3}>{date}</Text>
-                        <Text style={text3}>{new Date(record.createdAtUtc + "Z").toLocaleTimeString()}</Text>
+                        <Text style={text3}>{new Date(record.createdAtUtc).toLocaleTimeString()}</Text>
                     </Space>
                 )
             },
