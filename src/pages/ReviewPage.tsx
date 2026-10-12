@@ -1,4 +1,4 @@
-import { type ComponentProps, useState } from "react";
+import { useState } from "react";
 import type { FilterOptions } from "../types/FilterOptions.ts";
 import { useAntdTableRowSelect } from "../shared/Hooks/useAntdTableRowSelect.tsx";
 import type { ProductReview } from "../types/ProductReview.ts";
@@ -24,11 +24,10 @@ import {
 import { antdPageTableStyles } from "../theme/antdTableStyles.ts";
 import Text from "antd/es/typography/Text";
 import {
-  useProductByIdQuery,
   useProductPartialByIdQuery,
 } from "../api/slices/productApiSlice.ts";
 import { ReviewPageStyles } from "./css/reviewPageStyles.ts";
-import { text1, text1Bold, text3, text3Bold } from "../theme/textStyles.ts";
+import { text1, text3, text3Bold } from "../theme/textStyles.ts";
 import { colors } from "../theme/colors.ts";
 import { Button } from "../Components/Buttons/Button.tsx";
 import { VscMute, VscUnmute } from "react-icons/vsc";

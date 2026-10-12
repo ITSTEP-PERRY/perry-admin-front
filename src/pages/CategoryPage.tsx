@@ -13,7 +13,6 @@ import {ItemNotFound} from "../widgets/ItemNotFound.tsx";
 import {CategoryTree} from "../widgets/Category/CategoryTree.tsx";
 import {header3} from "../theme/headerStyles.ts";
 import Title from "antd/es/typography/Title";
-import Hanger from "../assets/icons/Hanger.svg"
 import {Button} from "../Components/Buttons/Button.tsx";
 import {EditIcon} from "../Components/Icon/EditIcon.tsx";
 import {colors} from "../theme/colors.ts";

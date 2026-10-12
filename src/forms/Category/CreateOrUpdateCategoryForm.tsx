@@ -6,11 +6,10 @@ import {SelectCategoryTree} from "../../Components/Select/SelectCategoryTree.tsx
 import {Button} from "../../Components/Buttons/Button.tsx";
 import {PlusIcon} from "../../Components/Icon/PlusIcon.tsx";
 import Title from "antd/es/typography/Title";
-import type {SelectOptions} from "../../types/SelectOptions.ts";
-import {Icon} from "../../Components/Icon/Icon.tsx";
-import Hanger from "../../assets/icons/Hanger.svg";
+// import type {SelectOptions} from "../../types/SelectOptions.ts";
+// import {Icon} from "../../Components/Icon/Icon.tsx";
+// import Hanger from "../../assets/icons/Hanger.svg";
 import Text from "antd/es/typography/Text";
-import {SelectIcon} from "../../Components/Select/SelectIcon.tsx";
 import {InfoIcon} from "../../Components/Icon/InfoIcon.tsx";
 import {iconButtonStyles} from "../../theme/commonStyles.ts";
 import {colors} from "../../theme/colors.ts";
@@ -29,14 +28,14 @@ import {getCurrentCategory} from "../../app/slices/categorySlice.ts";
 import type {CategoryType} from "../../types/CategoryType.ts";
 import {CustomSpin} from "../../Components/Utils/CustomSpin.tsx";
 
-
-const options: SelectOptions[] = [
-    { value: "Hello" , label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
-    { value: "Electronics", label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
-    { value: "Household", label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
-    { value: "WorkTools", label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
-
-]
+//
+// const options: SelectOptions[] = [
+//     { value: "Hello" , label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
+//     { value: "Electronics", label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
+//     { value: "Household", label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
+//     { value: "WorkTools", label: <img src={Hanger} sizes={"24px"}/>, tooltip: "hanger" },
+//
+// ]
 
 type CreateOrUpdateCategoryFormProps = {
     form: FormInstance,
@@ -59,10 +58,10 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
     const [updateCategory] = useUpdateCategoryMutation({
         fixedCacheKey: "updateCategory"
     })
-    const currentIcon: SelectOptions = category?.iconUrl && props.edit ? {
-        label: <Icon icon={category.iconUrl} />,
-        value: ""
-    } : options[0]
+    // const currentIcon: SelectOptions = category?.iconUrl && props.edit ? {
+    //     label: <Icon icon={category.iconUrl} />,
+    //     value: ""
+    // } : options[0]
 
     const isSubcategory = !!currentCategory.parentCategoryId || props.isSubcategory
     const onFinishFailed = () => {
