@@ -20,8 +20,12 @@ export interface CreateOrUpdateCategoryModalProps extends ComponentProps<"div">{
 export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryModalProps) => {
     const [open, setOpen] = useState(false);
     const [form] = useForm();
-    const [,{isLoading: createLoading}] = useCreateCategoryMutation()
-    const [,{isLoading: updateLoading}] = useUpdateCategoryMutation()
+    const [,{isLoading: createLoading}] = useCreateCategoryMutation({
+        fixedCacheKey: "createCategory"
+    })
+    const [,{isLoading: updateLoading}] = useUpdateCategoryMutation({
+        fixedCacheKey: "updateCategory"
+    })
 
     return (
         <div {...props}>
@@ -50,7 +54,7 @@ export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryMo
                                 style={ccmStyle.footerCreateButton}
                                 onClick={async () => {
                                     form.submit()
-                                    setOpen(false)
+                                    //setOpen(false)
                                 }}
                         >{props.edit ? "Update" : "Create"}</Button>
                     </>
@@ -66,6 +70,7 @@ export const CreateOrUpdateCategoryModal = ({...props}: CreateOrUpdateCategoryMo
                         form={form}
                         isSubcategory={!!props.isSubcategory}
                         edit={props.edit}
+                        onRequestFinish={() => setOpen(false)}
                     />
                 </Modal>
         </div>

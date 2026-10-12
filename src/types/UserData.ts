@@ -26,8 +26,10 @@ export interface UserData {
 
 export interface UserFilterRequest {
     roles?: UserRole[];
-    name?: string;
-    email?: string;
-    active?: boolean;
-    searchTerm?: string;
+    status?: boolean;
+    search?: string;
+    sortBy?: string;
+    sortDirection?: string;
+    page?: number;
+    pageSize?: number;
 }

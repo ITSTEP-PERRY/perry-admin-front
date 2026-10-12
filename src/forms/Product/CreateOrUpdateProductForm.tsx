@@ -33,6 +33,7 @@ import {
     useCreateProductMutation,
     useUpdateProductMutation
 } from "../../api/slices/productApiSlice.ts";
+import {useNavigate} from "react-router";
 
 export type CreateOrUpdateProductFormProps = {
     form: FormInstance,
@@ -57,6 +58,8 @@ export const CreateOrUpdateProductForm = ({form, product}: CreateOrUpdateProduct
         fixedCacheKey: "updateProduct-form"
     })
 
+    const navigate = useNavigate()
+
     const setImages = () => form.setFieldValue("images", fileList.map((file): ProductImageType => ({
         isPrimary: false,
         url: file.preview
@@ -77,10 +80,11 @@ export const CreateOrUpdateProductForm = ({form, product}: CreateOrUpdateProduct
             } else {
                 await createProduct(data).unwrap()
             }
-            await message.success({
+            message.success({
                 content: "Successfully uploaded!",
                 type: "success"
             })
+            navigate("/products")
         }catch {
             await message.success({
                 content: "Upload failed!",

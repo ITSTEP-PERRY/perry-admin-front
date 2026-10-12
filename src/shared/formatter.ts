@@ -1,6 +1,6 @@
 export const dateFormatter = new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
-    month: "long",
+    month: "short",
     year: "numeric",
 })
 export const dateTimeFormatter = new Intl.DateTimeFormat("en-GB", {

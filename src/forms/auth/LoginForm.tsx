@@ -11,7 +11,7 @@ import {useGetMyUserQuery, useLoginMutation} from "../../api/slices/authApiSlice
 import {useAppDispatch} from "../../app/hooks.ts";
 import {setUser} from "../../app/slices/userSlice.ts";
 import type {LoginResponseDto} from "../../types/dto/LoginResponseDto.ts";
-import {useNavigate} from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 
 export const LoginForm = () => {
     const [form] = Form.useForm();
@@ -19,6 +19,7 @@ export const LoginForm = () => {
     const [login, {isLoading}] = useLoginMutation()
     const {refetch: myUserRefetch} = useGetMyUserQuery()
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams()
     const [hasErrors, setHasErrors] = useState<Record<string, boolean>>({
         email: false,
         password: false,
@@ -31,11 +32,12 @@ export const LoginForm = () => {
 
     const onFinish = async (data: LoginRequestDto) => {
         const result = await login(data)
-        console.log(result)
         if (result.data) {
             dispatch(setUser(result.data as LoginResponseDto))
             await myUserRefetch()
-            navigate("/")
+            const returnUrl = searchParams.get("returnUrl") ?? "/";
+            console.log(returnUrl);
+            navigate(returnUrl, { replace: true });
         }
     }
 

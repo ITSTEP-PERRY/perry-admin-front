@@ -7,7 +7,7 @@ import Text from "antd/es/typography/Text";
 import {text1, text2} from "../theme/textStyles.ts";
 import type {NestedStyles} from "../types/NestedStyles.ts";
 import {useCategoriesQuery} from "../api/slices/categoryApiSlice.ts";
-import {useDeleteProductMutation, useProductByIdQuery, useProductsQuery} from "../api/slices/productApiSlice.ts";
+import {useDeleteProductMutation, useProductForUpdateByIdQuery, useProductsQuery} from "../api/slices/productApiSlice.ts";
 import type {ProductType} from "../types/ProductType.ts";
 import {useAntdTableRowSelect} from "../shared/Hooks/useAntdTableRowSelect.tsx";
 import {StarFullIcon} from "../Components/Icon/StarFullIcon.tsx";
@@ -23,7 +23,7 @@ import {ConfirmModal} from "../Components/Inputs/ConfirmModal.tsx";
 import {TrashcanIcon} from "../Components/Icon/TrashcanIcon.tsx";
 import Title from "antd/es/typography/Title";
 import {header3} from "../theme/headerStyles.ts";
-import {useNavigate} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {CustomSpin} from "../Components/Utils/CustomSpin.tsx";
 import {ProductImageCollage} from "../widgets/Product/ProductImageCollage.tsx";
 import Fallback from "../assets/images/SiginSignup.png"
@@ -34,14 +34,15 @@ const categoriesType = productsPageStyles.categories as NestedStyles
 
 
 export const ProductPage = () => {
-    const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+    const [filterOptions, setFilterOptions] = useState<FilterOptions<ProductType>>({
         page: 1,
         pageSize: 5,
+        descendingOrder: true
     });
     const [selectedProductId, setSelectedProductId] = useState<string>("");
     const {data: categories, isFetching: categoriesFetching} = useCategoriesQuery()
     const {data: productsDto, isFetching} = useProductsQuery(filterOptions)
-    const {data: product, isFetching: productFetching} = useProductByIdQuery(selectedProductId, {
+    const {data: product, isFetching: productFetching} = useProductForUpdateByIdQuery(selectedProductId, {
         skip: !selectedProductId
     })
     const [deleteProduct, {isLoading: deleteLoading}] = useDeleteProductMutation()
@@ -120,7 +121,7 @@ export const ProductPage = () => {
                     />
                     <BaseSearch style={productsPageStyles.search} onChange={(e) =>
                         setFilterOptions({...filterOptions, search: e.target.value})} />
-                    <Button type={"secondary"} onClick={() => setFilterOptions({})}>Reset</Button>
+                    <Button type={"secondary"} onClick={() => setFilterOptions({descendingOrder: true})}>Reset</Button>
                 </Flex>
                 {isFetching && !products ?
                     <CustomSpin style={{height: "90%"}} text={"Searching products"}/>
@@ -135,6 +136,7 @@ export const ProductPage = () => {
                         columns={columns}
                         scroll={{y: "68vh"}}
                         pagination={{
+                            style: {marginTop: 60},
                             placement: ["bottomCenter"],
                             defaultPageSize: filterOptions.pageSize,
                             showSizeChanger: true,
@@ -151,7 +153,7 @@ export const ProductPage = () => {
                             return {
                                 onClick: (e) => {
                                     e.stopPropagation()
-                                   setSelectedProductId(record.id as string)
+                                    setSelectedProductId(record.id as string)
                                 },
                                 style: {
                                     cursor: "pointer",
@@ -185,7 +187,7 @@ export const ProductPage = () => {
                             <ProductImageCollage images={product?.images ?? []} />
                             <Text style={header3}>{product?.name}</Text>
                             <Divider />
-                            <Text style={text1}>See all customer reviews</Text>
+                            <Link to={`/reviews/${selectedProductId}/product`}>See all customer reviews</Link>
                         </Flex>
                         <Flex gap={20}>
                             <Button type={"secondary"}

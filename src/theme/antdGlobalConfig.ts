@@ -66,10 +66,16 @@ export const config: ThemeConfig = {
             controlItemBgActiveHover: colors.lightBlue,
         },
         Anchor: {
-            colorBgTextActive: "red",
             colorPrimary: colors.darkText,
             colorText: colors.inputBorder,
             colorSplit:  colors.inputBorder
+        },
+        Tabs: {
+            colorPrimary: colors.secondary,
+            colorBorderSecondary:colors.inputBorder,
+        },
+        List: {
+            colorSplit: colors.lightBlue,
         }
     }
 }

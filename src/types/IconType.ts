@@ -5,5 +5,6 @@ export type IconType = {
     color?: string;
     fillColor?: string;
     width?: number | string;
-    style?: CSSProperties
+    style?: CSSProperties,
+    className?: string;
 }

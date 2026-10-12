@@ -19,7 +19,10 @@ export function useAntdTableRowSelect<Type>(): UseAntdTableRowSelectType<Type> {
 
         renderCell: (checked, _, index, originNode) => {
             const props = (originNode as ReactElement)?.props as ComponentProps<"input">
-            return <Checkbox  checked={checked} key={index} onChange={props.onChange}/>
+            return <Checkbox  checked={checked} key={index} onChange={(e) => {
+                e.stopPropagation()
+                props.onChange?.(e)
+            }}/>
         },
         columnTitle: (originNode) => {
             const props = (originNode as ReactElement)?.props as ComponentProps<typeof Checkbox>
@@ -27,7 +30,10 @@ export function useAntdTableRowSelect<Type>(): UseAntdTableRowSelectType<Type> {
             return <Checkbox  checked={props.checked} onChange={props.onChange}
             indeterminate={props.indeterminate}/>
         },
-        columnWidth: 60
+        columnWidth: 60,
+        onCell: () => ({
+            onClick: e => e.stopPropagation()
+        })
     }
 
     return {selectedRowKeys, setSelectedRowKeys, rowSelection}

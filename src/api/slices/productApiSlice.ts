@@ -6,7 +6,7 @@ import {apiProduct} from "../api.ts";
 
 export const productApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
-        products: builder.query<ResponseProductsDto, FilterOptions>({
+        products: builder.query<ResponseProductsDto, FilterOptions<ProductType>>({
             query: (queryArg) => ({
                 url: "products",
                 method: "GET",
@@ -14,9 +14,23 @@ export const productApi = apiProduct.injectEndpoints({
             }),
             providesTags: ["Product"]
         }),
-        productById: builder.query<ProductType, string>({
+        productForUpdateById: builder.query<ProductType, string>({
+            query: (id) => ({
+                url: `products/update/${id}`,
+                method: "GET"
+            }),
+            providesTags: ["Product"]
+        }),
+        productPartialById: builder.query<ProductType, string>({
             query: (id) => ({
                 url: `products/partial/${id}`,
+                method: "GET"
+            }),
+            providesTags: ["Product"]
+        }),
+        productById: builder.query<ProductType, string>({
+            query: (id) => ({
+                url: `products/${id}`,
                 method: "GET"
             }),
             providesTags: ["Product"]
@@ -47,11 +61,13 @@ export const productApi = apiProduct.injectEndpoints({
     })
 })
 
-export const useRefetchProductsQuery = (params: FilterOptions)=>
+export const useRefetchProductsQuery = (params: FilterOptions<ProductType>)=>
     useAppDispatch()(productApi.endpoints.products.initiate(params));
 
 export const {
     useProductsQuery,
+    useProductForUpdateByIdQuery,
+    useProductPartialByIdQuery,
     useProductByIdQuery,
     useCreateProductMutation,
     useUpdateProductMutation,

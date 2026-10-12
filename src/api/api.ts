@@ -4,7 +4,7 @@ import {baseAuthQuery, baseProductQuery, baseQueryWithRefresh, baseUserQuery} fr
 export const apiProduct = createApi({
     reducerPath: "apiProduct",
     baseQuery: baseQueryWithRefresh(baseProductQuery),
-    tagTypes: ["Users","Category", "Product"],
+    tagTypes: ["Users","Category", "Product", "Review"],
     endpoints: () => ({}),
 });
 

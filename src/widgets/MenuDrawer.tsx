@@ -23,6 +23,7 @@ import {useNavigate} from "react-router";
 import {useAppDispatch} from "../app/hooks.ts";
 import {logout} from "../app/slices/userSlice.ts";
 import {useGetMyUserQuery, useLogoutMutation} from "../api/slices/authApiSlice.ts";
+import {MdOutlineDashboardCustomize} from "react-icons/md";
 
 
 const demmyData = {
@@ -33,6 +34,10 @@ const demmyData = {
 
 const menuItems = [
     {
+        icon: <MdOutlineDashboardCustomize  />,
+        title: "Dashboard",
+        path:"dashboard"
+    },{
         icon: <UsersIcon />,
         title: "Users",
         path:"users"

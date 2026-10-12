@@ -2,8 +2,13 @@ import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type {RootState} from "../store.ts";
 import type {LoginResponseDto} from "../../types/dto/LoginResponseDto.ts";
 import {Cookies, setCookie} from "typescript-cookie";
+import type {UserType} from "../../types/UserType.ts";
 
-const initialState  = {
+export interface UserSliceType {
+    isAuthenticated: boolean;
+    user?: UserType
+}
+const initialState: UserSliceType  = {
     isAuthenticated: false,
 }
 
@@ -19,6 +24,10 @@ export const userSlice = createSlice({
                 expires: 7,
             });
             state.isAuthenticated = true;
+            state.user = action.payload.user;
+        },
+        setMe: (state, action: PayloadAction<UserType>) => {
+            state.user = action.payload;
         },
         logout: (state) => {
             Cookies.remove("jwt")
@@ -28,7 +37,7 @@ export const userSlice = createSlice({
 
 })
 
-export const {setUser, authSuccess, logout} = userSlice.actions;
+export const {setUser, authSuccess, logout, setMe} = userSlice.actions;
 export const isUserAuthenticated = (state: RootState) => state.user.isAuthenticated;
-
+export const getUser = (state: RootState) => state.user.user;
 export default userSlice.reducer;

@@ -4,6 +4,9 @@ import {userSlice} from "./slices/userSlice.ts";
 import {globalErrorHandling} from "../features/redux-middleware/globalErrorHandling.ts";
 import {errorSlice} from "./slices/errorSlice.ts";
 import {apiAuth, apiProduct, apiUser} from "../api/api.ts";
+import {globalFilterSlice} from "./slices/globalFilterSlice.ts";
+import {orderSlice} from "./slices/orderSlice.ts";
+import {tableSettingsSlice} from "./slices/tableSettingsSlice.ts";
 
 
 
@@ -16,6 +19,9 @@ export const store = configureStore({
             category: categorySlice.reducer,
             user: userSlice.reducer,
             error: errorSlice.reducer,
+            globalFilter: globalFilterSlice.reducer,
+            order: orderSlice.reducer,
+            tableSettings: tableSettingsSlice.reducer,
         },
         middleware: (getDefaultMiddleware) => getDefaultMiddleware()
             .concat(

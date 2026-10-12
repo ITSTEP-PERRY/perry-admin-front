@@ -9,6 +9,9 @@ import {ConfirmModal} from "../Inputs/ConfirmModal.tsx";
 import {text1} from "../../theme/textStyles.ts";
 import {useChangeUserRoleMutation, useSetUserStatusByIdMutation} from "../../api/slices/userApiSlice.ts";
 import {ClosableDiv} from "../General/ClosableDiv.tsx";
+import {Link} from "react-router";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {setGlobalFilters} from "../../app/slices/globalFilterSlice.ts";
 
 export const UserOptions = ({record}: { record: UserData }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -16,7 +19,7 @@ export const UserOptions = ({record}: { record: UserData }) => {
     const [modalRoleOpen, setModalRoleOpen] = useState<boolean>(false);
     const [setUserStatus, {isLoading}] = useSetUserStatusByIdMutation()
     const [changeUserRole, {isLoading: settingRole}] = useChangeUserRoleMutation()
-
+    const dispatch = useAppDispatch();
     const newRole = record.role == UserRole.Admin ? UserRole.Customer : UserRole.Admin
     const isActive = record.status === UserStatus.Active
     return (
@@ -34,12 +37,19 @@ export const UserOptions = ({record}: { record: UserData }) => {
                             <Text>{isActive ? "Delete" : "Restore"}</Text>
                         </Button>
                     <Divider />
-                    <Button type={"text"} style={userOptionsStyles.item}>
-                        <Text>View orders</Text>
-                    </Button>
-                    <Button type={"text"} style={userOptionsStyles.item}>
-                        <Text>View reviews</Text>
-                    </Button>
+                    <Link to={`/orders`}>
+                        <Button type={"text"}
+                                style={userOptionsStyles.item}
+                                onClick={() => dispatch(setGlobalFilters({userId: record.id}))}
+                        >
+                            <Text>View orders</Text>
+                        </Button>
+                    </Link>
+                    <Link to={`/reviews/${record.id}`}>
+                        <Button type={"text"} style={userOptionsStyles.item}>
+                            <Text>View reviews</Text>
+                        </Button>
+                    </Link>
                 </Flex>
                 </ClosableDiv>
             }

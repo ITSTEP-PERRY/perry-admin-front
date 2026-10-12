@@ -27,6 +27,7 @@ import {ImageUpload} from "../../Components/Inputs/ImageUpload.tsx";
 import {useAppSelector} from "../../app/hooks.ts";
 import {getCurrentCategory} from "../../app/slices/categorySlice.ts";
 import type {CategoryType} from "../../types/CategoryType.ts";
+import {CustomSpin} from "../../Components/Utils/CustomSpin.tsx";
 
 
 const options: SelectOptions[] = [
@@ -41,6 +42,7 @@ type CreateOrUpdateCategoryFormProps = {
     form: FormInstance,
     isSubcategory?: boolean,
     edit?: boolean,
+    onRequestFinish?: () => void,
 }
 
 
@@ -49,12 +51,14 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
     const currentCategory = useAppSelector(getCurrentCategory)
     const {data: categories} = useCategoriesQuery()
     const categoryId = props.edit ? currentCategory.id : ""
-    const {data: category} = useCategoryByIdQuery(categoryId, {
-        skip: !categoryId
-    });
+    const {data: category, isFetching: categoryLoading} = useCategoryByIdQuery(categoryId);
 
-    const [createCategory] = useCreateCategoryMutation()
-    const [updateCategory] = useUpdateCategoryMutation()
+    const [createCategory] = useCreateCategoryMutation({
+        fixedCacheKey: "createCategory"
+    })
+    const [updateCategory] = useUpdateCategoryMutation({
+        fixedCacheKey: "updateCategory"
+    })
     const currentIcon: SelectOptions = category?.iconUrl && props.edit ? {
         label: <Icon icon={category.iconUrl} />,
         value: ""
@@ -71,6 +75,7 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
         }else {
             await createCategory(data)
         }
+        props.onRequestFinish?.()
     }
 
     const initialValues = {
@@ -79,136 +84,141 @@ export const CreateOrUpdateCategoryForm = ({form, ...props}:CreateOrUpdateCatego
     }
 
     return (
-        <Form form={form}
-              initialValues={props.edit ? category : initialValues}
-              styles={ccmFormStyles}
-              onFinishFailed={onFinishFailed}
-              onFinish={onFinish}
-              encType={"multipart/form-data"}
-        >
-            <Form.Item name={"id"} hidden>
-                <input value={category?.id} />
-            </Form.Item>
-            <Flex vertical style={{marginBottom: 80}} justify="start">
-                <Flex justify="space-between" gap={24} style={ccmStyle.flexContainer}>
-                        <Form.Item name="imageUrl" getValueFromEvent={({fileList}) => fileList[0].preview}>
-                            <ImageUpload src={props.edit ? category?.imageUrl ?? "" : ""}/>
-                        </Form.Item>
-                    <Flex vertical style={{width:'100%'}} justify="space-between">
-                        <Flex  gap={10}>
-                            <Form.Item name={"categoryIcon"} style={{alignSelf:"center"}}>
-                                <SelectIcon options={options}
-                                            currentValue={currentIcon} onSelect={n => {
-                                            form.setFieldValue("icon", n)
-                                }} />
+        <>
+            {props.edit && categoryLoading ?
+                <CustomSpin />
+                    :
+            <Form form={form}
+                  initialValues={props.edit ? category : initialValues}
+                  styles={ccmFormStyles}
+                  onFinishFailed={onFinishFailed}
+                  onFinish={onFinish}
+                  encType={"multipart/form-data"}
+            >
+                <Form.Item name={"id"} hidden>
+                    <input value={category?.id} />
+                </Form.Item>
+                <Flex vertical style={{marginBottom: 80}} justify="start">
+                    <Flex justify="space-between" gap={24} style={ccmStyle.flexContainer}>
+                            <Form.Item name="imageUrl" getValueFromEvent={({fileList}) => fileList[0].preview}>
+                                <ImageUpload src={props.edit ? category?.imageUrl ?? "" : ""}/>
                             </Form.Item>
-                            <Form.Item name={"name"} style={{width:'100%'}} rules={[
-                                {required: true, message: "This field cannot be empty."},
-                            ]} validateTrigger={"onSubmit"}
-                            >
-                                <TextInput
-                                    status={"error"}
-                                    prefix={"Category name"}
-                                    placeholder={"Enter category name"}
-                                    style={ccmStyle.nameInput}
-                                />
-                            </Form.Item>
-                        </Flex>
-                        <Flex justify="space-between"  align={"baseline"}>
-                            <Text style={text1Bold}>Status</Text>
-                            <Form.Item name={"isActive"} >
-                                <Radio.Group buttonStyle={"solid"}  defaultValue={true}>
-                                    <Flex gap={10}>
-                                        <Radio.Button value={true} style={ccmStyle.radioButtons}>Active</Radio.Button>
-                                        <Radio.Button value={false} style={ccmStyle.radioButtons}>Not Active</Radio.Button>
-                                    </Flex>
-                                </Radio.Group>
-                            </Form.Item>
+                        <Flex vertical style={{width:'100%'}} justify="space-between">
+                            <Flex  gap={10}>
+                                {/*<Form.Item name={"categoryIcon"} style={{alignSelf:"center"}}>*/}
+                                {/*    <SelectIcon options={options}*/}
+                                {/*                currentValue={currentIcon} onSelect={n => {*/}
+                                {/*                form.setFieldValue("icon", n)*/}
+                                {/*    }} />*/}
+                                {/*</Form.Item>*/}
+                                <Form.Item name={"name"} style={{width:'100%'}} rules={[
+                                    {required: true, message: "This field cannot be empty."},
+                                ]} validateTrigger={"onSubmit"}
+                                >
+                                    <TextInput
+                                        status={"error"}
+                                        prefix={"Category name"}
+                                        placeholder={"Enter category name"}
+                                        style={ccmStyle.nameInput}
+                                    />
+                                </Form.Item>
+                            </Flex>
+                            <Flex justify="space-between"  align={"baseline"}>
+                                <Text style={text1Bold}>Status</Text>
+                                <Form.Item name={"isActive"} >
+                                    <Radio.Group buttonStyle={"solid"}  defaultValue={true}>
+                                        <Flex gap={10}>
+                                            <Radio.Button value={true} style={ccmStyle.radioButtons}>Active</Radio.Button>
+                                            <Radio.Button value={false} style={ccmStyle.radioButtons}>Not Active</Radio.Button>
+                                        </Flex>
+                                    </Radio.Group>
+                                </Form.Item>
+                            </Flex>
                         </Flex>
                     </Flex>
-                </Flex>
-                <Form.Item name={"description"} rules={[{max: 300}]}>
-                    <TextArea rows={3} count={{max: 300, show: true}} label={"Description"} placeholder={"Describe your category "}/>
-                </Form.Item>
-
-                {isSubcategory &&
-                    <Form.Item name={"parentCategoryId"}  rules={[
-                        {
-                            required: true,
-                            message: "Subcategory cannot be created without the main category.",
-                        },
-                    ]} validateTrigger={"onSubmit"}>
-                        <SelectCategoryTree
-                            placeholder={currentCategory.id}
-                            categories={categories}
-                            value={currentCategory.id}
-                        />
+                    <Form.Item name={"description"} rules={[{max: 300}]}>
+                        <TextArea rows={3} count={{max: 300, show: true}} label={"Description"} placeholder={"Describe your category "}/>
                     </Form.Item>
-                }
 
-                {category?.id && !isSubcategory &&
-                    <Flex justify="space-between" align={"center"}>
-                        <Text style={text1Bold}>Role</Text>
-                        <Space align={"center"}>
-                            <Text style={text2}>Parent category</Text>
-                            <Button type={"text"} style={iconButtonStyles}>
-                                <InfoIcon color={colors.inputBorder} size={24}/>
-                            </Button>
-                        </Space>
-                    </Flex>}
+                    {isSubcategory &&
+                        <Form.Item name={"parentCategoryId"}  rules={[
+                            {
+                                required: true,
+                                message: "Subcategory cannot be created without the main category.",
+                            },
+                        ]} validateTrigger={"onSubmit"}>
+                            <SelectCategoryTree
+                                placeholder={currentCategory.id}
+                                categories={categories}
+                                value={currentCategory.id}
+                            />
+                        </Form.Item>
+                    }
 
-                {isSubcategory &&
-                    <>
-                        <Title style={header3}>Property keys</Title>
-                        <Divider />
-                        <Form.List name={"properties"}>
-                            {(fields, {add, remove}) => (
-                                <>
-                                    {fields.map((field) => (
-                                        <Form.Item
-                                            key={field.key}
-                                            noStyle
+                    {category?.id && !isSubcategory &&
+                        <Flex justify="space-between" align={"center"}>
+                            <Text style={text1Bold}>Role</Text>
+                            <Space align={"center"}>
+                                <Text style={text2}>Parent category</Text>
+                                <Button type={"text"} style={iconButtonStyles}>
+                                    <InfoIcon color={colors.inputBorder} size={24}/>
+                                </Button>
+                            </Space>
+                        </Flex>}
+
+                    {isSubcategory &&
+                        <>
+                            <Title style={header3}>Property keys</Title>
+                            <Divider />
+                            <Form.List name={"properties"}>
+                                {(fields, {add, remove}) => (
+                                    <>
+                                        {fields.map((field) => (
+                                            <Form.Item
+                                                key={field.key}
+                                                noStyle
+                                            >
+                                                    <Form.Item
+                                                        {...field}
+                                                        style={ccmStyle.propsItem}
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                whitespace: true,
+                                                                message: "Please input property key or delete this field.",
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Flex align={"center"} gap={10}>
+
+                                                        <TextInput prefix="Property key" style={{padding: 10, margin: 0}}/>
+                                                            <Button type={"destructive"} onClick={() => remove(field.name)} style={{padding: 10, height: "100%"}}>
+                                                                <TrashcanIcon size={24} color={colors.destructive}/>
+                                                            </Button>
+                                                        </Flex>
+
+                                                    </Form.Item>
+
+                                            </Form.Item>
+
+
+                                        ))}
+
+                                        <Button type={"secondary"}
+                                                onClick={() => add("",0)}
+                                                style={ccmStyle.addProps}
                                         >
-                                                <Form.Item
-                                                    {...field}
-                                                    style={ccmStyle.propsItem}
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            whitespace: true,
-                                                            message: "Please input property key or delete this field.",
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Flex align={"center"} gap={10}>
-
-                                                    <TextInput prefix="Property key" style={{padding: 10, margin: 0}}/>
-                                                        <Button type={"destructive"} onClick={() => remove(field.name)} style={{padding: 10, height: "100%"}}>
-                                                            <TrashcanIcon size={24} color={colors.destructive}/>
-                                                        </Button>
-                                                    </Flex>
-
-                                                </Form.Item>
-
-                                        </Form.Item>
-
-
-                                    ))}
-
-                                    <Button type={"secondary"}
-                                            onClick={() => add("",0)}
-                                            style={ccmStyle.addProps}
-                                    >
-                                        <PlusIcon size={28} color={colors.secondary}/>
-                                        <Text style={text1}>Add property key</Text>
-                                    </Button>
-                                </>
-                            )}
-                        </Form.List>
-                    </>
-                }
-            </Flex>
-        </Form>
-
+                                            <PlusIcon size={28} color={colors.secondary}/>
+                                            <Text style={text1}>Add property key</Text>
+                                        </Button>
+                                    </>
+                                )}
+                            </Form.List>
+                        </>
+                    }
+                </Flex>
+            </Form>
+            }
+        </>
     )
 }
