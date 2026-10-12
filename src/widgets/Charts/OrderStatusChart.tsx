@@ -19,7 +19,6 @@ export interface OrderStatusChartProps extends ComponentProps<typeof Flex> {
 }
 
 export const OrderStatusChart = ({total, data, ...props}: OrderStatusChartProps) => {
-    console.log("orderStatusChart", total, data);
     return (
        <Flex vertical {...props} style={{...props.style}}>
            <Text style={text2Bold}>Order Overview</Text>

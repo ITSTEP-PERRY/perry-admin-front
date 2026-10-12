@@ -136,6 +136,7 @@ export const ProductPage = () => {
                         columns={columns}
                         scroll={{y: "68vh"}}
                         pagination={{
+                            style: {marginTop: 60},
                             placement: ["bottomCenter"],
                             defaultPageSize: filterOptions.pageSize,
                             showSizeChanger: true,

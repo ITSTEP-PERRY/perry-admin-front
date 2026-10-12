@@ -10,7 +10,7 @@ export const HealthCheck = () => {
 
     return (
          isFetching ?
-             <CustomSpin text={"Checking services health..." } style={{height: "100vh"}}/>
+             <CustomSpin text={"Checking service health..." } style={{height: "100vh"}}/>
             :
              health ?
                  <Outlet />

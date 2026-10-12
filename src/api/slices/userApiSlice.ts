@@ -9,7 +9,10 @@ export const userApi = apiUser.injectEndpoints({
             query: (params) => ({
                 url: "admin/users",
                 method: "GET",
-                params: {...params}
+                params: {
+                    ...params,
+                    role: params && params.roles?.length === 1 ? params.roles[0] : undefined
+                }
             }),
             providesTags: ['Users'],
         }),

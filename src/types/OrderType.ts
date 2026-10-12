@@ -36,9 +36,10 @@ export interface OrderFilterType extends FilterOptions<OrderType>{
 
 export interface OrderType {
     id: string;
+    orderNumber: string
     userId: string;
     orderDateUtc: string;
-    status: OrderStatusType;
+    status: keyof typeof OrderStatus;
     totalAmount: number;
     itemsCount: number;
     userName: string;

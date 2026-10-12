@@ -35,7 +35,10 @@ export const ordersPageStyles: NestedStyles = {
         margin: "10px 0",
     },
     tableCol: {
-        // width: "55%",
+        backgroundColor: colors.objects,
+        padding: 10,
+        borderRadius: 4,
+        marginTop: 10
     },
     filterCol: {
         boxShadow: "0px 4px 11.5px -5px #2050AD40",
@@ -44,6 +47,22 @@ export const ordersPageStyles: NestedStyles = {
         padding: 24,
     },
     orderStatusChart: {
-        // width: "40%",
+        width: "40%",
+        backgroundColor: colors.objects,
+        padding: 24,
+        borderRadius: 8,
+
+    },
+    baseSearch: {
+      width: "100%",
+    },
+    filterButton: {
+        padding: "20px 24px",
+    },
+    filterButtonIcon: {
+        padding: "12px 12px",
+
+        border: "1px solid gray",
+
     }
 }

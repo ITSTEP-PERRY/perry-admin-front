@@ -1,10 +1,9 @@
 import {Avatar, Col, Divider, Drawer, type DrawerProps, Flex, Image, Row, Space, Tag} from "antd";
 import Title from "antd/es/typography/Title";
-import {text1Bold, text2, text2Bold, text3, text3Bold} from "../../theme/textStyles.ts";
+import {text1,text2, text2Bold, text3} from "../../theme/textStyles.ts";
 import {colors} from "../../theme/colors.ts";
-import {dateFormatter, dateTimeFormatter} from "../../shared/formatter.ts";
+import {dateTimeFormatter} from "../../shared/formatter.ts";
 import {OrderStatus, OrderStatusColors, type OrderType} from "../../types/OrderType.ts";
-import {ordersPageStyles} from "../../pages/css/ordersPageStyles.ts";
 import {header3} from "../../theme/headerStyles.ts";
 import {useGetUserByIdQuery} from "../../api/slices/userApiSlice.ts";
 import Text from "antd/es/typography/Text";
@@ -15,7 +14,7 @@ export interface OrderDetailsDrawerProps extends DrawerProps {
 }
 
 const OrderStatusComp= ({order}: { order: OrderType }) => (
-    <Tag color={OrderStatusColors[order?.status as keyof typeof OrderStatus]} style={ordersPageStyles.statusTag}>
+    <Tag color={OrderStatusColors[order?.status as keyof typeof OrderStatus]} style={{fontSize: 14, padding:5}}>
         {OrderStatus[order?.status as keyof typeof OrderStatus]}
     </Tag>
 )
@@ -24,73 +23,136 @@ export const OrderDetailsDrawer = ({order,...props}: OrderDetailsDrawerProps) =>
     const {data: user} = useGetUserByIdQuery(order.userId)
     return (
         <Drawer
-                size={800}
+                size={600}
                 closable={false}
-                title={<Title style={header3}>Order Details</Title>}
+
+
                 {...props}
         >
-            <Row gutter={12}>
-                <Col span={12}>
-                    <Flex vertical style={{width:'100%'}} gap={10}>
-                        <Text style={text1Bold}>Order Details</Text>
-                        <Flex justify={"space-between"}>
-                            <Text style={text3}>Order ID</Text>
-                            <Text style={text3Bold}>{order.id}</Text>
-                        </Flex>
-                        <Flex justify={"space-between"}>
-                            <Text style={text3}>Status Order</Text>
-                            <OrderStatusComp order={order} />
-                        </Flex>
-                        <Flex justify={"space-between"}>
-                            <Text style={text3}>Order Date</Text>
-                            <Text style={text3Bold}>{dateTimeFormatter.format(new Date(order.orderDateUtc))}</Text>
-                        </Flex>
-                        <Flex justify={"space-between"}>
-                            <Text style={text3}>Last Update</Text>
-                            <Text style={text3Bold}>{dateTimeFormatter.format(new Date(order.orderDateUtc))}</Text>
-                        </Flex>
-                        <Flex justify={"space-between"}>
-                            <Text style={text3}>Total Amount</Text>
-                            <Text style={text3Bold}>$ {order.totalAmount}</Text>
-                        </Flex>
-                        <Flex justify={"space-between"}>
-                            <Text style={text3}>Order Channel</Text>
-                            <Text style={text3Bold}>$ {order.paymentType}</Text>
-                        </Flex>
-                        <Divider />
-                        {user &&
-                            <Flex vertical gap={10}>
-                                <Text style={text1Bold}>Customer Details</Text>
-                                <Flex gap={10} align={"center"}>
-                                        <Avatar src={""} size={"large"}/>
-                                        <Flex vertical>
-                                            <Text style={text2}>{user.firstName} {user.lastName}</Text>
-                                            <Text style={text3}>Total: 2 order</Text>
-                                        </Flex>
-                                </Flex>
-                                <Tag color={colors.secondary} style={{width: "fit-content"}}>{user.email}</Tag>
-                            </Flex>
-                        }
-                    </Flex>
-                </Col>
-                <Col span={12}>
-                    <Text style={header3}>Order Items</Text>
-                    <Flex vertical gap={20}>
-                    {order.items.map((item, index) => (
-                        <Flex key={index} gap={10}>
-                            <Image src={item.imageUrl} style={orderDetailsDrawerStyles.itemImage}/>
-                            <Flex vertical justify={"space-between"} align={"end"}>
+            <Flex vertical>
+                <Space vertical>
+                    <Title style={header3}>{order.orderNumber}</Title>
+                    <Title style={text2}>Order Details</Title>
+                </Space>
+                <Divider />
+                <Flex vertical gap={10}>
+                <Text style={text1}>Items</Text>
+                {order.items.map((item, index) => (
+                    <Row key={index} style={orderDetailsDrawerStyles.itemsRow}>
+                        <Col span={10}>
+                            <Space align={"start"} style={orderDetailsDrawerStyles.product}>
+                                <Image src={item.imageUrl} style={orderDetailsDrawerStyles.itemImage}/>
                                 <Text style={text3}>{item.productName}</Text>
+                            </Space>
+                        </Col>
+                        <Col span={7} style={orderDetailsDrawerStyles.itemsCount}>
+                            <Text style={text3}>{item.quantity}psc</Text>
+                        </Col>
+                        <Col span={7} style={orderDetailsDrawerStyles.numbers}>
                                 <Space>
                                     <Text style={text2Bold}>$ {item.lineTotal}</Text>
                                     <Text style={{...text3, color: colors.inputBorder}}>{item.quantity} x ${item.unitPrice}</Text>
                                 </Space>
-                            </Flex>
-                        </Flex>
-                    ))}
-                    </Flex>
-                </Col>
-            </Row>
+                        </Col>
+                    </Row>
+                ))}
+                </Flex>
+                <Divider />
+                <Flex vertical gap={10}>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Created At</Text>
+                        </Col>
+                        <Col span={12}>
+                            <Text style={text2Bold}>{dateTimeFormatter.format(new Date(order.orderDateUtc))}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Last Update At</Text>
+                        </Col>
+                        <Col span={12}>
+                            <Text style={text2Bold}>{dateTimeFormatter.format(new Date(order.orderDateUtc))}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Shipping Address</Text>
+                        </Col>
+                        <Col span={12}>
+                            <Text style={text2Bold}>{order.shippingAddress}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Payment method</Text>
+                        </Col>
+                        <Col span={12}>
+                            <Text style={text2Bold}>{order.paymentType}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Status</Text>
+                        </Col>
+                        <Col span={12}>
+                            <OrderStatusComp order={order} />
+                        </Col>
+                    </Row>
+                </Flex>
+                <Divider />
+                <Flex vertical gap={10}>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Customer Name</Text>
+                        </Col>
+                        <Col span={12}>
+                            <Space>
+                                <Avatar src={user?.avatar} />
+                                <Text style={text2}>{order.userName}</Text>
+                            </Space>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Email</Text>
+                        </Col>
+                        <Col span={12}>
+                            <a style={orderDetailsDrawerStyles.email}>{user?.email}</a>
+                        </Col>
+                    </Row>
+
+                </Flex>
+                <Divider />
+                <Flex vertical gap={10}>
+                    <Text style={text1}>Payment</Text>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Subtotal</Text>
+                        </Col>
+                        <Col span={12}>
+                            <a style={text2Bold}>${order.totalAmount}</a>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Shipping fee</Text>
+                        </Col>
+                        <Col span={12}>
+                            <a style={text2Bold}>$0.00</a>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={10}>
+                            <Text style={text2}>Total</Text>
+                        </Col>
+                        <Col span={12}>
+                            <a style={text2Bold}>${order.totalAmount}</a>
+                        </Col>
+                    </Row>
+                </Flex>
+            </Flex>
+
         </Drawer>
     )
 }

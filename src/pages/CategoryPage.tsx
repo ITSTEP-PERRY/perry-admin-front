@@ -104,7 +104,7 @@ export const CategoryPage = () => {
                                 {categoryDetails.imageUrl && <img src={categoryDetails.imageUrl} alt={categoryDetails.imageUrl}
                                       style={categoryPageDescriptionStyles.image}/>}
                                 <Space style={categoryPageDescriptionStyles.margin} size={"medium"}>
-                                    <img src={Hanger} alt={Hanger}/>
+                                    {/*<img src={Hanger} alt={Hanger}/>*/}
                                     <Title style={header3}>{categoryDetails.name}</Title>
                                 </Space>
                                 <Divider style={categoryPageDescriptionStyles.divider}/>

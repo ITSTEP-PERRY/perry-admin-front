@@ -1,7 +1,17 @@
 import type {NestedStyles} from "../../types/NestedStyles.ts";
 import {text3} from "../../theme/textStyles.ts";
+import {colors} from "../../theme/colors.ts";
 
 export  const ReviewPageStyles: NestedStyles = {
+    tableDiv: {
+        backgroundColor: colors.objects,
+        padding: 12,
+        borderRadius: 4,
+        maxHeight: "85vh"
+    },
+    baseSearch: {
+      width: "20%",
+    },
     productImage: {
         width: 50,
         borderRadius: 4,

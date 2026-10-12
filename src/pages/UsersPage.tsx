@@ -18,8 +18,8 @@ import {useAntdTableRowSelect} from "../shared/Hooks/useAntdTableRowSelect.tsx";
 import {antdPageTableStyles} from "../theme/antdTableStyles.ts";
 
 const roleOptions: SelectOptions[] = [
-    {label: "Administrator", value: "Administrator"},
-    {label: "Customer", value: "Customer"},
+    {label: "Administrator", value: "Admin"},
+    {label: "Customer", value: "User"},
 ]
 
 const columns : TableProps<UserData>["columns"] = [
@@ -93,10 +93,11 @@ export const UsersPage = () => {
     const allSelected = userFilter?.roles?.length === roleOptions?.length
 
     const handleSearch = (value: string) => {
-        setUserFilter({...userFilter, searchTerm: value})
+        setUserFilter({...userFilter, search: value})
     }
 
     const handleAllSelect = () => {
+
         if( allSelected ){
             setUserFilter({...userFilter, roles: []})
         }
@@ -141,7 +142,7 @@ export const UsersPage = () => {
                                 values={userFilter?.roles ?? roleOptions.map(v => v.value) as string[]}
                                 placeholder={"All"}
                 />
-                <BaseSearch style={{ width: "70%" }} value={userFilter?.searchTerm}
+                <BaseSearch style={{ width: "70%" }} value={userFilter?.search}
                             onChange={(e) => handleSearch(e.target.value)}/>
                 <MultipleSelect style={{ width: "12%" }}
                                 position={"bottomRight"}

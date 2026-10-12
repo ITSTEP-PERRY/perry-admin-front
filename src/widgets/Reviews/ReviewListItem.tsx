@@ -40,7 +40,6 @@ export const ReviewListItem = ({item, onActionFinish}: ReviewListItemProps) => {
 
     return (
         <List.Item
-
         >
             <List.Item.Meta
                 avatar={
@@ -51,7 +50,7 @@ export const ReviewListItem = ({item, onActionFinish}: ReviewListItemProps) => {
                                 <Link to={`/reviews/${item.userId}`}
                                       onClick={() => onActionFinish?.()}
 
-                                >{item.authorName ? item.authorName : `${user?.lastName} ${user?.firstName}`}</Link>
+                                >{user?.lastName ? `${user?.lastName} ${user?.firstName}` : item.authorName}</Link>
                             </Space>
                             <CustomRate disabled value={Number(item.rating)} size={18} />
                         </Flex>

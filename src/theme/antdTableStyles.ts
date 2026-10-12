@@ -4,12 +4,12 @@ import {text2,} from "./textStyles.ts";
 
 export const antdPageTableStyles = <T>(): TableProps<T>["styles"] => ({
     root: {
-        height: "100%",
-        overflowX: "auto",
+        height: "80vh",
+        overflowX: "scroll",
     },
     section: {
         borderRadius: 4,
-        height: "70vh",
+        height: "fit-content",
 
     },
     body: {
