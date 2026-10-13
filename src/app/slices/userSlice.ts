@@ -20,7 +20,7 @@ export const userSlice = createSlice({
             state.isAuthenticated = true;
         },
         setUser: (state, action: PayloadAction<LoginResponseDto>) => {
-            setCookie("jwt", action.payload.accessToken, {
+            setCookie("perry_token", action.payload.accessToken, {
                 expires: 7,
                 domain: import.meta.env.VITE_BASE_DOMAIN,
                 path: "/",
@@ -34,7 +34,7 @@ export const userSlice = createSlice({
             state.user = action.payload;
         },
         logout: (state) => {
-            Cookies.remove("jwt")
+            Cookies.remove("perry_token")
             state.isAuthenticated = false;
         }
     },
