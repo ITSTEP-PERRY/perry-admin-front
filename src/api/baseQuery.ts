@@ -10,7 +10,7 @@ import type { LoginResponseDto } from "../types/dto/LoginResponseDto.ts";
 import qs from "qs";
 
 const prepareHeaders = (headers: Headers) => {
-  headers.set("Authorization", `Bearer ${getCookie("jwt")}`);
+  headers.set("Authorization", `Bearer ${getCookie("perry_token")}`);
 };
 
 export const baseProductQuery = fetchBaseQuery({
