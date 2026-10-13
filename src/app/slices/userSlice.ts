@@ -22,6 +22,10 @@ export const userSlice = createSlice({
         setUser: (state, action: PayloadAction<LoginResponseDto>) => {
             setCookie("jwt", action.payload.accessToken, {
                 expires: 7,
+                domain: import.meta.env.VITE_BASE_DOMAIN,
+                path: "/",
+                sameSite: "Lax",
+                secure: true,
             });
             state.isAuthenticated = true;
             state.user = action.payload.user;
