@@ -9,12 +9,11 @@ import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {getGlobalFilters, resetGlobalFilters, setGlobalFilters} from "../app/slices/globalFilterSlice.ts";
 import {GrPowerReset} from "react-icons/gr";
 import {CustomDatePicker} from "../Components/Inputs/CustomDatePicker.tsx";
-import {useNavigate} from "react-router";
 
 export const Header = () => {
     const filters = useAppSelector(getGlobalFilters)
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
+
     return (
         <Flex justify="space-between" align={"center"} style={container}>
             <Space>

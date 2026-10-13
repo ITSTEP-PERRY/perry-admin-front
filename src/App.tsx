@@ -20,10 +20,10 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
-        {/*<Route element={<HealthCheck />}>*/}
-        {/*  <Route path="/login" element={<LoginPage />} />*/}
-        {/*  <Route element={<RequireAuthentication />}>*/}
-        {/*    <Route element={<RequireAuthorization roles={["Admin"]} />}>*/}
+        <Route element={<HealthCheck />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route element={<RequireAuthentication />}>
+            <Route element={<RequireAuthorization roles={["Admin"]} />}>
               <Route path={"/"} element={<Layout />}>
                 <Route index element={<Navigate to={returnUrl} replace />} />
                 <Route path="dashboard" element={<Dashboard />} />
@@ -37,9 +37,9 @@ const App = () => {
                 <Route path={"orders/:type?"} element={<OrdersPage />} />
                 <Route path={"reviews/:id?/:type?"} element={<ReviewPage />} />
               </Route>
-            {/*</Route>*/}
-          {/*</Route>*/}
-        {/*</Route>*/}
+            </Route>
+          </Route>
+        </Route>
         <Route path={"/*"} element={<NotFound404Page />} />
       </Routes>
     </div>
