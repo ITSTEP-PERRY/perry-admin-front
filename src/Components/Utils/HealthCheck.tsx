@@ -2,17 +2,19 @@ import {useHealthCheckQuery} from "../../api/slices/authApiSlice.ts";
 import {Outlet} from "react-router";
 import {Result} from "antd";
 import {CustomSpin} from "./CustomSpin.tsx";
+import {useProductHealthCheckQuery} from "../../api/slices/productApiSlice.ts";
 
 export const HealthCheck = () => {
     const {data, isFetching} = useHealthCheckQuery()
-    const health = data?.status === "ok"
-
+    const {data: productHealth, isFetching: productHealthFetching} = useProductHealthCheckQuery()
+    const authHealth = data?.status === "ok"
+    const prodHealth = productHealth?.status === "Healthy" && productHealth.database === "up"
 
     return (
-         isFetching ?
+         isFetching && productHealthFetching?
              <CustomSpin text={"Checking service health..." } style={{height: "100vh"}}/>
             :
-             health ?
+             authHealth && prodHealth ?
                  <Outlet />
                  :
             <Result

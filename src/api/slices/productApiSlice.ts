@@ -3,6 +3,7 @@ import {useAppDispatch} from "../../app/hooks.ts";
 import type {ResponseProductsDto} from "../../types/dto/ProductsDto.ts";
 import type {ProductType} from "../../types/ProductType.ts";
 import {apiProduct} from "../api.ts";
+import type {HealthCheckResponse} from "../../types/dto/HealthCheckResponse.ts";
 
 export const productApi = apiProduct.injectEndpoints({
     endpoints: builder => ({
@@ -57,6 +58,13 @@ export const productApi = apiProduct.injectEndpoints({
                 method: "DELETE"
             }),
             invalidatesTags: ["Product"]
+        }),
+
+        productHealthCheck: builder.query<HealthCheckResponse, void>({
+            query: () => ({
+                url: "health",
+                method: "GET"
+            }),
         })
     })
 })
@@ -72,4 +80,5 @@ export const {
     useCreateProductMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,
+    useProductHealthCheckQuery,
 } = productApi;
