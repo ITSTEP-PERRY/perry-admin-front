@@ -1,4 +1,4 @@
-import {Avatar, Col, Divider, Drawer, type DrawerProps, Flex, Image, message, Row, Space, Tag} from "antd";
+import {Avatar, Col, Divider, Drawer, type DrawerProps, Flex, Image, message, Row, Space, Spin, Tag} from "antd";
 import Title from "antd/es/typography/Title";
 import {text1,text2, text2Bold, text3} from "../../theme/textStyles.ts";
 import {colors} from "../../theme/colors.ts";
@@ -17,7 +17,7 @@ export interface OrderDetailsDrawerProps extends DrawerProps {
 }
 
 const OrderStatusComp= ({order}: { order: OrderType }) => {
-    const [setOrderStatus] = useSetOrderStatusMutation()
+    const [setOrderStatus, {isLoading}] = useSetOrderStatusMutation()
     const [status, setStatus] = useState<keyof OrderStatusType>(order.status as keyof OrderStatusType)
     const options = Object.entries(OrderStatus).map(([key, value]) => ({
         value: key,
@@ -41,9 +41,15 @@ const OrderStatusComp= ({order}: { order: OrderType }) => {
         // defaultValue={order.status}
         onChange={(v) => handleStatusChange(order.id, v)}
         labelRender={(v) =>
-            <Tag color={OrderStatusColors[v.value as keyof typeof OrderStatus]} style={{fontSize: 14, padding: 5}}>
-                {OrderStatus[v.value as keyof typeof OrderStatus]}
-            </Tag>
+            <>
+                {isLoading ?
+                    <Spin />
+                    :
+                    <Tag color={OrderStatusColors[v.value as keyof typeof OrderStatus]} style={{fontSize: 14, padding: 5}}>
+                    {OrderStatus[v.value as keyof typeof OrderStatus]}
+                </Tag>
+                }
+            </>
         }/>
 }
 

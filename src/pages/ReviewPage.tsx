@@ -93,8 +93,18 @@ export const ReviewPage = () => {
   const { id } = useParams();
 
   const { data, isFetching: dataFetching } = useAllReviewsQuery({
-    options: filterOptions,
+    options: {
+      ...filterOptions,
+      compareObjects: [
+        {
+          propertyName: "createdAtUtc",
+          moreValue: filterOptions.dateRange?.[0].toISOString(),
+          lessValue: filterOptions.dateRange?.[1].toISOString()
+        }
+      ]
+    },
     id,
+
   });
   //
   // const { data: product } = useProductByIdQuery(id as string, {
