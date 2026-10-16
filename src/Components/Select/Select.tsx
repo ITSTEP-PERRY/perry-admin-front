@@ -22,6 +22,7 @@ export const Select = ({styles, prefix,...props}: SelectProps) => {
                     {...props}
                     suffix={open ? <ArrowUpIcon size={18} width={2} color={colors.darkText}/> : <ArrowDownIcon width={2} size={18} color={colors.darkText}/>}
                     onOpenChange={(isOpen) => setOpen(isOpen)}
+
          />
     )
 };

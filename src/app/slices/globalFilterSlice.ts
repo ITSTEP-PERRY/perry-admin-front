@@ -6,11 +6,11 @@ export type FilterSliceType = {
     productId?: string,
     reviewId?: string,
     orderId?: string
-    dateRange?: [Date, Date]
+    dateRange?: [Date,Date]
 }
 
 const initialState : FilterSliceType = {
-
+    // dateRange: getCurrentRangeMonth()
 }
 
 export const globalFilterSlice = createSlice({
@@ -29,7 +29,7 @@ export const globalFilterSlice = createSlice({
             state.productId = "";
             state.userId = "";
             state.orderId = "";
-            state.dateRange = undefined;
+            // state.dateRange = initialState.dateRange;
         }
     },
 

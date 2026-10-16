@@ -22,10 +22,10 @@ export const userSlice = createSlice({
         setUser: (state, action: PayloadAction<LoginResponseDto>) => {
             setCookie("perry_token", action.payload.accessToken, {
                 expires: 7,
-                domain: import.meta.env.VITE_BASE_DOMAIN,
+                // domain: import.meta.env.VITE_BASE_DOMAIN,
                 path: "/",
                 sameSite: "Lax",
-                secure: true,
+                secure: import.meta.env.PROD,
             });
             state.isAuthenticated = true;
             state.user = action.payload.user;

@@ -145,9 +145,7 @@ const columns: TableProps<OrderType>["columns"] = [
 ];
 
 export const OrdersPage = () => {
-
   const [showDrawer, setShowDrawer] = useState(false);
-
 
   const {filters: filterOptions, setLocalFilters: setFilterOptions} = useFilters<OrderFilterType>();
 
@@ -167,6 +165,7 @@ export const OrdersPage = () => {
 
   const user = useAppSelector(getUser);
 
+
   return (
     <div>
       <Flex>
@@ -175,12 +174,24 @@ export const OrdersPage = () => {
           total={orderDto?.totalOrders}
           totalAmount={orderDto?.totalAmount}
           data={orderDto?.statusCounts}
+          totalCompareAmount={orderDto?.totalAmountCompare}
+          totalCompareOrder={orderDto?.totalOrderCompare}
         />
       </Flex>
       <Flex vertical style={ordersPageStyles.tableCol}>
         <Flex align={"center"} gap={10} justify={"space-between"}>
           <Space size={"large"}>
-            <BaseSearch style={ordersPageStyles.baseSearch} />
+            <BaseSearch style={ordersPageStyles.baseSearch}
+                        placeholder={"Search by order number"}
+                        value={filterOptions.orderId}
+                        onChange={(v) => {
+                          const value = v.target.value
+                          setFilterOptions({
+                            ...filterOptions,
+                            orderId: value.startsWith("#") ? value : "",
+                          })
+                        }}
+            />
             <Button
               style={ordersPageStyles.filterButton}
               type={
@@ -230,6 +241,7 @@ export const OrdersPage = () => {
       </Flex>
       {selectedRow && (
         <OrderDetailsDrawer
+            key={selectedRow.id}
           open={showDrawer}
           onClose={() => setShowDrawer(false)}
           order={selectedRow}

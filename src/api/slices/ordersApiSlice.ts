@@ -9,27 +9,33 @@ export const ordersApi = apiProduct.injectEndpoints({
                 url: "orders",
                 method: "GET",
                 params: opts
-            })
+            }),
+            providesTags: ["Order"]
         }),
         allOrders: builder.query<OrderDto, OrderFilterType>({
             query: (opts) =>({
                 url: "orders/admin",
                 method: "GET",
                 params: opts
-            })
+            }),
+            providesTags: ["Order"]
+
         }),
         getOrderById: builder.query<OrderType, string>({
             query: (id: string) => ({
                 url: `orders/${id}`,
                 method: "GET"
-            })
+            }),
+            providesTags: ["Order"]
+
         }),
         setOrderStatus: builder.mutation<void, {id:string, status: keyof OrderStatusType}>({
             query: ({id, status}) => ({
                 url: `orders/${id}/status`,
                 method: "PUT",
                 body: {status}
-            })
+            }),
+            invalidatesTags: ["Order"]
         })
     })
 })

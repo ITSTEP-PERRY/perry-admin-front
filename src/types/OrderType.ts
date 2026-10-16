@@ -3,7 +3,7 @@ import type {FilterOptions} from "./FilterOptions.ts";
 
 export const OrderStatus = {
     Received: "Received",
-    ReadyToPickup: "Ready For Pickup",
+    ReadyToPickup: "Ready To Pickup",
     Shipped: "Shipped",
     Ordered: "Ordered",
     Cancelled: "Cancelled",

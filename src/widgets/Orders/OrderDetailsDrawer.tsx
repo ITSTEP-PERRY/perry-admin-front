@@ -1,23 +1,51 @@
-import {Avatar, Col, Divider, Drawer, type DrawerProps, Flex, Image, Row, Space, Tag} from "antd";
+import {Avatar, Col, Divider, Drawer, type DrawerProps, Flex, Image, message, Row, Space, Tag} from "antd";
 import Title from "antd/es/typography/Title";
 import {text1,text2, text2Bold, text3} from "../../theme/textStyles.ts";
 import {colors} from "../../theme/colors.ts";
 import {dateTimeFormatter} from "../../shared/formatter.ts";
-import {OrderStatus, OrderStatusColors, type OrderType} from "../../types/OrderType.ts";
+import {OrderStatus, OrderStatusColors, type OrderStatusType, type OrderType} from "../../types/OrderType.ts";
 import {header3} from "../../theme/headerStyles.ts";
 import {useGetUserByIdQuery} from "../../api/slices/userApiSlice.ts";
 import Text from "antd/es/typography/Text";
 import {orderDetailsDrawerStyles} from "./css/orderDetailsDrawerStyles.ts";
+import {Select} from "../../Components/Select/Select.tsx";
+import {useSetOrderStatusMutation} from "../../api/slices/ordersApiSlice.ts";
+import {useState} from "react";
 
 export interface OrderDetailsDrawerProps extends DrawerProps {
     order: OrderType
 }
 
-const OrderStatusComp= ({order}: { order: OrderType }) => (
-    <Tag color={OrderStatusColors[order?.status as keyof typeof OrderStatus]} style={{fontSize: 14, padding:5}}>
-        {OrderStatus[order?.status as keyof typeof OrderStatus]}
-    </Tag>
-)
+const OrderStatusComp= ({order}: { order: OrderType }) => {
+    const [setOrderStatus] = useSetOrderStatusMutation()
+    const [status, setStatus] = useState<keyof OrderStatusType>(order.status as keyof OrderStatusType)
+    const options = Object.entries(OrderStatus).map(([key, value]) => ({
+        value: key,
+        label: value,
+    }))
+
+    const handleStatusChange = async (id: string, status: keyof OrderStatusType) => {
+        try {
+            await setOrderStatus({id, status}).unwrap()
+            setStatus(status as keyof OrderStatusType)
+            message.success(`Order ${order.orderNumber} changed status to ${status.toString()}`)
+        }catch {
+            message.error(`Failed to change status to ${status.toString()}`)
+        }
+    }
+    console.log(status)
+    return <Select
+        style={{width: '100%'}}
+        options={options}
+        value={status}
+        // defaultValue={order.status}
+        onChange={(v) => handleStatusChange(order.id, v)}
+        labelRender={(v) =>
+            <Tag color={OrderStatusColors[v.value as keyof typeof OrderStatus]} style={{fontSize: 14, padding: 5}}>
+                {OrderStatus[v.value as keyof typeof OrderStatus]}
+            </Tag>
+        }/>
+}
 
 export const OrderDetailsDrawer = ({order,...props}: OrderDetailsDrawerProps) => {
     const {data: user} = useGetUserByIdQuery(order.userId)
