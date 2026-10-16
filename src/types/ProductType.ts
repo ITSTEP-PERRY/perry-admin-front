@@ -17,7 +17,7 @@ export type ProductVariantsType = {
     title?:string,
     price:number,
     oldPrice?:number,
-    stockQuantity:number,
+    // stockQuantity:number,
     isDefault: boolean,
     isActive: boolean,
     unitOfMeasure?:string,
@@ -66,6 +66,6 @@ export type ProductType = {
         title?: string,
         description?: string,
     }
-    stockQuantity:number,
+    stockQuantity?:number,
 
 }
