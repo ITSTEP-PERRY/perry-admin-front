@@ -11,7 +11,7 @@ export const HealthCheck = () => {
     const prodHealth = productHealth?.status === "Healthy" && productHealth.database === "up"
 
     return (
-         isFetching && productHealthFetching?
+         isFetching || productHealthFetching?
              <CustomSpin text={"Checking service health..." } style={{height: "100vh"}}/>
             :
              authHealth && prodHealth ?

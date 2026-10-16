@@ -66,4 +66,6 @@ export type ProductType = {
         title?: string,
         description?: string,
     }
+    stockQuantity:number,
+
 }

@@ -4,7 +4,7 @@ import {useState} from "react";
 import {SelectCategoryTree} from "../Components/Select/SelectCategoryTree.tsx";
 import {BaseSearch} from "../Components/Search/BaseSearch.tsx";
 import Text from "antd/es/typography/Text";
-import {text1, text2} from "../theme/textStyles.ts";
+import {text1, text2, text2Bold} from "../theme/textStyles.ts";
 import type {NestedStyles} from "../types/NestedStyles.ts";
 import {useCategoriesQuery} from "../api/slices/categoryApiSlice.ts";
 import {useDeleteProductMutation, useProductForUpdateByIdQuery, useProductsQuery} from "../api/slices/productApiSlice.ts";
@@ -183,11 +183,29 @@ export const ProductPage = () => {
                         :
                         product &&
                     <Flex justify={"space-between"} gap={12} vertical style={{height: "100%"}}>
+
                         <Flex vertical gap={5}>
                             <ProductImageCollage images={product?.images ?? []} />
                             <Text style={header3}>{product?.name}</Text>
                             <Divider />
-                            <Link to={`/reviews/${selectedProductId}/product`}>See all customer reviews</Link>
+                            <Row>
+                                <Col span={10}>
+                                    <Text style={text2}>SKU: </Text>
+                                </Col>
+                                <Col span={12}>
+                                    <Text style={text2Bold}>{product.sku}</Text>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={10}>
+                                    <Text style={text2}>Stock quantity: </Text>
+                                </Col>
+                                <Col span={12}>
+                                    <Text style={text2Bold}>{product.stockQuantity}</Text>
+                                </Col>
+                            </Row>
+                            <Divider />
+                            <Link to={`/reviews/${selectedProductId}/product`}>See all customer reviews ({product.reviewCount})</Link>
                         </Flex>
                         <Flex gap={20}>
                             <Button type={"secondary"}
