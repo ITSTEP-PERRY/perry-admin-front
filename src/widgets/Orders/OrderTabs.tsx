@@ -39,6 +39,7 @@ export function OrderTabs({filters, setFilters}: OrderTabsProps) {
     });
     return (
         <Tabs
+            defaultActiveKey={filters.status ?? "all"}
             items={tabs}
             onChange={(v) => {
                 const newFilters = { ...filters };

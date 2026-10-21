@@ -13,7 +13,6 @@ import {colors} from "../theme/colors.ts";
 import Text from "antd/es/typography/Text";
 import {text2, text3} from "../theme/textStyles.ts";
 import {UsersIcon} from "../Components/Icon/UsersIcon.tsx";
-import {UserIcon} from "../Components/Icon/UserIcon.tsx";
 import {CategoryIcon} from "../Components/Icon/CategoryIcon.tsx";
 import {ProductsIcon} from "../Components/Icon/ProductsIcon.tsx";
 import {OrdersIcon} from "../Components/Icon/OrdersIcon.tsx";
@@ -22,15 +21,9 @@ import {LogoutIcon} from "../Components/Icon/LogoutIcon.tsx";
 import {useNavigate} from "react-router";
 import {useAppDispatch} from "../app/hooks.ts";
 import {logout} from "../app/slices/userSlice.ts";
-import {useGetMyUserQuery, useLogoutMutation} from "../api/slices/authApiSlice.ts";
+import {useGetAvatarQuery, useGetMyUserQuery, useLogoutMutation} from "../api/slices/authApiSlice.ts";
 import {MdOutlineDashboardCustomize} from "react-icons/md";
 
-
-const demmyData = {
-    icon: <UserIcon />,
-    name: "Sherman Porter",
-    role: "Administrator",
-}
 
 const menuItems = [
     {
@@ -67,17 +60,19 @@ export const MenuDrawer = () => {
     const dispatch = useAppDispatch();
     const [logoutMutation] = useLogoutMutation()
     const {data} = useGetMyUserQuery()
+    const {data: avatar} = useGetAvatarQuery(data?.avatarUrl ?? "", {
+        skip: !data?.avatarUrl
+    })
     const onMenuSelected = (path: string) => {
         setOpen(false);
         navigate(path)
     }
-
+    console.log(avatar)
     return (
         <>
             <Button type={"text"} style={{padding: "9px"}} onClick={() => setOpen(true)}>
                 <MenuIcon color="white" size={32}/>
             </Button>
-
             <Drawer open={open}
                     styles={menuDrawerStyles}
                     placement={"left"}
@@ -87,7 +82,7 @@ export const MenuDrawer = () => {
                     onClose={() => setOpen(false)}>
                 <Flex>
                     <Flex vertical gap={8}>
-                        <Avatar size={"large"} icon={demmyData.icon} />
+                        {avatar && <Avatar src={avatar} size={"large"}/>}
                         <Text style={menuDrawerNameStyles}>{data?.firstName} {data?.lastName}</Text>
                         <Text style={text3}>{data?.role}</Text>
                     </Flex>

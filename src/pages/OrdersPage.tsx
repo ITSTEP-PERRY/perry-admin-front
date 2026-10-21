@@ -40,12 +40,13 @@ import { getUser } from "../app/slices/userSlice.ts";
 import { TableSettings } from "../widgets/Table/TableSettings.tsx";
 import {useFilters} from "../shared/Hooks/useFilters.tsx";
 import {OrderTabs} from "../widgets/Orders/OrderTabs.tsx";
+import {useParams} from "react-router";
 
 export const CustomerCell = ({ record }: { record: OrderType }) => {
   const { data: user } = useGetUserByIdQuery(record.userId);
   return (
     <Space>
-      <Avatar size={"small"} src={user?.avatar} />
+      <Avatar size={"small"} src={user?.avatarUrl} />
       <Text style={text3}>{user?.lastName}</Text>
     </Space>
   );
@@ -146,8 +147,11 @@ const columns: TableProps<OrderType>["columns"] = [
 
 export const OrdersPage = () => {
   const [showDrawer, setShowDrawer] = useState(false);
+  const {type} = useParams();
 
-  const {filters: filterOptions, setLocalFilters: setFilterOptions} = useFilters<OrderFilterType>();
+  const {filters: filterOptions, setLocalFilters: setFilterOptions} = useFilters<OrderFilterType>({
+    status: type
+  });
 
   const [selectedRow, setSelectedRow] = useState<OrderType>();
 
@@ -155,9 +159,7 @@ export const OrdersPage = () => {
     ...filterOptions,
     fromUtc: filterOptions.dateRange?.[1].toISOString(),
     toUtc: filterOptions.dateRange?.[0].toISOString(),
-
   });
-
   const { setSelectedRowKeys, rowSelection } =
     useAntdTableRowSelect<OrderType>();
 

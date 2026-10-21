@@ -12,3 +12,5 @@ export const dateTimeFormatter = new Intl.DateTimeFormat("en-GB", {
     year: "numeric",
 
 })
+
+export const monthFormatter = (month: number) => Intl.DateTimeFormat('en', { month: 'short'}).format(new Date(1,month,1));

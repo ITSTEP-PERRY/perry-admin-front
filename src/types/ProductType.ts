@@ -44,6 +44,7 @@ export type ProductType = {
         description?: string,
     }
     brandId?: string,
+    brand?: string,
     status?: string,
     averageRating?: number,
     reviewCount?: number,
@@ -67,5 +68,6 @@ export type ProductType = {
         description?: string,
     }
     stockQuantity?:number,
-
+    orderCount?: number,
+    viewCount?: number
 }

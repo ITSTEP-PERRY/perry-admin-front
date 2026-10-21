@@ -46,7 +46,7 @@ export const ReviewListItem = ({item, onActionFinish}: ReviewListItemProps) => {
                     <Flex justify={"space-between"} >
                         <Flex vertical gap={10}>
                             <Space>
-                                <Avatar src={user?.avatar} size={"small"} />
+                                <Avatar src={user?.avatarUrl} size={"small"} />
                                 <Link to={`/reviews/${item.userId}`}
                                       onClick={() => onActionFinish?.()}
 

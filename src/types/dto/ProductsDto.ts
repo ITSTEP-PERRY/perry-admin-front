@@ -7,3 +7,9 @@ export interface ResponseProductsDto {
     totalPages: number;
     items: ProductType[]
 }
+
+export interface PopularProductsDto {
+    take?: number;
+    userId?: string
+    items: ProductType[];
+}

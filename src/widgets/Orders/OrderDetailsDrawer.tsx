@@ -142,7 +142,7 @@ export const OrderDetailsDrawer = ({order,...props}: OrderDetailsDrawerProps) =>
                         </Col>
                         <Col span={12}>
                             <Space>
-                                <Avatar src={user?.avatar} />
+                                <Avatar src={user?.avatarUrl} />
                                 <Text style={text2}>{order.userName}</Text>
                             </Space>
                         </Col>
