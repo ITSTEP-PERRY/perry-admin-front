@@ -36,6 +36,16 @@ export const authApi = apiAuth.injectEndpoints({
                 method: "GET"
             })
         }),
+        getAvatar: builder.query<string, string>({
+            query: (path: string) => ({
+                url: path.replace("/api/", ""),
+                method: "GET",
+                responseHandler: (response) => response.blob(),
+            }),
+            transformResponse: (response: Blob) => {
+                return URL.createObjectURL(response);
+            },
+        }),
         logout: builder.mutation<void,void>({
             query: () => ({
                 url: "auth/logout",
@@ -51,4 +61,5 @@ export const {
     useRefreshTokenMutation,
     useHealthCheckQuery,
     useLogoutMutation,
+    useGetAvatarQuery,
 } = authApi

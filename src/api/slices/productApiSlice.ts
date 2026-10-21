@@ -1,6 +1,6 @@
 import type {FilterOptions} from "../../types/FilterOptions.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
-import type {ResponseProductsDto} from "../../types/dto/ProductsDto.ts";
+import type {PopularProductsDto, ResponseProductsDto} from "../../types/dto/ProductsDto.ts";
 import type {ProductType} from "../../types/ProductType.ts";
 import {apiProduct} from "../api.ts";
 import type {HealthCheckResponse} from "../../types/dto/HealthCheckResponse.ts";
@@ -65,7 +65,21 @@ export const productApi = apiProduct.injectEndpoints({
                 url: "health",
                 method: "GET"
             }),
-        })
+        }),
+        getPopularProducts: builder.query<PopularProductsDto, number>({
+            query: (take) => ({
+                url: "products/popular",
+                method: "GET",
+                params: {take}
+            })
+        }),
+        getPopularProductsBySellerId: builder.query<PopularProductsDto, { id: string, take: number }>({
+            query: (v) => ({
+                url: `admin/users/${v.id}/popular-products`,
+                method: "GET",
+                params: {take: v.take}
+            })
+        }),
     })
 })
 
@@ -81,4 +95,6 @@ export const {
     useUpdateProductMutation,
     useDeleteProductMutation,
     useProductHealthCheckQuery,
+    useGetPopularProductsQuery,
+    useGetPopularProductsBySellerIdQuery,
 } = productApi;
