@@ -15,6 +15,7 @@ import {OrderStatusPieChart} from "../widgets/Charts/Order/OrderStatusPieChart.t
 import {useAppSelector} from "../app/hooks.ts";
 import {getUser} from "../app/slices/userSlice.ts";
 import type {ProductType} from "../types/ProductType.ts";
+import {OrderAmountChart} from "../widgets/Charts/Order/OrderAmountChart.tsx";
 
 
 const PopularItems = ({popularProducts}: { popularProducts: ProductType[] }) => {
@@ -72,6 +73,7 @@ export function Dashboard() {
                     <Flex style={{width:'100%', height: "fit-content"}} gap={10}>
                         <WishlistStatChart style={{ width: "30%",  }} chartHeight={"25vh"} onExpand={() => setOpen(true)} />
                         <OrderStatusPieChart style={{ width: "40%",  }} chartHeight={"25vh"} />
+                        <OrderAmountChart style={{ width: "40%",  }} chartHeight={"25vh"} />
                     </Flex>
                 </Flex>
                     <Flex style={dashboardStyles.rightRoot} vertical gap={10}>
