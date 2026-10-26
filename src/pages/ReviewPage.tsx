@@ -70,11 +70,9 @@ const initialFilterState = {
 export const ReviewPage = () => {
   const [showReview, setShowReview] = useState(false);
 
-  // const [filterOptions, setFilterOptions] =
-  //   useState<FilterOptions<ProductReview>>(initialFilterState);
-  //
   const {filters: filterOptions, setLocalFilters: setFilterOptions} = useFilters<FilterOptions<ProductReview>>({
     searchPropertyName: "title",
+
   })
 
   const [muteFilters, setMuteFilters] = useState({
@@ -95,6 +93,8 @@ export const ReviewPage = () => {
   const { data, isFetching: dataFetching } = useAllReviewsQuery({
     options: {
       ...filterOptions,
+      from: filterOptions.dateRange?.[1].toISOString(),
+      to: filterOptions.dateRange?.[0].toISOString(),
       compareObjects: [
         {
           propertyName: "createdAtUtc",
@@ -106,10 +106,6 @@ export const ReviewPage = () => {
     id,
 
   });
-  //
-  // const { data: product } = useProductByIdQuery(id as string, {
-  //   skip: type !== "product",
-  // });
 
   const [muteReview, { isLoading: muteFetching }] =
     useSetApprovalReviewMutation();

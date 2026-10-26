@@ -4,7 +4,7 @@ import {Header} from "../widgets/Header.tsx";
 
 export const Layout = () => {
     return (
-        <AntdLayout style={{ maxHeight: "100%", backgroundColor: "rgb(0 0 0 / 0.03)" }}>
+        <AntdLayout style={{ maxHeight: "100vh", backgroundColor: "rgb(0 0 0 / 0.03)" }}>
             <Header />
             <div style={{ width: "95%", margin: "0 auto", overflow: "auto" }}>
                 <Outlet />
