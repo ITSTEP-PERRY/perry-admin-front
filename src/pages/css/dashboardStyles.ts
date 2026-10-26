@@ -3,7 +3,7 @@ import {colors} from "../../theme/colors.ts";
 
 export const dashboardStyles: NestedStyles = {
     leftRoot: {
-      width: "75%",
+      width: "100%",
     },
     rightRoot: {
       // width: "25%",
@@ -31,4 +31,14 @@ export const dashboardStyles: NestedStyles = {
     },
     popularCol: {
     },
+    quickAccessRoot: {
+        backgroundColor: colors.objects,
+        border: "1px solid",
+        borderRadius: 4,
+        borderColor: colors.inputBorder,
+        padding: 12,
+    },
+    quickAccessButton: {
+        padding: "20px 16px",
+    }
 }

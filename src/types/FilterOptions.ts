@@ -15,6 +15,8 @@ export interface FilterOptions<T> {
     searchTerm?: string;
     filterObjects?: FilterObject<T>[];
     compareObjects?: CompareObject<T>[];
+    from?: string,
+    to?: string,
 }
 
 export interface FilterObject<T> {

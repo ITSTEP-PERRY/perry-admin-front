@@ -16,7 +16,7 @@ import {Dashboard} from "./pages/Dashboard.tsx";
 
 const App = () => {
   const [searchParams] = useSearchParams();
-  const returnUrl = searchParams.get("returnUrl") ?? "/products";
+  const returnUrl = searchParams.get("returnUrl") ?? "/dashboard";
   return (
     <div className="App">
       <Routes>

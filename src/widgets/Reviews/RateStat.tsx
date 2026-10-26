@@ -39,10 +39,17 @@ export const RateStat = ({data, onRateSelect}:RateStatProps) => {
                                    <Text style={text1}>{item}</Text>
                                    <StarFullIcon size={24}/>
                                </Flex>
-                               <Flex style={{width: "100%"}} gap={10}>
-                                   <Flex style={{width: "80%"}}>
-                                       <div style={{width: `${percent}%`, height: "20px", backgroundColor: colors.darkText,}}></div>
-                                       <div style={{width: `${100 - (percent ?? 100)}%`, height: "20px", backgroundColor: colors.objects}}></div>
+                               <Flex style={{width: "100%"}} gap={10} >
+                                   <Flex style={{width: "80%", borderRadius: 8, position: "relative"}} align={"center"} justify={"center"}>
+                                       <div style={{width: `${percent}%`, height: "15px", backgroundColor: colors.primary,borderRadius: 10, zIndex: 1}}></div>
+                                       <div style={{width: `99%`,
+                                           paddingLeft: 10,
+                                           height: "15px",
+                                           backgroundColor: colors.darkText,
+                                           position: "absolute",
+                                           zIndex: 0,
+                                           borderRadius: 10
+                                       }}></div>
                                    </Flex>
                                    <Text style={text2}>{Math.round(percent)}%</Text>
                                </Flex>

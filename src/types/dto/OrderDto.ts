@@ -13,3 +13,23 @@ export interface OrderDto {
     period?: string;
     comparePeriod?: string
 }
+
+export interface OrderStatCart {
+    period: string;
+    points: {
+        label: string;
+        amount: number;
+        ordersCount: number;
+        buyersCount: number;
+        day: number;
+        month: number;
+        year: number;
+        statuses: keyof OrderStatusType
+    }[]
+}
+
+export interface OrderStatCartParams {
+    period: "month" | "day" | "year";
+    sellerId?: string;
+    status?: number
+}

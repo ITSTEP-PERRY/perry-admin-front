@@ -218,7 +218,7 @@ export const OrderStatusPieChart = ({onExpand,expanded,chartHeight,style, ...pro
 
                         if (!percent || expanded) return null;
 
-                        const radius = (outerRadius ?? 0) + 7;
+                        const radius = (outerRadius ?? 0) + 15;
 
                         const sx = (cx ?? 0) + radius * Math.cos(-midAngle! * RADIAN);
                         const sy = (cy ?? 0) + radius * Math.sin(-midAngle! * RADIAN);

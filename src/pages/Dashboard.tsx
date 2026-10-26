@@ -15,7 +15,23 @@ import {OrderStatusPieChart} from "../widgets/Charts/Order/OrderStatusPieChart.t
 import {useAppSelector} from "../app/hooks.ts";
 import {getUser} from "../app/slices/userSlice.ts";
 import type {ProductType} from "../types/ProductType.ts";
+import {OrderAmountChart} from "../widgets/Charts/Order/OrderAmountChart.tsx";
+import {Button} from "../Components/Buttons/Button.tsx";
+import {useNavigate} from "react-router";
+import {OrderSimpleTable} from "../widgets/Orders/OrderSimpleTable.tsx";
 
+const quickAccessItems = [
+    {
+      label: "Create Product",
+      key: "product",
+      navigate: "/product"
+    },
+    {
+        label: "Moderate Review",
+        key: "review",
+        navigate: "/reviews"
+    }
+]
 
 const PopularItems = ({popularProducts}: { popularProducts: ProductType[] }) => {
     return (
@@ -55,7 +71,7 @@ const PopularItems = ({popularProducts}: { popularProducts: ProductType[] }) => 
 
 export function Dashboard() {
     const [open, setOpen] = useState(false);
-
+    const navigate = useNavigate();
     const {data: popularProducts, isFetching: popularFetching} = useGetPopularProductsQuery(5)
     const user = useAppSelector(getUser)
     const {data: myPopularProducts, isFetching: myPopularFetching} = useGetPopularProductsBySellerIdQuery({
@@ -67,11 +83,34 @@ export function Dashboard() {
 
     return (
         <div style={{height:'93vh'}}>
-            <Flex style={{width:'100%'}} justify={"space-between"}>
-                <Flex style={dashboardStyles.leftRoot}>
-                    <Flex style={{width:'100%', height: "fit-content"}} gap={10}>
+            <Text style={header3}>Dashboard</Text>
+            <Flex style={{width:'100%'}} justify={"space-between"} gap={10}>
+                <Flex style={dashboardStyles.leftRoot} vertical gap={20}>
+                    <Flex style={{width:'100%', height: "fit-content"}} gap={10} justify={"space-between"}>
                         <WishlistStatChart style={{ width: "30%",  }} chartHeight={"25vh"} onExpand={() => setOpen(true)} />
                         <OrderStatusPieChart style={{ width: "40%",  }} chartHeight={"25vh"} />
+                        <OrderAmountChart style={{ width: "40%",  }} chartHeight={"25vh"} />
+                    </Flex>
+                    <Flex vertical style={dashboardStyles.quickAccessRoot} gap={10}>
+                        <Text style={text1}>Quick access</Text>
+                        <Flex gap={20}>
+                            {quickAccessItems.map((item) => (
+                                <Button
+                                    style={dashboardStyles.quickAccessButton}
+                                    type={"secondary"}
+                                    onClick={() => navigate(item.navigate)}
+                                >{item.label}</Button>
+                            ))}
+                        </Flex>
+                    </Flex>
+                    <Flex vertical style={dashboardStyles.quickAccessRoot} gap={10}>
+                        <Flex justify={"space-between"}>
+                            <Text style={text1}>Recent Orders</Text>
+                                <a href={"/orders"} style={{fontSize: text1.fontSize}}>
+                                    View more
+                                </a>
+                        </Flex>
+                        <OrderSimpleTable />
                     </Flex>
                 </Flex>
                     <Flex style={dashboardStyles.rightRoot} vertical gap={10}>
