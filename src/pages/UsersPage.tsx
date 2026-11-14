@@ -29,7 +29,7 @@ const columns : TableProps<UserData>["columns"] = [
         key: "user",
         render: (_, record: UserData) => (
             <Space>
-                <Avatar src={record.avatar} size={50} />
+                <Avatar src={record.avatarUrl} size={50} />
                 <Flex vertical justify="center">
                     <Text style={{...text1, lineHeight: "24px"}}>{record.firstName} {record.lastName}</Text>
                     <Text style={{...text2, lineHeight: "16px"}}>{record.role}</Text>
