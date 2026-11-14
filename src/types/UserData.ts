@@ -20,7 +20,8 @@ export interface UserData {
     createdAt: string;
     updatedAt: string;
     email: string;
-    avatar: string;
+    avatar?: string;
+    avatarUrl?: string;
     emailVerified: boolean;
 }
 
